@@ -1,21 +1,22 @@
 //Roberto Alejandro Gutiérrez Guillén A01019608
 #include <iostream>
-#include <string>
 #include <fstream>
-#include <sstream>
+
+#define MAX 100
 
 using namespace std;
 
 class Arreglo{
 private:
-    int arreglo[];
+    int arreglo[MAX];
 public:
-	Arreglo();
+	//Constructor Vacio
+	Arreglo::Arreglo() {
+	}
 
   void lecturaDatos(string archivo){  // Lee los datos de una archivo cuyo nombre recibe como parámetro
 	  ifstream archivo_entrada;
-	  char linea[128];
-
+	 
 	  string s = archivo + ".txt";
 
 	  archivo_entrada.open(s);
@@ -24,19 +25,33 @@ public:
 		  cout << "Error al abrir el archivo" << endl;
 		  arreglo[0] = { -1 };
 	  }
+	  int tam = 0;
+	  archivo_entrada >> tam;
 
-	  while (!archivo_entrada.eof()) {
-		  archivo_entrada.getline(linea, sizeof(linea));
+	  for (int i = 0; i < tam; i++) {
+		  archivo_entrada >> arreglo[i];
 
-		  string str(linea);
-
-		  istringstream iss(str);
-
-		  string sub;
-		  iss >> sub;
-		  arreglo.push_back(sub);
-
+		  i++;
 	  }
+
+	  /*
+	  int linea;
+
+	  int j = 0;
+
+	  archivo_entrada.getline(linea, sizeof(linea));
+
+	  for (int i = 0;i < j;i++) {
+
+		  int num(linea);
+
+		  int num;
+
+		  arreglo[i] = num;
+
+		  i++;
+	  }
+		*/
 	  archivo_entrada.close();
   }
 
@@ -45,7 +60,7 @@ public:
     return 1;
   }
 
-
+  /*
   // busca el elemento K en el arreglo, usando el algoritmo BINARIO. Si lo  
   int busquedaBinaria(int inicio, int fin, int K){  // encuentra devuelve su posición y en caso contrario regresa un ‐1.
     int pos;
@@ -67,6 +82,7 @@ public:
      return pos;
   }
 };
+*/
 /*
 public static<T extends Comparable<T>> int busquedaSecOrdenada(T[] a, int n, T x){
   int i=0;
