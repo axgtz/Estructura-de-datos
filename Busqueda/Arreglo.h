@@ -11,6 +11,8 @@ private:
 public:
 	//Constructor Vacio
 	Arreglo::Arreglo() {
+		arreglo = { 0 };
+		cout << arreglo[0];
 	}
 
   void lecturaDatos(string archivo){  // Lee los datos de una archivo cuyo nombre recibe como parámetro
