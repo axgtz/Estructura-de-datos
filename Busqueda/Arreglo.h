@@ -2,19 +2,20 @@
 #include <iostream>
 #include <fstream>
 
-#define MAX 100
 
 using namespace std;
 
-class Arreglo{
+class Arreglo {
 private:
-    int arreglo[MAX];
+	int *arreglo;
 public:
 	//Constructor Vacio
 	Arreglo::Arreglo() {
 	}
 
   void lecturaDatos(string archivo){  // Lee los datos de una archivo cuyo nombre recibe como parámetro
+	  arreglo = new int[];
+
 	  ifstream archivo_entrada;
 	 
 	  string s = archivo + ".txt";
