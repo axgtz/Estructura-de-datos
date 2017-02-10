@@ -4,7 +4,9 @@
 using namespace std;
 
 int main(){
-	cout << a->lecturaDatos() << endl;
+	//cout << a->lecturaDatos() << endl;
+	Arreglo a;
+	a.lecturaDatos("nombre");
 
 	int x;
 	cin >> x;
