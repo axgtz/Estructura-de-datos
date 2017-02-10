@@ -26,8 +26,7 @@ public:
 			cout << "Error al abrir el archivo" << endl;
 			arreglo[0] = { -1 };
 		}
-		//Se crea la variable temporal "linea" que es un arreglo de caracteres para poder extraer la información del
-		//archivo por línea 
+
 		char linea[128];
 
 		//Usando la variable linea se extrae toda la primera linea del archivo de texto 
@@ -52,36 +51,35 @@ public:
 	// busca el elemento K en el arreglo, usando el algoritmo SECUENCIAL. Si lo  
 	int busquedaSecuencial(int K) {  // encuentra devuelve su posición y en caso contrario regresa un ‐1.
 		int i = 0;
+
 		while (i < tam && arreglo[i] != K) 
 			i++;
-		
 
 		if (i >= tam)
-			i = -i;		//Si la busqueda no encuentra el numero regresa un negativo con el indice en donde se 
-						//debería encontrar el numero en el arreglo cordenado
+			i = -1;								//Si la busqueda no encuentra el numero regresa un uno negativo
 		return i;
 	}
 	
 	// busca el elemento K en el arreglo, usando el algoritmo BINARIO. Si lo  
 	int busquedaBinaria(int inicio, int fin, int K){  // encuentra devuelve su posición y en caso contrario regresa un ‐1.
-	int pos;
-	int mid = (inicio+fin)/2;
+		int pos;
+		int mid = (inicio+fin)/2;
 
-	while (inicio <= fin && arreglo[mid] != K) {
-		if (arreglo[mid] < K)
-			fin = mid - 1;
-		else {
-			inicio = mid + 1;
-			mid = (inicio + fin) / 2;
+		while (inicio <= fin && arreglo[mid] != K) {
+			if (arreglo[mid] < K)
+				fin = mid - 1;
+			else {
+				inicio = mid + 1;
+				mid = (inicio + fin) / 2;
+			}
 		}
-	}
 
-	if ( inicio > fin)
-		pos = -inicio;
-	else
-		pos = mid;
+		if ( inicio > fin)
+			pos = -1;
+		else
+			pos = mid;
 
-	return pos;
+		return pos;
 	}
 };
  
