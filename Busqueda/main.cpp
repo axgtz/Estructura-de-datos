@@ -4,9 +4,9 @@
 using namespace std;
 
 int main(){
-	//cout << a->lecturaDatos() << endl;
 	Arreglo a;
 	a.lecturaDatos("nombre");
+	cout << a.busquedaSecuencial(-1) << endl;
 
 	int x;
 	cin >> x;

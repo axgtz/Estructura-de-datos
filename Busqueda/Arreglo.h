@@ -8,6 +8,7 @@ using namespace std;
 class Arreglo {
 private:
 	int *arreglo;
+	int tam;
 public:
 	//Constructor Vacio, solo inicializa el arreglo pero con cero elementos
 	Arreglo() {
@@ -32,8 +33,8 @@ public:
 		//Usando la variable linea se extrae toda la primera linea del archivo de texto 
 		archivo_entrada.getline(linea, sizeof(linea));
 
-		//Se guarda el numero de numeros que va a contener el arreglo en la variable entera "tam"
-		int tam = stoi(linea);
+		//Se guarda el numero de numeros que va a contener el arreglo en el atributo de la clase entera "tam"
+		tam = stoi(linea);
 
 		//Se crea el arreglo con el tamaño que se leyo de la primera línea del archivo
 		arreglo = new int[tam];
@@ -45,17 +46,17 @@ public:
 
 
 		archivo_entrada.close();
-		//Imprimir
-		/*
-		for (int i = 0; i < tam +1 ; i++) {
-			cout << arreglo[i] << endl;
-		}
-		*/
 	}
 
 	// busca el elemento K en el arreglo, usando el algoritmo SECUENCIAL. Si lo  
 	int busquedaSecuencial(int K) {  // encuentra devuelve su posición y en caso contrario regresa un ‐1.
-		return 1;
+		int i = 0;
+		while (i < tam && arreglo[i] != K) 
+			i++;
+		
+		if (i >= tam)
+			i = -i;
+		return i;
 	}
 	/*
 	// busca el elemento K en el arreglo, usando el algoritmo BINARIO. Si lo  
