@@ -34,6 +34,7 @@ public:
 		archivo_entrada.getline(linea, sizeof(linea));
 
 		//Se guarda el numero de numeros que va a contener el arreglo en el atributo de la clase entera "tam"
+		//Hace uso de la libreria sstream
 		tam = stoi(linea);
 
 		//Se crea el arreglo con el tamaño que se leyo de la primera línea del archivo
@@ -54,63 +55,33 @@ public:
 		while (i < tam && arreglo[i] != K) 
 			i++;
 		
+
 		if (i >= tam)
-			i = -i;
+			i = -i;		//Si la busqueda no encuentra el numero regresa un negativo con el indice en donde se 
+						//debería encontrar el numero en el arreglo cordenado
 		return i;
 	}
-	/*
+	
 	// busca el elemento K en el arreglo, usando el algoritmo BINARIO. Si lo  
 	int busquedaBinaria(int inicio, int fin, int K){  // encuentra devuelve su posición y en caso contrario regresa un ‐1.
 	int pos;
-	int ini = 0;
-	int fin = arreglo.size() -1;
-	int mid = (ini+fin)/2;
+	int mid = (inicio+fin)/2;
 
-	while ( ini <= fin && arreglo[mid] != K ){
-	if (arreglo[mid] < K)
-	fin = mid-1;
-	else
-	ini = mid+1;
-	mid = (ini+fin)/2;
+	while (inicio <= fin && arreglo[mid] != K) {
+		if (arreglo[mid] < K)
+			fin = mid - 1;
+		else {
+			inicio = mid + 1;
+			mid = (inicio + fin) / 2;
+		}
 	}
-	if ( ini > fin)
-	pos = -ini-1;
+
+	if ( inicio > fin)
+		pos = -inicio;
 	else
-	pos = mid;
+		pos = mid;
+
 	return pos;
 	}
-	};
-
-	public static<T extends Comparable<T>> int busquedaSecOrdenada(T[] a, int n, T x){
-	int i=0;
-	while (i<n && a[i].compareTo(x)<0){
-	i++;
-	}
-	if (i>=n || a[i].compareTo(x)!=0)
-	i=-i-1;
-	return i;
-	}
-	public static<T extends Comparable<T>> int busquedaBinaria(T []a, int n, T x){
-	int pos;
-	int posini = 0;
-	int posfin = n-1;
-	int mitad = (posini+posfin)/2;
-
-	while ( posini <= posfin && !a[mitad].equals(x) ){
-
-	if (a[mitad].compareTo(x)>0 )
-	posfin = mitad-1;
-	else
-	posini = mitad+1;
-	mitad = (posini+posfin)/2;
-	}
-	if ( posini > posfin)
-	pos = -posini-1;
-	else
-	pos = mitad;
-	return pos;
-
-	}
-	*/
 };
  
