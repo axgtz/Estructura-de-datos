@@ -44,7 +44,6 @@ public:
 			arreglo[i] = stoi(linea);
 		}
 
-
 		archivo_entrada.close();
 	}
 
@@ -61,25 +60,24 @@ public:
 	}
 	
 	// busca el elemento K en el arreglo, usando el algoritmo BINARIO. Si lo  
-	int busquedaBinaria(int inicio, int fin, int K){  // encuentra devuelve su posición y en caso contrario regresa un ‐1.
-		int pos;
-		int mid = (inicio+fin)/2;
+	int busquedaBinaria(int inicio, int fin, int K) {  // encuentra devuelve su posición y en caso contrario regresa un ‐1.
+		int mid = (inicio + fin) / 2;
 
 		while (inicio <= fin && arreglo[mid] != K) {
-			if (arreglo[mid] < K)
-				fin = mid - 1;
+			if (arreglo[mid] < K) {
+				fin = mid + 1;
+				mid = (inicio + fin) / 2;
+			}
 			else {
-				inicio = mid + 1;
+				inicio = mid - 1;
 				mid = (inicio + fin) / 2;
 			}
 		}
 
-		if ( inicio > fin)
-			pos = -1;
-		else
-			pos = mid;
-
-		return pos;
+		if (inicio > fin) {
+			return -1;
+		}
+		return mid;
 	}
 };
  

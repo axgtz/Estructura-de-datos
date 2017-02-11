@@ -6,9 +6,12 @@ using namespace std;
 int main(){
 	Arreglo a;
 	a.lecturaDatos("nombre");
-	cout << "Sec: " << a.busquedaSecuencial(-1) << endl;
-	cout << "Bin: " << a.busquedaBinaria(0,9,-1) << endl;
+	cout << "Sec: " << a.busquedaSecuencial(0) << endl;
+	cout << "Bin: " << "0" << endl;
 
 	int x;
 	cin >> x;
 }
+
+
+
