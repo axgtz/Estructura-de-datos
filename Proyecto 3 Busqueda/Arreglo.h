@@ -37,9 +37,9 @@ public:
 		tam = stoi(linea);
 
 		//Se crea el arreglo con el tamaño que se leyo de la primera línea del archivo
-		ar	
+		arreglo = new int[tam];
 
-		for (int i = 0; i < tam; i++) {
+		for (int i = 0 ; i < tam ; i++) {
 			archivo_entrada.getline(linea, sizeof(linea));
 			arreglo[i] = stoi(linea);
 		}
@@ -62,14 +62,14 @@ public:
 	// busca el elemento K en el arreglo, usando el algoritmo BINARIO. Si lo  
 	int busquedaBinaria(int inicio, int fin, int K) {  // encuentra devuelve su posición y en caso contrario regresa un ‐1.
 		int mid = (inicio + fin) / 2;
-
+		
 		while (inicio <= fin && arreglo[mid] != K) {
 			if (arreglo[mid] < K) {
-				fin = mid + 1;
+				inicio = mid + 1;
 				mid = (inicio + fin) / 2;
 			}
 			else {
-				inicio = mid - 1;
+				fin = mid - 1;
 				mid = (inicio + fin) / 2;
 			}
 		}

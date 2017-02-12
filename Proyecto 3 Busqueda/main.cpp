@@ -3,12 +3,15 @@
 
 using namespace std;
 
-int main(){
+int main() {
 	Arreglo a;
 	a.lecturaDatos("nombre");
-	cout << "Sec: " << a.busquedaSecuencial(0) << endl;
-	cout << "Bin: " << "0" << endl;
-
+	int y = 0;
+	while (y != -1) {
+		cin >> y;
+		cout << "Sec: " << a.busquedaSecuencial(y) << endl;
+		cout << "Bin: " << a.busquedaBinaria(0, 9, y) << endl;
+	}
 	int x;
 	cin >> x;
 }
