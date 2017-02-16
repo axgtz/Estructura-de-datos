@@ -275,3 +275,11 @@ xcuserdata/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+*.xcworkspacedata
+
+*.pbxproj
+
+*.pbxproj
+
+*.pbxproj

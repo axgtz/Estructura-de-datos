@@ -35,7 +35,7 @@ public:
         arr[a] = temporal;
     }
     
-
+    
     void selectionSort(T arr[],int num){
         int posMenor;
         
@@ -50,10 +50,10 @@ public:
         }
         imprimeArreglo();
     }
-
+    
 };
 int main(int argc, const char * argv[]) {
-
+    
     
     
     
