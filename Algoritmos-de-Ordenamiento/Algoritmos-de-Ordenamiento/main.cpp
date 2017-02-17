@@ -34,12 +34,16 @@ public:
     void insertionSort();
 };
 
+//CONSTRUCTOR
 template <class Type>   //Se tiene que poner antes de cada metodo
 ManejadorArreglosGenerico<Type>::ManejadorArreglosGenerico(string nombreArchivo,  vector <Type> v, int tam) {
     this->tam = tam;
     vec = v;
 }
 
+//LECTURA DE DATOS
+
+//SWAP
 template <class Type>
 void ManejadorArreglosGenerico<Type>::swap(int a,int b){
     Type temporal = vec[b];
@@ -47,6 +51,7 @@ void ManejadorArreglosGenerico<Type>::swap(int a,int b){
     vec[a] = temporal;
 }
 
+//PRINT
 template <class Type>
 void ManejadorArreglosGenerico<Type>::print(){
     for(int i = 0 ; i < tam; i++){
