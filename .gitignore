@@ -283,3 +283,6 @@ xcuserdata/
 *.pbxproj
 
 *.pbxproj
+*.sln
+Algoritmos-de-Ordenamiento/Algoritmos-de-Ordenamiento/Algoritmos-de-Ordenamiento.vcxproj
+*.filters
