@@ -138,33 +138,27 @@ void ManejadorArreglosGenerico<Type>::insertionSort() {
 		cout <<endl;
 	}
 }
-/*
-//Inverse Insertion Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::insertionSort() {
-	int subarray = 0;
-	int comp;
-    for(int i =0 ; i < tam; i++){
-		comp = i;
-		for (int j = 0; j <= subarray; j++) {
-
-			if (vec[j] > vec[comp]) {
-
-				cout << "if" << endl;
-
-				swap(j, comp);
-				print();
-			}
-		}
-		subarray++;
-    }
-}
-*/
 
 //Bubble Sort
 template <class Type>
 void ManejadorArreglosGenerico<Type>::bubbleSort() {
-	bool bandera = false;
+	bool bandera;//Indica si hubo un cambio
+	int subArray = tam-1;
+	do {
+		bandera = false;
+
+		for (int i = 0; i < subArray ; i++) {
+			if (vec[i] > vec[i+1]) {
+				bandera = true;
+
+				swap(i,i+1);
+
+				print();
+			}
+		}
+		subArray--;
+
+	} while (bandera);
 
 	//if swap, si bandera es false cuando acabe, entonces se acaba el while
 	bandera = true;
@@ -178,8 +172,8 @@ int main(int argc, const char * argv[]) {
     cout << endl << "Selection Sort: " << endl;
     a->selectionSort();
     */
-	cout << endl << "Insertion Sort: " << endl;
-	a->insertionSort();
+	cout << endl << "Bubble Sort: " << endl;
+	a->bubbleSort();
 
 
 
