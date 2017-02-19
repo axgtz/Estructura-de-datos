@@ -61,12 +61,11 @@ void ManejadorArreglosGenerico<Type>::lecturaDatos(string nombreArchivo) {
 
 	string st = nombreArchivo + ".txt";
 
-	//int tamTemp = 1;//Varaibale de tamaño temporal
+	archivo_entrada.open(st);
 
 	if (archivo_entrada.fail()) {
 		cout << "Error al abrir el archivo" << endl;
 		vec[0] = { -1 };
-		//return tamTemp;
 	}
 	
 	char linea[128];
@@ -75,13 +74,7 @@ void ManejadorArreglosGenerico<Type>::lecturaDatos(string nombreArchivo) {
 	archivo_entrada.getline(linea, sizeof(linea));
 
 	//Se guarda el numero de numeros que va a contener el arreglo en el atributo de la clase entera "tam"
-	//stringstream str(linea);
-	//str >> tam;
-	tam = atoi(linea);
-	cout << tam << endl;
-
-
-
+	tam = stoi(linea);
 
 	while (!archivo_entrada.eof()) {
 		archivo_entrada.getline(linea, sizeof(linea));
@@ -105,14 +98,16 @@ void ManejadorArreglosGenerico<Type>::swap(int a,int b){
 template <class Type>
 void ManejadorArreglosGenerico<Type>::print(){
     for(int i = 0 ; i < tam; i++){
-        cout << vec[i] << " - ";
+        cout << vec[i];
+		if (i + 1 != tam)//If es para que no imprima el guión después del último número 
+			cout << " - ";
     }
     cout << endl;
 }
 
 //Selection Sort
 template <class Type>
-void ManejadorArreglosGenerico<Type>::selectionSort(){
+void ManejadorArreglosGenerico<Type>::selectionSort(){//Busca el minnimo y los va ponindo al principio
     int posMenor;
     print();
     for(int i = 0; i < tam;i++){
@@ -151,7 +146,7 @@ int main(int argc, const char * argv[]) {
     
     ManejadorArreglosGenerico<int> *a = new  ManejadorArreglosGenerico<int>("texto");
     a->print();
-    cout << "Selection Sort: " << endl;
+    cout << endl << "Selection Sort: " << endl;
     a->selectionSort();
     
 	//Evitar que se cierre la consola en Visual studio
