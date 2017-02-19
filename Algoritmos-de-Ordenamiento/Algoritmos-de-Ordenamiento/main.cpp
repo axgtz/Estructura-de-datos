@@ -126,11 +126,40 @@ void ManejadorArreglosGenerico<Type>::selectionSort(){//Busca el minnimo y los v
 //Insertion Sort
 template <class Type>
 void ManejadorArreglosGenerico<Type>::insertionSort() {
+	int j;
+	for (int i = 1; i < tam; i++) {
+		j = i;
+		while (j>0 && vec[j-1] > vec[j]) {
+			cout << "while" << endl;
+			swap(j, j-1);
+			print();
+			j--;
+		}
+		cout <<endl;
+	}
+}
+/*
+//Inverse Insertion Sort
+template <class Type>
+void ManejadorArreglosGenerico<Type>::insertionSort() {
+	int subarray = 0;
+	int comp;
     for(int i =0 ; i < tam; i++){
-        
-        
+		comp = i;
+		for (int j = 0; j <= subarray; j++) {
+
+			if (vec[j] > vec[comp]) {
+
+				cout << "if" << endl;
+
+				swap(j, comp);
+				print();
+			}
+		}
+		subarray++;
     }
 }
+*/
 
 //Bubble Sort
 template <class Type>
@@ -145,10 +174,15 @@ int main(int argc, const char * argv[]) {
     vector <int> v = {90,70,00,50,30,10,60,80,20,40};
     
     ManejadorArreglosGenerico<int> *a = new  ManejadorArreglosGenerico<int>("texto");
-    a->print();
+    a->print();/*
     cout << endl << "Selection Sort: " << endl;
     a->selectionSort();
-    
+    */
+	cout << endl << "Insertion Sort: " << endl;
+	a->insertionSort();
+
+
+
 	//Evitar que se cierre la consola en Visual studio
 	int x;
 	cin >> x;
