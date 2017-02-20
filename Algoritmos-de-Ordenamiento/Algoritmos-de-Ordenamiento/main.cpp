@@ -10,7 +10,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-
+#include <algorithm> 
 using namespace std;
 
 template <class Type>
@@ -38,6 +38,8 @@ public:
     void insertionSort();
 
 	void bubbleSort();
+
+	void mergeSort(int start, int end);
 };
 
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
@@ -141,7 +143,7 @@ void ManejadorArreglosGenerico<Type>::insertionSort() {
 
 //Bubble Sort
 template <class Type>
-void ManejadorArreglosGenerico<Type>::bubbleSort() {
+void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se van acomodando hasta arriba, se van comparando para encontrar al max
 	bool bandera;//Indica si hubo un cambio
 	int subArray = tam-1;
 	do {
@@ -164,18 +166,40 @@ void ManejadorArreglosGenerico<Type>::bubbleSort() {
 	bandera = true;
 }
 
+//Merge Sort
+template <class Type>
+void ManejadorArreglosGenerico<Type>::mergeSort(int start, int end) {
+	vector <Type> vecTemp;
+	
+	if (start < end) {
+
+	}
+	
+	
+	/*
+	
+	for (int i = tam - tam; i < tam - 1; i++) {
+		if (vec[] <= vec[]) {
+			swap(, );
+		}
+		else {
+			swap(, );
+		}
+	}
+	*/
+}
+
+
+
 int main(int argc, const char * argv[]) {
     vector <int> v = {90,70,00,50,30,10,60,80,20,40};
     
     ManejadorArreglosGenerico<int> *a = new  ManejadorArreglosGenerico<int>("texto");
-    a->print();/*
-    cout << endl << "Selection Sort: " << endl;
-    a->selectionSort();
-    */
-	cout << endl << "Bubble Sort: " << endl;
-	a->bubbleSort();
+    a->print();
 
 
+	cout << endl << "Merge Sort: " << endl;
+	a->mergeSort(0,9);
 
 	//Evitar que se cierre la consola en Visual studio
 	int x;
