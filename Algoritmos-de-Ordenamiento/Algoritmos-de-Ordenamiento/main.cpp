@@ -8,9 +8,11 @@
 
 #include <iostream>
 #include <vector>
+
+//Librerias de lectura de datos
 #include <fstream>
 #include <sstream>
-#include <algorithm> 
+
 using namespace std;
 
 template <class Type>
@@ -40,6 +42,7 @@ public:
 	void bubbleSort();
 
 	void mergeSort(int start, int end);
+    void merge();
 };
 
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
