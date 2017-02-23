@@ -50,7 +50,7 @@ public:
 	void mergeSort(Type v[], int start, int end);
     void merge();
     
-    void quickSort(Type v[], int lo, int hi);
+    void quickSort(Type v[], int lo, int hi);//Agregar random shuffle antes de empezar quicksort
     int partition(Type v[], int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
     
     //Array Existente, el que esta en la clase
@@ -282,10 +282,6 @@ int main(int argc, const char * argv[]) {
     
     ManejadorArreglosGenerico<int> *a = new  ManejadorArreglosGenerico<int>("texto");
     a->print();
-
-
-	cout << endl << "Merge Sort: " << endl;
-	//a->mergeSort(0,9);
 
 	//Evitar que se cierre la consola en Visual studio
 	int x;
