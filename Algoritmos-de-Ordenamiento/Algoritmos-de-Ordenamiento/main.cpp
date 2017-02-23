@@ -34,6 +34,10 @@ public:
     
     void print();
     
+    //Metodos de Busqueda
+    int busquedaSecuencial(int a[], int n, int k);
+    int busquedaBinaria(int a[], int primero, int ultimo, int k);
+    
     //Metodos de Ordenamiento
     void selectionSort();
     
@@ -41,8 +45,22 @@ public:
 
 	void bubbleSort();
 
-	void mergeSort(int start, int end);
+    //Metodos de ordenamiento, se vana  hacer 2 versiones una que tenga que recibir un array y otra que use el existente
+    //Array Nuevo
+	void mergeSort(Type v[], int start, int end);
     void merge();
+    
+    void quickSort(Type v[], int lo, int hi);
+    int partition(Type v[], int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
+    
+    //Array Existente, el que esta en la clase
+    void mergeSort(int start, int end);
+    //void merge();
+    
+    void quickSort(int lo, int hi);
+    int partition(int lo, int hi);
+    
+    
 };
 
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
@@ -110,6 +128,40 @@ void ManejadorArreglosGenerico<Type>::print(){
     cout << endl;
 }
 
+///<--------Busquedas------->
+//Busqueda Secuencial
+int busquedaSecuencial(int a[], int n, int k) {
+    int res = -1, i;
+    for (i = 0;i<n;i++){
+        if (k == a[i]) {
+            res = i;
+            return res;
+        }
+    }
+    return res;
+}
+
+//Busqueda Binaria
+int busquedaBinaria(int a[], int primero, int ultimo, int k) {
+    if (ultimo < primero) {
+        return -1;
+    }
+    else {
+        int medio = (primero + ultimo) / 2;
+        if (k == a[medio]) {
+            return medio;
+        }else if (k > a[medio]) {
+            return busquedaBinaria(a, medio +1, ultimo, k);
+        }
+        else {
+            return busquedaBinaria(a, primero, medio - 1, k);
+        }
+        
+    }
+}
+
+
+///<--------Ordenamiento------->
 //Selection Sort
 template <class Type>
 void ManejadorArreglosGenerico<Type>::selectionSort(){//Busca el minnimo y los va ponindo al principio
@@ -169,9 +221,10 @@ void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se 
 	bandera = true;
 }
 
+///<---- QuickSort y MergeSort reciben arreglo------>
 //Merge Sort
 template <class Type>
-void ManejadorArreglosGenerico<Type>::mergeSort(int start, int end) {
+void ManejadorArreglosGenerico<Type>::mergeSort(Type v[], int start, int end) {
 	vector <Type> vecTemp;
 	
 	if (start < end) {
@@ -193,6 +246,36 @@ void ManejadorArreglosGenerico<Type>::mergeSort(int start, int end) {
 }
 
 
+//Quick Sort
+template <class Type>
+void ManejadorArreglosGenerico<Type>::quickSort(Type v[], int lo, int hi) {
+    
+}
+
+template <class Type>
+int ManejadorArreglosGenerico<Type>::partition(Type v[], int lo, int hi) {
+    
+}
+
+///<---- QuickSort y MergeSort usan arreglo de ------>
+//MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuvle O (n^2)
+//MergeSort
+template <class Type>
+void ManejadorArreglosGenerico<Type>::mergeSort(int start, int end) {
+    
+}
+
+
+//Quick Sort
+template <class Type>
+void ManejadorArreglosGenerico<Type>::quickSort(int lo, int hi) {
+    
+}
+
+template <class Type>
+int ManejadorArreglosGenerico<Type>::partition(int lo, int hi) {
+    
+}
 
 int main(int argc, const char * argv[]) {
     vector <int> v = {90,70,00,50,30,10,60,80,20,40};
@@ -202,7 +285,7 @@ int main(int argc, const char * argv[]) {
 
 
 	cout << endl << "Merge Sort: " << endl;
-	a->mergeSort(0,9);
+	//a->mergeSort(0,9);
 
 	//Evitar que se cierre la consola en Visual studio
 	int x;
