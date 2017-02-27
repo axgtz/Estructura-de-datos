@@ -47,12 +47,12 @@ public:
 
     //Metodos de ordenamiento, se vana  hacer 2 versiones una que tenga que recibir un array y otra que use el existente
     //Array Nuevo
-	void mergeSort(Type v[], int n);
-    void merge(Type v[], Type v2[]);
+	void mergeSort(vector <Type> v, int n);
+    void merge(vector <Type> v1,vector <Type> v2);
     
-    void preQuickSort(Type v[]);//Agregar random shuffle antes de empezar quicksort
-    void quickSort(Type v[], int lo, int hi);
-    int partition(Type v[], int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
+    void preQuickSort(vector <Type> v);//Agregar random shuffle antes de empezar quicksort
+    void quickSort(vector <Type> v, int lo, int hi);
+    int partition(vector <Type> v, int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
     
     //Array Existente, el que esta en la clase
     void mergeSort(int start, int end);
@@ -225,27 +225,35 @@ void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se 
 ///<---- QuickSort y MergeSort reciben arreglo------>
 //Merge Sort
 template <class Type>
-void ManejadorArreglosGenerico<Type>::mergeSort(Type v[], int n) {
-    if(n == 1){//
+void ManejadorArreglosGenerico<Type>::mergeSort(vector <Type> v, int n) {
+    if(v == 1){//
         return v;
     }
+    //Calcular mitad
+    int mitad = n/2;
+    //Declarar 2 arrays
+    vector <Type> v1 = v[0 - mitad];
+    vector <Type> v2 = v[mitad + 1 - n];
+    //Ordenar 2 arrays de forma recursiva
+    v1 = mergeSort(v1, mitad);
+    v2 = mergeSort(v2, n - (mitad)-1);
     
-    
+    return merge(v1,v2);
 }
 
 template <class Type>
-void ManejadorArreglosGenerico<Type>::merge(Type v[], Type v2[]) {
+void ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Type> v2) {
     
 }
 
 //Quick Sort
 template <class Type>
-void ManejadorArreglosGenerico<Type>::quickSort(Type v[], int lo, int hi) {
+void ManejadorArreglosGenerico<Type>::quickSort(vector <Type> v, int lo, int hi) {
     
 }
 
 template <class Type>
-int ManejadorArreglosGenerico<Type>::partition(Type v[], int lo, int hi) {
+int ManejadorArreglosGenerico<Type>::partition(vector <Type> v, int lo, int hi) {
     
 }
 
