@@ -15,20 +15,18 @@
 
 using namespace std;
 
-template <class Type>
-
-class ManejadorArreglosGenerico {
+class ManejadorArreglos {
     
 private:
     int tam;
-    vector <Type> vec;
+    vector <int> vec;
     
 public:
-    ManejadorArreglosGenerico();
+    ManejadorArreglos();
     
-	ManejadorArreglosGenerico(string nombreArchivo);
+	ManejadorArreglos(string nombreArchivo);
 
-    ManejadorArreglosGenerico(vector <Type> v, int tam);
+    ManejadorArreglos(vector <int> v, int tam);
     
     void lecturaDatos(string nombreArchivo);
     
@@ -49,12 +47,12 @@ public:
 
     //Metodos de ordenamiento, se vana  hacer 2 versiones una que tenga que recibir un array y otra que use el existente
     //Array Nuevo
-	vector<Type>  mergeSort(vector <Type> v, int n);
-    vector<Type> merge(vector <Type> v1,vector <Type> v2);
+	vector<int> mergeSort(vector <int> v, int n);
+    vector<int> merge(vector <int> v1,vector <int> v2);
     
-    void preQuickSort(vector <Type> v);//Agregar random shuffle antes de empezar quicksort
-    void quickSort(vector <Type> v, int lo, int hi);
-    int partition(vector <Type> v, int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
+    void preQuickSort(vector <int> v);//Agregar random shuffle antes de empezar quicksort
+    void quickSort(vector <int> v, int lo, int hi);
+    int partition(vector <int> v, int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
     
     //Array Existente, el que esta en la clase
     void mergeSort(int start, int end);
@@ -65,28 +63,28 @@ public:
     
     
 };
-template <class Type>   //CONSTRUCTOR VACIO
-ManejadorArreglosGenerico<Type>::ManejadorArreglosGenerico() {
+
+ManejadorArreglos::ManejadorArreglos() {
+    
 }
 
 
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
-template <class Type>   //Se tiene que poner antes de cada metodo
-ManejadorArreglosGenerico<Type>::ManejadorArreglosGenerico(string nombreArchivo) {
+
+ManejadorArreglos::ManejadorArreglos(string nombreArchivo) {
 	lecturaDatos(nombreArchivo);	//lectura de datos para subir el contenido del text file al vector de la clase
 }
 
 
 //CONSTRUCTOR que recibe un vector
-template <class Type>   
-ManejadorArreglosGenerico<Type>::ManejadorArreglosGenerico(vector <Type> v, int tam) {
+
+ManejadorArreglos::ManejadorArreglos(vector <int> v, int tam) {
 	this->tam = tam;
 	vec = v;
 }
 
 //LECTURA DE DATOS
-template <class Type>   
-void ManejadorArreglosGenerico<Type>::lecturaDatos(string nombreArchivo) {
+void ManejadorArreglos::lecturaDatos(string nombreArchivo) {
 	ifstream archivo_entrada; //Declarar variable que se usa para acceder a las funciones de ifstream
 
 	string st = nombreArchivo + ".txt";
@@ -112,21 +110,17 @@ void ManejadorArreglosGenerico<Type>::lecturaDatos(string nombreArchivo) {
 	}
 
 	archivo_entrada.close();
-
-	//return tam; //Se regresa el tamaño que se leyo en el archivo para que se pueda cambiar la variable de la clase en el constructor
 }
 
 //SWAP
-template <class Type>
-void ManejadorArreglosGenerico<Type>::swap(int a,int b){
-    Type temporal = vec[b];
+void ManejadorArreglos::swap(int a,int b){
+    int temporal = vec[b];
     vec[b] = vec[a];
     vec[a] = temporal;
 }
 
 //PRINT
-template <class Type>
-void ManejadorArreglosGenerico<Type>::print(){
+void ManejadorArreglos::print(){
     for(int i = 0 ; i < tam; i++){
         cout << vec[i];
 		if (i + 1 != tam)//If es para que no imprima el guión después del último número 
@@ -170,8 +164,7 @@ int busquedaBinaria(int a[], int primero, int ultimo, int k) {
 
 ///<--------Ordenamiento------->
 //Selection Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::selectionSort(){//Busca el minnimo y los va ponindo al principio
+void ManejadorArreglos::selectionSort(){//Busca el minnimo y los va ponindo al principio
     int posMenor;
     print();
     for(int i = 0; i < tam;i++){
@@ -188,8 +181,7 @@ void ManejadorArreglosGenerico<Type>::selectionSort(){//Busca el minnimo y los v
 }
 
 //Insertion Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::insertionSort() {
+void ManejadorArreglos::insertionSort() {
 	int j;
 	for (int i = 1; i < tam; i++) {
 		j = i;
@@ -204,8 +196,7 @@ void ManejadorArreglosGenerico<Type>::insertionSort() {
 }
 
 //Bubble Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se van acomodando hasta arriba, se van comparando para encontrar al max
+void ManejadorArreglos::bubbleSort() {//Los numeros más altos se van acomodando hasta arriba, se van comparando para encontrar al max
 	bool bandera;//Indica si hubo un cambio
 	int subArray = tam-1;
 	do {
@@ -230,8 +221,7 @@ void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se 
 
 ///<---- QuickSort y MergeSort reciben arreglo------>
 //Merge Sort
-template <class Type>
-vector<Type>  ManejadorArreglosGenerico<Type>::mergeSort(vector<Type> v, int n) {
+vector<int>  ManejadorArreglos::mergeSort(vector<int> v, int n) {
     if(n == 1){//
         return v;
     }
@@ -240,12 +230,12 @@ vector<Type>  ManejadorArreglosGenerico<Type>::mergeSort(vector<Type> v, int n) 
     int mitad = n/2;//Si el numero es mpar c++ usa floor en una division de enteros
     
     //Declarar 2 arrays, v1 es la mitad de v y v2 es la otra mitad de v
-    vector<Type> v1;
+    vector<int> v1;
     
     for(int i = 0; i <= mitad;i++){
         v1[i] = v[i];
     }
-    vector<Type> v2;
+    vector<int> v2;
     for(int i = mitad+1; i < n;i++){
         v1[i] = v[i];
     }
@@ -257,9 +247,8 @@ vector<Type>  ManejadorArreglosGenerico<Type>::mergeSort(vector<Type> v, int n) 
     return merge(v1,v2);
 }
 
-template <class Type>
-vector<Type> ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Type> v2) {
-    vector <Type> vTemp;
+vector<int> ManejadorArreglos::merge(vector <int> v1,vector <int> v2) {
+    vector <int> vTemp;
     
     //Loop para unir los dos arrays mientras los dos tengan elementos
     while(!v1.empty() || !v2.empty()){//Mientras tengan elementos
@@ -297,40 +286,35 @@ vector<Type> ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Typ
 }
 
 //Quick Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::quickSort(vector <Type> v, int lo, int hi) {
+void ManejadorArreglos::quickSort(vector <int> v, int lo, int hi) {
     
 }
 
-template <class Type>
-int ManejadorArreglosGenerico<Type>::partition(vector <Type> v, int lo, int hi) {
-    
+int  ManejadorArreglos::partition(vector <int> v, int lo, int hi) {
+    return -1;
 }
 
 ///<---- QuickSort y MergeSort usan arreglo de ------>
 //MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 //MergeSort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::mergeSort(int start, int end) {
+void  ManejadorArreglos::mergeSort(int start, int end) {
     
 }
 
 
 //Quick Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::quickSort(int lo, int hi) {
+void ManejadorArreglos::quickSort(int lo, int hi) {
     
 }
 
-template <class Type>
-int ManejadorArreglosGenerico<Type>::partition(int lo, int hi) {
-    
+int ManejadorArreglos::partition(int lo, int hi) {
+    return -1;
 }
 
 int main(int argc, const char * argv[]) {
     vector<int> v = {90,70,00,50,30,10,60,80,20,40};
     
-    ManejadorArreglosGenerico<int> *a = new  ManejadorArreglosGenerico<int>();
+    ManejadorArreglos *a = new  ManejadorArreglos();
     a->print();
 
     a->mergeSort(v, 10);
