@@ -47,10 +47,11 @@ public:
 
     //Metodos de ordenamiento, se vana  hacer 2 versiones una que tenga que recibir un array y otra que use el existente
     //Array Nuevo
-	void mergeSort(Type v[], int start, int end);
-    void merge();
+	void mergeSort(Type v[], int n);
+    void merge(Type v[], Type v2[]);
     
-    void quickSort(Type v[], int lo, int hi);//Agregar random shuffle antes de empezar quicksort
+    void preQuickSort(Type v[]);//Agregar random shuffle antes de empezar quicksort
+    void quickSort(Type v[], int lo, int hi);
     int partition(Type v[], int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
     
     //Array Existente, el que esta en la clase
@@ -224,27 +225,18 @@ void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se 
 ///<---- QuickSort y MergeSort reciben arreglo------>
 //Merge Sort
 template <class Type>
-void ManejadorArreglosGenerico<Type>::mergeSort(Type v[], int start, int end) {
-	vector <Type> vecTemp;
-	
-	if (start < end) {
-
-	}
-	
-	
-	/*
-	
-	for (int i = tam - tam; i < tam - 1; i++) {
-		if (vec[] <= vec[]) {
-			swap(, );
-		}
-		else {
-			swap(, );
-		}
-	}
-	*/
+void ManejadorArreglosGenerico<Type>::mergeSort(Type v[], int n) {
+    if(n == 1){//
+        return v;
+    }
+    
+    
 }
 
+template <class Type>
+void ManejadorArreglosGenerico<Type>::merge(Type v[], Type v2[]) {
+    
+}
 
 //Quick Sort
 template <class Type>
@@ -258,7 +250,7 @@ int ManejadorArreglosGenerico<Type>::partition(Type v[], int lo, int hi) {
 }
 
 ///<---- QuickSort y MergeSort usan arreglo de ------>
-//MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuvle O (n^2)
+//MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 //MergeSort
 template <class Type>
 void ManejadorArreglosGenerico<Type>::mergeSort(int start, int end) {
