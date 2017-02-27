@@ -55,8 +55,8 @@ public:
     int partition(vector <int> v, int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
     
     //Array Existente, el que esta en la clase
-    void mergeSort(int start, int end);
-    //void merge();
+    void mergeSort(int a, int lo, int hi);
+    void merge(int a[], int lo, int mid, int hi);
     
     void quickSort(int lo, int hi);
     int partition(int lo, int hi);
@@ -220,9 +220,10 @@ void ManejadorArreglos::bubbleSort() {//Los numeros más altos se van acomodando
 }
 
 ///<---- QuickSort y MergeSort reciben arreglo------>
-//Merge Sort
+//Merge Sort   NO SIRVE PLZ NO LO LLAMES
 vector<int>  ManejadorArreglos::mergeSort(vector<int> v, int n) {
     if(n == 1){//
+        cout << "if" <<endl;
         return v;
     }
     
@@ -231,24 +232,30 @@ vector<int>  ManejadorArreglos::mergeSort(vector<int> v, int n) {
     
     //Declarar 2 arrays, v1 es la mitad de v y v2 es la otra mitad de v
     vector<int> v1;
-    
     for(int i = 0; i <= mitad;i++){
-        v1[i] = v[i];
+        v1.push_back(v[i]);
     }
+    
     vector<int> v2;
+    
     for(int i = mitad+1; i < n;i++){
-        v1[i] = v[i];
+        v2.push_back(v[i]);
     }
     
     //Ordenar 2 arrays de forma recursiva
+    cout << mitad << endl;
     v1 = mergeSort(v1, mitad);
+    
+    cout << "n = " << n <<endl;
+    cout << "mitad = " << mitad <<endl;
+    
     v2 = mergeSort(v2, n - (mitad - 1));
     
     return merge(v1,v2);
 }
 
-vector<int> ManejadorArreglos::merge(vector <int> v1,vector <int> v2) {
-    vector <int> vTemp;
+vector<int> ManejadorArreglos::merge(vector<int> v1,vector<int> v2) {
+    vector<int> vTemp;
     
     //Loop para unir los dos arrays mientras los dos tengan elementos
     while(!v1.empty() || !v2.empty()){//Mientras tengan elementos
@@ -297,11 +304,26 @@ int  ManejadorArreglos::partition(vector <int> v, int lo, int hi) {
 ///<---- QuickSort y MergeSort usan arreglo de ------>
 //MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 //MergeSort
-void  ManejadorArreglos::mergeSort(int start, int end) {
+void ManejadorArreglos::sort(int a, int lo, int hi) {
+    /* ordenar a[lo..hi].
+    if (hi <= lo) return;
+    int mid = lo + (hi ‐ lo)/2;
+    sort(a, lo, mid); // ordenar mitad izquierda
+    sort(a, mid+1, hi); // ordenar mitad derecha
+    merge(a, lo, mid, hi); // Merge las dos mitades
+     */
+    if(hi == lo) return;
+    int mid = lo + (hi - lo) / 2;
     
 }
 
-
+//Marge
+void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
+    // Merge a[lo..mid] con a[mid+1..hi]
+    // copiar a[lo..hi] a aux[lo..hi]
+    // Merge de regreso en a[lo..hi]
+}
+  
 //Quick Sort
 void ManejadorArreglos::quickSort(int lo, int hi) {
     
@@ -315,10 +337,9 @@ int main(int argc, const char * argv[]) {
     vector<int> v = {90,70,00,50,30,10,60,80,20,40};
     
     ManejadorArreglos *a = new  ManejadorArreglos();
-    a->print();
 
-    a->mergeSort(v, 10);
-        a->print();
+    //a->mergeSort(v, 10);
+
 	//Evitar que se cierre la consola en Visual studio
 	int x;
 	cin >> x;
