@@ -24,6 +24,8 @@ private:
     vector <Type> vec;
     
 public:
+    ManejadorArreglosGenerico();
+    
 	ManejadorArreglosGenerico(string nombreArchivo);
 
     ManejadorArreglosGenerico(vector <Type> v, int tam);
@@ -47,8 +49,8 @@ public:
 
     //Metodos de ordenamiento, se vana  hacer 2 versiones una que tenga que recibir un array y otra que use el existente
     //Array Nuevo
-	void mergeSort(vector <Type> v, int n);
-    void merge(vector <Type> v1,vector <Type> v2);
+	vector<Type>  mergeSort(vector <Type> v, int n);
+    vector<Type> merge(vector <Type> v1,vector <Type> v2);
     
     void preQuickSort(vector <Type> v);//Agregar random shuffle antes de empezar quicksort
     void quickSort(vector <Type> v, int lo, int hi);
@@ -63,6 +65,10 @@ public:
     
     
 };
+template <class Type>   //CONSTRUCTOR VACIO
+ManejadorArreglosGenerico<Type>::ManejadorArreglosGenerico() {
+}
+
 
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
 template <class Type>   //Se tiene que poner antes de cada metodo
@@ -225,27 +231,34 @@ void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se 
 ///<---- QuickSort y MergeSort reciben arreglo------>
 //Merge Sort
 template <class Type>
-void ManejadorArreglosGenerico<Type>::mergeSort(vector <Type> v, int n) {
-    if(v == 1){//
+vector<Type>  ManejadorArreglosGenerico<Type>::mergeSort(vector<Type> v, int n) {
+    if(n == 1){//
         return v;
     }
     
     //Calcular mitad
     int mitad = n/2;//Si el numero es mpar c++ usa floor en una division de enteros
     
-    //Declarar 2 arrays
-    vector <Type> v1 = v[0 - mitad];
-    vector <Type> v2 = v[mitad + 1 - n];
+    //Declarar 2 arrays, v1 es la mitad de v y v2 es la otra mitad de v
+    vector<Type> v1;
+    
+    for(int i = 0; i <= mitad;i++){
+        v1[i] = v[i];
+    }
+    vector<Type> v2;
+    for(int i = mitad+1; i < n;i++){
+        v1[i] = v[i];
+    }
     
     //Ordenar 2 arrays de forma recursiva
     v1 = mergeSort(v1, mitad);
-    v2 = mergeSort(v2, n - (mitad)-1);
+    v2 = mergeSort(v2, n - (mitad - 1));
     
     return merge(v1,v2);
 }
 
 template <class Type>
-void ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Type> v2) {
+vector<Type> ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Type> v2) {
     vector <Type> vTemp;
     
     //Loop para unir los dos arrays mientras los dos tengan elementos
@@ -254,12 +267,12 @@ void ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Type> v2) {
             //Se coloca el elemento de v2 en el vector temporal
             vTemp.push_back(v2[0]);
             //Se elimina el elemento de v2
-            v2.erase(0);
+            v2.erase(v2.begin());
         }else{//elemento en v2 es mayor
             //Se coloca el elemento de v1 en el vector temporal
             vTemp.push_back(v1[0]);
             //Se elimina el elemento de v1
-            v1.erase(0);
+            v1.erase(v1.begin());
         }
         
     }
@@ -269,7 +282,7 @@ void ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Type> v2) {
         //Se coloca el elemento de v1 en el vector temporal
         vTemp.push_back(v1[0]);
         //Se elimina el elemento de v1
-        v1.erase(0);
+        v1.erase(v1.begin());
     }
     
     //Loop para unir arrays cuando solo queden elementos en v2
@@ -277,7 +290,7 @@ void ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Type> v2) {
         //Se coloca el elemento de v2 en el vector temporal
         vTemp.push_back(v2[0]);
         //Se elimina el elemento de v2
-        v2.erase(0);
+        v2.erase(v2.begin());
     }
     
     return vTemp;
@@ -315,13 +328,13 @@ int ManejadorArreglosGenerico<Type>::partition(int lo, int hi) {
 }
 
 int main(int argc, const char * argv[]) {
-    vector <int> v = {90,70,00,50,30,10,60,80,20,40};
+    vector<int> v = {90,70,00,50,30,10,60,80,20,40};
     
-    ManejadorArreglosGenerico<int> *a = new  ManejadorArreglosGenerico<int>(v, 10);
+    ManejadorArreglosGenerico<int> *a = new  ManejadorArreglosGenerico<int>();
     a->print();
 
-    //a->mergeSort(v, 10);
-    cout << 13/2 << endl;
+    a->mergeSort(v, 10);
+        a->print();
 	//Evitar que se cierre la consola en Visual studio
 	int x;
 	cin >> x;
