@@ -7,7 +7,6 @@
 //
 
 #include <iostream>
-#include <vector>
 
 //Librerias de lectura de datos
 #include <fstream>
@@ -15,20 +14,20 @@
 
 using namespace std;
 
-template <class Type>
-
-class ManejadorArreglosGenerico {
+class ManejadorArreglos {
     
 private:
     int tam;
-    vector <Type> vec;
+    int *vec;
     
 public:
-    ManejadorArreglosGenerico();
+	ManejadorArreglos();
     
-	ManejadorArreglosGenerico(string nombreArchivo);
+    ManejadorArreglos(int tam);
+    
+    ManejadorArreglos(string nombreArchivo);
 
-    ManejadorArreglosGenerico(vector <Type> v, int tam);
+    ManejadorArreglos(int *v, int tam);
     
     void lecturaDatos(string nombreArchivo);
     
@@ -47,46 +46,39 @@ public:
 
 	void bubbleSort();
 
-    //Metodos de ordenamiento, se vana  hacer 2 versiones una que tenga que recibir un array y otra que use el existente
-    //Array Nuevo
-	vector<Type>  mergeSort(vector <Type> v, int n);
-    vector<Type> merge(vector <Type> v1,vector <Type> v2);
-    
-    void preQuickSort(vector <Type> v);//Agregar random shuffle antes de empezar quicksort
-    void quickSort(vector <Type> v, int lo, int hi);
-    int partition(vector <Type> v, int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
-    
     //Array Existente, el que esta en la clase
-    void mergeSort(int start, int end);
-    //void merge();
-    
-    void quickSort(int lo, int hi);
-    int partition(int lo, int hi);
-    
+    void sort(int a[], int lo, int hi);
+    void merge(int a[], int lo, int mid, int hi);
     
 };
-template <class Type>   //CONSTRUCTOR VACIO
-ManejadorArreglosGenerico<Type>::ManejadorArreglosGenerico() {
+
+ManejadorArreglos::ManejadorArreglos(){
+    tam = 0;
+    vec = {0};
+}
+
+ManejadorArreglos::ManejadorArreglos(int tam){
+    this->tam = tam;
+    vec = new int[tam];
 }
 
 
+
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
-template <class Type>   //Se tiene que poner antes de cada metodo
-ManejadorArreglosGenerico<Type>::ManejadorArreglosGenerico(string nombreArchivo) {
+ManejadorArreglos::ManejadorArreglos(string nombreArchivo) {
 	lecturaDatos(nombreArchivo);	//lectura de datos para subir el contenido del text file al vector de la clase
 }
 
 
 //CONSTRUCTOR que recibe un vector
-template <class Type>   
-ManejadorArreglosGenerico<Type>::ManejadorArreglosGenerico(vector <Type> v, int tam) {
+
+ManejadorArreglos::ManejadorArreglos(int* v, int tam) {
 	this->tam = tam;
 	vec = v;
 }
 
 //LECTURA DE DATOS
-template <class Type>   
-void ManejadorArreglosGenerico<Type>::lecturaDatos(string nombreArchivo) {
+void ManejadorArreglos::lecturaDatos(string nombreArchivo) {
 	ifstream archivo_entrada; //Declarar variable que se usa para acceder a las funciones de ifstream
 
 	string st = nombreArchivo + ".txt";
@@ -105,28 +97,27 @@ void ManejadorArreglosGenerico<Type>::lecturaDatos(string nombreArchivo) {
 
 	//Se guarda el numero de numeros que va a contener el arreglo en el atributo de la clase entera "tam"
 	tam = stoi(linea);
+    
+    vec = new int[tam];
 
-	while (!archivo_entrada.eof()) {
+
+    for (int i = 0;i<tam;i++) {
 		archivo_entrada.getline(linea, sizeof(linea));
-		vec.push_back(stoi(linea));
+		vec[i] = stoi(linea);
 	}
 
 	archivo_entrada.close();
-
-	//return tam; //Se regresa el tamaño que se leyo en el archivo para que se pueda cambiar la variable de la clase en el constructor
 }
 
 //SWAP
-template <class Type>
-void ManejadorArreglosGenerico<Type>::swap(int a,int b){
-    Type temporal = vec[b];
+void ManejadorArreglos::swap(int a,int b){
+    int temporal = vec[b];
     vec[b] = vec[a];
     vec[a] = temporal;
 }
 
 //PRINT
-template <class Type>
-void ManejadorArreglosGenerico<Type>::print(){
+void ManejadorArreglos::print(){
     for(int i = 0 ; i < tam; i++){
         cout << vec[i];
 		if (i + 1 != tam)//If es para que no imprima el guión después del último número 
@@ -170,8 +161,7 @@ int busquedaBinaria(int a[], int primero, int ultimo, int k) {
 
 ///<--------Ordenamiento------->
 //Selection Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::selectionSort(){//Busca el minnimo y los va ponindo al principio
+void ManejadorArreglos::selectionSort(){//Busca el minnimo y los va ponindo al principio
     int posMenor;
     print();
     for(int i = 0; i < tam;i++){
@@ -188,8 +178,7 @@ void ManejadorArreglosGenerico<Type>::selectionSort(){//Busca el minnimo y los v
 }
 
 //Insertion Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::insertionSort() {
+void ManejadorArreglos::insertionSort() {
 	int j;
 	for (int i = 1; i < tam; i++) {
 		j = i;
@@ -204,8 +193,7 @@ void ManejadorArreglosGenerico<Type>::insertionSort() {
 }
 
 //Bubble Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se van acomodando hasta arriba, se van comparando para encontrar al max
+void ManejadorArreglos::bubbleSort() {//Los numeros más altos se van acomodando hasta arriba, se van comparando para encontrar al max
 	bool bandera;//Indica si hubo un cambio
 	int subArray = tam-1;
 	do {
@@ -228,114 +216,84 @@ void ManejadorArreglosGenerico<Type>::bubbleSort() {//Los numeros más altos se 
 	bandera = true;
 }
 
-///<---- QuickSort y MergeSort reciben arreglo------>
-//Merge Sort
-template <class Type>
-vector<Type>  ManejadorArreglosGenerico<Type>::mergeSort(vector<Type> v, int n) {
-    if(n == 1){//
-        return v;
-    }
-    
-    //Calcular mitad
-    int mitad = n/2;//Si el numero es mpar c++ usa floor en una division de enteros
-    
-    //Declarar 2 arrays, v1 es la mitad de v y v2 es la otra mitad de v
-    vector<Type> v1;
-    
-    for(int i = 0; i <= mitad;i++){
-        v1[i] = v[i];
-    }
-    vector<Type> v2;
-    for(int i = mitad+1; i < n;i++){
-        v1[i] = v[i];
-    }
-    
-    //Ordenar 2 arrays de forma recursiva
-    v1 = mergeSort(v1, mitad);
-    v2 = mergeSort(v2, n - (mitad - 1));
-    
-    return merge(v1,v2);
-}
-
-template <class Type>
-vector<Type> ManejadorArreglosGenerico<Type>::merge(vector <Type> v1,vector <Type> v2) {
-    vector <Type> vTemp;
-    
-    //Loop para unir los dos arrays mientras los dos tengan elementos
-    while(!v1.empty() || !v2.empty()){//Mientras tengan elementos
-        if(v1[0] > v2[0]){//Si el elemento en v1 es mayor al de v2
-            //Se coloca el elemento de v2 en el vector temporal
-            vTemp.push_back(v2[0]);
-            //Se elimina el elemento de v2
-            v2.erase(v2.begin());
-        }else{//elemento en v2 es mayor
-            //Se coloca el elemento de v1 en el vector temporal
-            vTemp.push_back(v1[0]);
-            //Se elimina el elemento de v1
-            v1.erase(v1.begin());
-        }
-        
-    }
-    
-    //Loop para unir arrays cuando solo queden elementos en v1
-    while(!v1.empty()){
-        //Se coloca el elemento de v1 en el vector temporal
-        vTemp.push_back(v1[0]);
-        //Se elimina el elemento de v1
-        v1.erase(v1.begin());
-    }
-    
-    //Loop para unir arrays cuando solo queden elementos en v2
-    while(!v2.empty()){
-        //Se coloca el elemento de v2 en el vector temporal
-        vTemp.push_back(v2[0]);
-        //Se elimina el elemento de v2
-        v2.erase(v2.begin());
-    }
-    
-    return vTemp;
-}
-
-//Quick Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::quickSort(vector <Type> v, int lo, int hi) {
-    
-}
-
-template <class Type>
-int ManejadorArreglosGenerico<Type>::partition(vector <Type> v, int lo, int hi) {
-    
-}
-
 ///<---- QuickSort y MergeSort usan arreglo de ------>
 //MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 //MergeSort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::mergeSort(int start, int end) {
+void ManejadorArreglos::sort(int a[], int lo, int hi) {
+    /* ordenar a[lo..hi].
+    if (hi <= lo) return;
+    int mid = lo + (hi ‐ lo)/2;
+    sort(a, lo, mid); // ordenar mitad izquierda
+    sort(a, mid+1, hi); // ordenar mitad derecha
+    merge(a, lo, mid, hi); // Merge las dos mitades
+     */
+    if(hi <= lo) return;
+    int mid = lo + (hi - lo) / 2;
     
+    sort(a, lo, mid);
+    sort(a, mid+1, hi);
+    
+    merge(a, lo, mid, hi);
 }
 
-
-//Quick Sort
-template <class Type>
-void ManejadorArreglosGenerico<Type>::quickSort(int lo, int hi) {
+//Merge
+void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
+    // Merge a[lo..mid] con a[mid+1..hi]
+    // copiar a[lo..hi] a aux[lo..hi]
+    // Merge de regreso en a[lo..hi]
+    int med = mid + 1;
+    int newLow = lo;
+    int tam = lo;
     
-}
-
-template <class Type>
-int ManejadorArreglosGenerico<Type>::partition(int lo, int hi) {
+    //Mientras las dos mitades contengan datos
+    while(newLow <= mid && med <= hi){
+        if(a[newLow] < a[med]){//el menor lo contiene en el arreglo de la izq
+            vec[tam] = a[newLow];
+            newLow++;
+            tam++;
+        }else{//el menor lo contiene en el arreglo de la derecha
+            vec[tam] = a[med];
+            med++;
+            tam++;
+        }
+    }
     
+    //Mientras la primera mitad contenga datos
+    while(newLow <= mid){
+        vec[tam] = a[newLow];
+        newLow++;
+        tam++;
+    }
+    
+    //Mientras la segunda mitad contenga datos
+    while( med <= hi){
+        vec[tam] = a[med];
+        med++;
+        tam++;
+    }
+    
+    //Copiar lo que vec contiene de regreso a a[]
+    for(int d = lo; d < tam; d++){
+        a[d] = vec[d];
+    }
+    print();
 }
 
 int main(int argc, const char * argv[]) {
-    vector<int> v = {90,70,00,50,30,10,60,80,20,40};
     
-    ManejadorArreglosGenerico<int> *a = new  ManejadorArreglosGenerico<int>();
-    a->print();
+    int v1[10] = {90,80,70,60,50,40,30,20,10,00};/*
+    int v[11] = {100,90,70,00,50,30,10,60,80,20,40};
+    
+    ManejadorArreglos a(11);
 
-    a->mergeSort(v, 10);
-        a->print();
-	//Evitar que se cierre la consola en Visual studio
+    a.sort(v, 0,10);
+     */
+    ManejadorArreglos a("texto");
+    a.bubbleSort();
+    
+    cout << endl <<endl;
+    a.print();
+    //Evitar que se cierre la consola en Visual studio
 	int x;
 	cin >> x;
 	//Evitar que se cierre la consola en mac
