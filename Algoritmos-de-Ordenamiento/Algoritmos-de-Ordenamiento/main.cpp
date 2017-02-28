@@ -281,15 +281,12 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
 
 int main(int argc, const char * argv[]) {
     
-    int v1[10] = {90,80,70,60,50,40,30,20,10,00};/*
+    int v1[10] = {90,80,70,60,50,40,30,20,10,00};
     int v[11] = {100,90,70,00,50,30,10,60,80,20,40};
     
     ManejadorArreglos a(11);
 
     a.sort(v, 0,10);
-     */
-    ManejadorArreglos a("texto");
-    a.bubbleSort();
     
     cout << endl <<endl;
     a.print();
