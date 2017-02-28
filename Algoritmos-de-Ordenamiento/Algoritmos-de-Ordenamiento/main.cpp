@@ -22,9 +22,9 @@ private:
     vector <int> vec;
     
 public:
-    ManejadorArreglos();
+	ManejadorArreglos();
     
-	ManejadorArreglos(string nombreArchivo);
+    ManejadorArreglos(string nombreArchivo);
 
     ManejadorArreglos(vector <int> v, int tam);
     
@@ -45,32 +45,18 @@ public:
 
 	void bubbleSort();
 
-    //Metodos de ordenamiento, se vana  hacer 2 versiones una que tenga que recibir un array y otra que use el existente
-    //Array Nuevo
-	vector<int> mergeSort(vector <int> v, int n);
-    vector<int> merge(vector <int> v1,vector <int> v2);
-    
-    void preQuickSort(vector <int> v);//Agregar random shuffle antes de empezar quicksort
-    void quickSort(vector <int> v, int lo, int hi);
-    int partition(vector <int> v, int lo, int hi); //Regresa int porque es la posicion donde puso el pivote
-    
     //Array Existente, el que esta en la clase
-    void mergeSort(int a, int lo, int hi);
+    void sort(int a, int lo, int hi);
     void merge(int a[], int lo, int mid, int hi);
-    
-    void quickSort(int lo, int hi);
-    int partition(int lo, int hi);
-    
     
 };
 
-ManejadorArreglos::ManejadorArreglos() {
-    
+ManejadorArreglos::ManejadorArreglos(){
+    tam = 0;
+    vec[0] = { -1 };
 }
 
-
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
-
 ManejadorArreglos::ManejadorArreglos(string nombreArchivo) {
 	lecturaDatos(nombreArchivo);	//lectura de datos para subir el contenido del text file al vector de la clase
 }
@@ -219,88 +205,6 @@ void ManejadorArreglos::bubbleSort() {//Los numeros más altos se van acomodando
 	bandera = true;
 }
 
-///<---- QuickSort y MergeSort reciben arreglo------>
-//Merge Sort   NO SIRVE PLZ NO LO LLAMES
-vector<int>  ManejadorArreglos::mergeSort(vector<int> v, int n) {
-    if(n == 1){//
-        cout << "if" <<endl;
-        return v;
-    }
-    
-    //Calcular mitad
-    int mitad = n/2;//Si el numero es mpar c++ usa floor en una division de enteros
-    
-    //Declarar 2 arrays, v1 es la mitad de v y v2 es la otra mitad de v
-    vector<int> v1;
-    for(int i = 0; i <= mitad;i++){
-        v1.push_back(v[i]);
-    }
-    
-    vector<int> v2;
-    
-    for(int i = mitad+1; i < n;i++){
-        v2.push_back(v[i]);
-    }
-    
-    //Ordenar 2 arrays de forma recursiva
-    cout << mitad << endl;
-    v1 = mergeSort(v1, mitad);
-    
-    cout << "n = " << n <<endl;
-    cout << "mitad = " << mitad <<endl;
-    
-    v2 = mergeSort(v2, n - (mitad - 1));
-    
-    return merge(v1,v2);
-}
-
-vector<int> ManejadorArreglos::merge(vector<int> v1,vector<int> v2) {
-    vector<int> vTemp;
-    
-    //Loop para unir los dos arrays mientras los dos tengan elementos
-    while(!v1.empty() || !v2.empty()){//Mientras tengan elementos
-        if(v1[0] > v2[0]){//Si el elemento en v1 es mayor al de v2
-            //Se coloca el elemento de v2 en el vector temporal
-            vTemp.push_back(v2[0]);
-            //Se elimina el elemento de v2
-            v2.erase(v2.begin());
-        }else{//elemento en v2 es mayor
-            //Se coloca el elemento de v1 en el vector temporal
-            vTemp.push_back(v1[0]);
-            //Se elimina el elemento de v1
-            v1.erase(v1.begin());
-        }
-        
-    }
-    
-    //Loop para unir arrays cuando solo queden elementos en v1
-    while(!v1.empty()){
-        //Se coloca el elemento de v1 en el vector temporal
-        vTemp.push_back(v1[0]);
-        //Se elimina el elemento de v1
-        v1.erase(v1.begin());
-    }
-    
-    //Loop para unir arrays cuando solo queden elementos en v2
-    while(!v2.empty()){
-        //Se coloca el elemento de v2 en el vector temporal
-        vTemp.push_back(v2[0]);
-        //Se elimina el elemento de v2
-        v2.erase(v2.begin());
-    }
-    
-    return vTemp;
-}
-
-//Quick Sort
-void ManejadorArreglos::quickSort(vector <int> v, int lo, int hi) {
-    
-}
-
-int  ManejadorArreglos::partition(vector <int> v, int lo, int hi) {
-    return -1;
-}
-
 ///<---- QuickSort y MergeSort usan arreglo de ------>
 //MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 //MergeSort
@@ -315,6 +219,10 @@ void ManejadorArreglos::sort(int a, int lo, int hi) {
     if(hi == lo) return;
     int mid = lo + (hi - lo) / 2;
     
+    sort(a, lo, mid);
+    sort(a, mid+1, hi);
+    
+    //merge(a, lo, mid, hi);
 }
 
 //Marge
@@ -322,15 +230,6 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
     // Merge a[lo..mid] con a[mid+1..hi]
     // copiar a[lo..hi] a aux[lo..hi]
     // Merge de regreso en a[lo..hi]
-}
-  
-//Quick Sort
-void ManejadorArreglos::quickSort(int lo, int hi) {
-    
-}
-
-int ManejadorArreglos::partition(int lo, int hi) {
-    return -1;
 }
 
 int main(int argc, const char * argv[]) {
