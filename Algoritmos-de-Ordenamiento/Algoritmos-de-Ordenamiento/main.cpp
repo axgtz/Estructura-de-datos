@@ -236,7 +236,7 @@ void ManejadorArreglos::sort(int a[], int lo, int hi) {
     merge(a, lo, mid, hi);
 }
 
-//Marge
+//Merge
 void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
     // Merge a[lo..mid] con a[mid+1..hi]
     // copiar a[lo..hi] a aux[lo..hi]
@@ -276,22 +276,17 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
     for(int i = lo; i < hi; i++){
         a[i] = vec[i];
     }
-
-    for(int h = 0 ; h< tam; h++){
-        cout << a[h];
-        if (h + 1 != tam)//If es para que no imprima el guión después del último número
-            cout << " - ";
-    }
-    cout << endl;
-
+    print();
 }
 
 int main(int argc, const char * argv[]) {
     int v[10] = {90,70,00,50,30,10,60,80,20,40};
     
-    ManejadorArreglos a;
+    ManejadorArreglos a(10);
 
     a.sort(v, 0,9);
+    cout << endl <<endl;
+    a.print();
     //Evitar que se cierre la consola en Visual studio
 	int x;
 	cin >> x;
