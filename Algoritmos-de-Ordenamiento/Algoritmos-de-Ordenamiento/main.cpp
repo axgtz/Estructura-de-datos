@@ -247,11 +247,11 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
     
     //Mientras las dos mitades contengan datos
     while(newLow <= mid && med <= hi){
-        if(a[newLow] < a[med]){//el menor se contiene en el arreglo de la izq
+        if(a[newLow] < a[med]){//el menor lo contiene en el arreglo de la izq
             vec[tam] = a[newLow];
             newLow++;
             tam++;
-        }else{//el menor se contiene en el arreglo de la derecha
+        }else{//el menor lo contiene en el arreglo de la derecha
             vec[tam] = a[med];
             med++;
             tam++;
@@ -280,11 +280,17 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
 }
 
 int main(int argc, const char * argv[]) {
-    int v[10] = {90,70,00,50,30,10,60,80,20,40};
     
-    ManejadorArreglos a(10);
+    int v1[10] = {90,80,70,60,50,40,30,20,10,00};/*
+    int v[11] = {100,90,70,00,50,30,10,60,80,20,40};
+    
+    ManejadorArreglos a(11);
 
-    a.sort(v, 0,9);
+    a.sort(v, 0,10);
+     */
+    ManejadorArreglos a("texto");
+    a.bubbleSort();
+    
     cout << endl <<endl;
     a.print();
     //Evitar que se cierre la consola en Visual studio
