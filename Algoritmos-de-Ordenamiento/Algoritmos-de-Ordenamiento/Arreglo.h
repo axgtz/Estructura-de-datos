@@ -230,14 +230,17 @@ void Arreglo::mergeSort(int lo, int hi) {
 
 //Merge
 void Arreglo::merge(int lo, int mid, int hi) {
+	//Se crean varaiables para evitar cambiar los parametros que sirven de referencia
+	//para evitar accesar partes del array que no existen
     int med = mid + 1;
     int newLow = lo;
     int tama = lo;
     
+	//Se crea arreglo temporal para evitar que el rendimiento del algoritmo baje
 	int *arrTemp;
-
 	arrTemp = new int[tam];
 
+	//Mientras las dos mitades contengan datos
     while(newLow <= mid && med <= hi){
         if(vec[newLow] < vec[med]){
 			arrTemp[tama] = vec[newLow];
@@ -250,20 +253,24 @@ void Arreglo::merge(int lo, int mid, int hi) {
         }
     }
 
+	//Mientras la primera mitad contenga datos, parte izquierda
     while(newLow <= mid){
 		arrTemp[tama] = vec[newLow];
         newLow++;
         tama++;
     }
 
+	//Mientras la segunda mitad contenga datos, parte derecha
     while( med <= hi){
 		arrTemp[tama] = vec[med];
         med++;
         tama++;
     }
 
+	//Se pasan los datos del arreglo temporal al de la clase
     for(int d = lo; d < tama; d++){
         vec[d] = arrTemp[d];
     }
+	//Se imprime despues de cada iteracion de la funcion merge
     print();
 }
