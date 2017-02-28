@@ -1,4 +1,3 @@
-//
 //  main.cpp
 //  Algoritmos de Ordenamiento
 //
@@ -47,8 +46,8 @@ public:
 	void bubbleSort();
 
     //Array Existente, el que esta en la clase
-    void sort(int a[], int lo, int hi);
-    void merge(int a[], int lo, int mid, int hi);
+    void mergeSort(int lo, int hi);
+    void merge(int lo, int mid, int hi);
     
 };
 
@@ -128,7 +127,7 @@ void ManejadorArreglos::print(){
 
 ///<--------Busquedas------->
 //Busqueda Secuencial
-int busquedaSecuencial(int a[], int n, int k) {
+int ManejadorArreglos::busquedaSecuencial(int a[], int n, int k) {
     int res = -1, i;
     for (i = 0;i<n;i++){
         if (k == a[i]) {
@@ -140,7 +139,7 @@ int busquedaSecuencial(int a[], int n, int k) {
 }
 
 //Busqueda Binaria
-int busquedaBinaria(int a[], int primero, int ultimo, int k) {
+int ManejadorArreglos::busquedaBinaria(int a[], int primero, int ultimo, int k) {
     if (ultimo < primero) {
         return -1;
     }
@@ -219,7 +218,7 @@ void ManejadorArreglos::bubbleSort() {//Los numeros más altos se van acomodando
 ///<---- QuickSort y MergeSort usan arreglo de ------>
 //MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 //MergeSort
-void ManejadorArreglos::sort(int a[], int lo, int hi) {
+void ManejadorArreglos::mergeSort(int lo, int hi) {
     /* ordenar a[lo..hi].
     if (hi <= lo) return;
     int mid = lo + (hi ‐ lo)/2;
@@ -230,51 +229,55 @@ void ManejadorArreglos::sort(int a[], int lo, int hi) {
     if(hi <= lo) return;
     int mid = lo + (hi - lo) / 2;
     
-    sort(a, lo, mid);
-    sort(a, mid+1, hi);
+	mergeSort(lo, mid);
+	mergeSort(mid+1, hi);
     
-    merge(a, lo, mid, hi);
+    merge(lo, mid, hi);
 }
 
 //Merge
-void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
+void ManejadorArreglos::merge(int lo, int mid, int hi) {
     // Merge a[lo..mid] con a[mid+1..hi]
     // copiar a[lo..hi] a aux[lo..hi]
     // Merge de regreso en a[lo..hi]
     int med = mid + 1;
     int newLow = lo;
-    int tam = lo;
+    int tama = lo;
     
+	int *arrTemp;
+
+	arrTemp = new int[tam];
+
     //Mientras las dos mitades contengan datos
     while(newLow <= mid && med <= hi){
-        if(a[newLow] < a[med]){//el menor lo contiene en el arreglo de la izq
-            vec[tam] = a[newLow];
+        if(vec[newLow] < vec[med]){//el menor lo contiene en el arreglo de la izq
+			arrTemp[tama] = vec[newLow];
             newLow++;
-            tam++;
+            tama++;
         }else{//el menor lo contiene en el arreglo de la derecha
-            vec[tam] = a[med];
+			arrTemp[tama] = vec[med];
             med++;
-            tam++;
+            tama++;
         }
     }
     
     //Mientras la primera mitad contenga datos
     while(newLow <= mid){
-        vec[tam] = a[newLow];
+		arrTemp[tama] = vec[newLow];
         newLow++;
-        tam++;
+        tama++;
     }
     
     //Mientras la segunda mitad contenga datos
     while( med <= hi){
-        vec[tam] = a[med];
+		arrTemp[tama] = vec[med];
         med++;
-        tam++;
+        tama++;
     }
     
     //Copiar lo que vec contiene de regreso a a[]
-    for(int d = lo; d < tam; d++){
-        a[d] = vec[d];
+    for(int d = lo; d < tama; d++){
+        vec[d] = arrTemp[d];
     }
     print();
 }
@@ -284,9 +287,9 @@ int main(int argc, const char * argv[]) {
     int v1[10] = {90,80,70,60,50,40,30,20,10,00};
     int v[11] = {100,90,70,00,50,30,10,60,80,20,40};
     
-    ManejadorArreglos a(11);
+    ManejadorArreglos a(v ,11);
 
-    a.sort(v, 0,10);
+    a.mergeSort(0,10);
     
     cout << endl <<endl;
     a.print();
