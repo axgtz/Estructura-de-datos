@@ -242,14 +242,14 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
     // copiar a[lo..hi] a aux[lo..hi]
     // Merge de regreso en a[lo..hi]
     int med = mid + 1;
-    int start = lo;
+    int newLow = lo;
     int tam = lo;
     
     //Mientras las dos mitades contengan datos
-    while(start <= mid && med <= hi){
-        if(a[start] < a[med]){//el menor se contiene en el arreglo de la izq
-            vec[tam] = a[start];
-            start++;
+    while(newLow <= mid && med <= hi){
+        if(a[newLow] < a[med]){//el menor se contiene en el arreglo de la izq
+            vec[tam] = a[newLow];
+            newLow++;
             tam++;
         }else{//el menor se contiene en el arreglo de la derecha
             vec[tam] = a[med];
@@ -259,9 +259,9 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
     }
     
     //Mientras la primera mitad contenga datos
-    while(start <= mid){
-        vec[tam] = a[start];
-        start++;
+    while(newLow <= mid){
+        vec[tam] = a[newLow];
+        newLow++;
         tam++;
     }
     
@@ -273,8 +273,8 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
     }
     
     //Copiar lo que vec contiene de regreso a a[]
-    for(int i = lo; i < hi; i++){
-        a[i] = vec[i];
+    for(int d = lo; d < tam; d++){
+        a[d] = vec[d];
     }
     print();
 }
