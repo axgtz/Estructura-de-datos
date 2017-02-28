@@ -13,20 +13,20 @@
 
 using namespace std;
 
-class ManejadorArreglos {
+class Arreglo {
     
 private:
     int tam;
     int *vec;
     
 public:
-	ManejadorArreglos();
+	Arreglo();
     
-    ManejadorArreglos(int tam);
+	Arreglo(int tam);
     
-    ManejadorArreglos(string nombreArchivo);
+	Arreglo(string nombreArchivo);
 
-    ManejadorArreglos(int *v, int tam);
+	Arreglo(int *v, int tam);
     
     void lecturaDatos(string nombreArchivo);
     
@@ -51,12 +51,12 @@ public:
     
 };
 
-ManejadorArreglos::ManejadorArreglos(){
+Arreglo::Arreglo(){
     tam = 0;
     vec = {0};
 }
 
-ManejadorArreglos::ManejadorArreglos(int tam){
+Arreglo::Arreglo(int tam){
     this->tam = tam;
     vec = new int[tam];
 }
@@ -64,20 +64,20 @@ ManejadorArreglos::ManejadorArreglos(int tam){
 
 
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
-ManejadorArreglos::ManejadorArreglos(string nombreArchivo) {
+Arreglo::Arreglo(string nombreArchivo) {
 	lecturaDatos(nombreArchivo);	//lectura de datos para subir el contenido del text file al vector de la clase
 }
 
 
 //CONSTRUCTOR que recibe un vector
 
-ManejadorArreglos::ManejadorArreglos(int* v, int tam) {
+Arreglo::Arreglo(int* v, int tam) {
 	this->tam = tam;
 	vec = v;
 }
 
 //LECTURA DE DATOS
-void ManejadorArreglos::lecturaDatos(string nombreArchivo) {
+void Arreglo::lecturaDatos(string nombreArchivo) {
 	ifstream archivo_entrada; //Declarar variable que se usa para acceder a las funciones de ifstream
 
 	string st = nombreArchivo + ".txt";
@@ -109,14 +109,14 @@ void ManejadorArreglos::lecturaDatos(string nombreArchivo) {
 }
 
 //SWAP
-void ManejadorArreglos::swap(int a,int b){
+void Arreglo::swap(int a,int b){
     int temporal = vec[b];
     vec[b] = vec[a];
     vec[a] = temporal;
 }
 
 //PRINT
-void ManejadorArreglos::print(){
+void Arreglo::print(){
     for(int i = 0 ; i < tam; i++){
         cout << vec[i];
 		if (i + 1 != tam)//If es para que no imprima el guión después del último número 
@@ -127,7 +127,7 @@ void ManejadorArreglos::print(){
 
 ///<--------Busquedas------->
 //Busqueda Secuencial
-int ManejadorArreglos::busquedaSecuencial(int a[], int n, int k) {
+int Arreglo::busquedaSecuencial(int a[], int n, int k) {
     int res = -1, i;
     for (i = 0;i<n;i++){
         if (k == a[i]) {
@@ -139,7 +139,7 @@ int ManejadorArreglos::busquedaSecuencial(int a[], int n, int k) {
 }
 
 //Busqueda Binaria
-int ManejadorArreglos::busquedaBinaria(int a[], int primero, int ultimo, int k) {
+int Arreglo::busquedaBinaria(int a[], int primero, int ultimo, int k) {
     if (ultimo < primero) {
         return -1;
     }
@@ -160,7 +160,7 @@ int ManejadorArreglos::busquedaBinaria(int a[], int primero, int ultimo, int k) 
 
 ///<--------Ordenamiento------->
 //Selection Sort
-void ManejadorArreglos::selectionSort(){//Busca el minnimo y los va ponindo al principio
+void Arreglo::selectionSort(){//Busca el minnimo y los va ponindo al principio
     int posMenor;
     print();
     for(int i = 0; i < tam;i++){
@@ -177,7 +177,7 @@ void ManejadorArreglos::selectionSort(){//Busca el minnimo y los va ponindo al p
 }
 
 //Insertion Sort
-void ManejadorArreglos::insertionSort() {
+void Arreglo::insertionSort() {
 	int j;
 	for (int i = 1; i < tam; i++) {
 		j = i;
@@ -192,7 +192,7 @@ void ManejadorArreglos::insertionSort() {
 }
 
 //Bubble Sort
-void ManejadorArreglos::bubbleSort() {//Los numeros más altos se van acomodando hasta arriba, se van comparando para encontrar al max
+void Arreglo::bubbleSort() {//Los numeros más altos se van acomodando hasta arriba, se van comparando para encontrar al max
 	bool bandera;//Indica si hubo un cambio
 	int subArray = tam-1;
 	do {
@@ -218,7 +218,7 @@ void ManejadorArreglos::bubbleSort() {//Los numeros más altos se van acomodando
 ///<---- QuickSort y MergeSort usan arreglo de ------>
 //MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 //MergeSort
-void ManejadorArreglos::mergeSort(int lo, int hi) {
+void Arreglo::mergeSort(int lo, int hi) {
     if(hi <= lo) return;
     int mid = lo + (hi - lo) / 2;
     
@@ -229,7 +229,7 @@ void ManejadorArreglos::mergeSort(int lo, int hi) {
 }
 
 //Merge
-void ManejadorArreglos::merge(int lo, int mid, int hi) {
+void Arreglo::merge(int lo, int mid, int hi) {
     int med = mid + 1;
     int newLow = lo;
     int tama = lo;
@@ -266,22 +266,4 @@ void ManejadorArreglos::merge(int lo, int mid, int hi) {
         vec[d] = arrTemp[d];
     }
     print();
-}
-
-int main(int argc, const char * argv[]) {
-    
-    int v1[10] = {90,80,70,60,50,40,30,20,10,00};
-    int v[11] = {100,90,70,00,50,30,10,60,80,20,40};
-    
-    ManejadorArreglos a(v ,11);
-
-    a.mergeSort(0,10);
-    
-    cout << endl <<endl;
-    a.print();
-    //Evitar que se cierre la consola en Visual studio
-	int x;
-	cin >> x;
-	//Evitar que se cierre la consola en mac
-    return 0;
 }

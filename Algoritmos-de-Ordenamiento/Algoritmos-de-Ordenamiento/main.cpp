@@ -8,16 +8,13 @@
 
 int main(int argc, const char * argv[]) {
     
-    int v1[10] = {90,80,70,60,50,40,30,20,10,00};
-    int v[11] = {100,90,70,00,50,30,10,60,80,20,40};
-    
-    ManejadorArreglos a(v ,11);
+	Arreglo a("texto");
 
-    a.mergeSort(0,10);
+    a.mergeSort(0,9);
     
     cout << endl <<endl;
     a.print();
-    //Evitar que se cierre la consola en Visual studio
+    //Evitar que se cierre la conpsola en Visual studio
 	int x;
 	cin >> x;
 	//Evitar que se cierre la consola en mac
