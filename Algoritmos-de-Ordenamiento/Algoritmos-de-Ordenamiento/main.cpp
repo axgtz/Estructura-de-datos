@@ -7,7 +7,6 @@
 //
 
 #include <iostream>
-#include <vector>
 
 //Librerias de lectura de datos
 #include <fstream>
@@ -19,14 +18,16 @@ class ManejadorArreglos {
     
 private:
     int tam;
-    vector <int> vec;
+    int *vec;
     
 public:
 	ManejadorArreglos();
     
+    ManejadorArreglos(int tam);
+    
     ManejadorArreglos(string nombreArchivo);
 
-    ManejadorArreglos(vector <int> v, int tam);
+    ManejadorArreglos(int *v, int tam);
     
     void lecturaDatos(string nombreArchivo);
     
@@ -46,15 +47,22 @@ public:
 	void bubbleSort();
 
     //Array Existente, el que esta en la clase
-    void sort(int a, int lo, int hi);
+    void sort(int a[], int lo, int hi);
     void merge(int a[], int lo, int mid, int hi);
     
 };
 
 ManejadorArreglos::ManejadorArreglos(){
     tam = 0;
-    vec[0] = { -1 };
+    vec = {0};
 }
+
+ManejadorArreglos::ManejadorArreglos(int tam){
+    this->tam = tam;
+    vec = new int[tam];
+}
+
+
 
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
 ManejadorArreglos::ManejadorArreglos(string nombreArchivo) {
@@ -64,7 +72,7 @@ ManejadorArreglos::ManejadorArreglos(string nombreArchivo) {
 
 //CONSTRUCTOR que recibe un vector
 
-ManejadorArreglos::ManejadorArreglos(vector <int> v, int tam) {
+ManejadorArreglos::ManejadorArreglos(int* v, int tam) {
 	this->tam = tam;
 	vec = v;
 }
@@ -89,10 +97,13 @@ void ManejadorArreglos::lecturaDatos(string nombreArchivo) {
 
 	//Se guarda el numero de numeros que va a contener el arreglo en el atributo de la clase entera "tam"
 	tam = stoi(linea);
+    
+    vec = new int[tam];
 
-	while (!archivo_entrada.eof()) {
+
+    for (int i = 0;i<tam;i++) {
 		archivo_entrada.getline(linea, sizeof(linea));
-		vec.push_back(stoi(linea));
+		vec[i] = stoi(linea);
 	}
 
 	archivo_entrada.close();
@@ -208,7 +219,7 @@ void ManejadorArreglos::bubbleSort() {//Los numeros más altos se van acomodando
 ///<---- QuickSort y MergeSort usan arreglo de ------>
 //MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 //MergeSort
-void ManejadorArreglos::sort(int a, int lo, int hi) {
+void ManejadorArreglos::sort(int a[], int lo, int hi) {
     /* ordenar a[lo..hi].
     if (hi <= lo) return;
     int mid = lo + (hi ‐ lo)/2;
@@ -216,13 +227,13 @@ void ManejadorArreglos::sort(int a, int lo, int hi) {
     sort(a, mid+1, hi); // ordenar mitad derecha
     merge(a, lo, mid, hi); // Merge las dos mitades
      */
-    if(hi == lo) return;
+    if(hi <= lo) return;
     int mid = lo + (hi - lo) / 2;
     
     sort(a, lo, mid);
     sort(a, mid+1, hi);
     
-    //merge(a, lo, mid, hi);
+    merge(a, lo, mid, hi);
 }
 
 //Marge
@@ -230,16 +241,58 @@ void ManejadorArreglos::merge(int a[], int lo, int mid, int hi) {
     // Merge a[lo..mid] con a[mid+1..hi]
     // copiar a[lo..hi] a aux[lo..hi]
     // Merge de regreso en a[lo..hi]
+    int med = mid + 1;
+    int start = lo;
+    int tam = lo;
+    
+    //Mientras las dos mitades contengan datos
+    while(start <= mid && med <= hi){
+        if(a[start] < a[med]){//el menor se contiene en el arreglo de la izq
+            vec[tam] = a[start];
+            start++;
+            tam++;
+        }else{//el menor se contiene en el arreglo de la derecha
+            vec[tam] = a[med];
+            med++;
+            tam++;
+        }
+    }
+    
+    //Mientras la primera mitad contenga datos
+    while(start <= mid){
+        vec[tam] = a[start];
+        start++;
+        tam++;
+    }
+    
+    //Mientras la segunda mitad contenga datos
+    while( med <= hi){
+        vec[tam] = a[med];
+        med++;
+        tam++;
+    }
+    
+    //Copiar lo que vec contiene de regreso a a[]
+    for(int i = lo; i < hi; i++){
+        a[i] = vec[i];
+    }
+
+    for(int h = 0 ; h< tam; h++){
+        cout << a[h];
+        if (h + 1 != tam)//If es para que no imprima el guión después del último número
+            cout << " - ";
+    }
+    cout << endl;
+
 }
 
 int main(int argc, const char * argv[]) {
-    vector<int> v = {90,70,00,50,30,10,60,80,20,40};
+    int v[10] = {90,70,00,50,30,10,60,80,20,40};
     
-    ManejadorArreglos *a = new  ManejadorArreglos();
+    ManejadorArreglos a;
 
-    //a->mergeSort(v, 10);
-
-	//Evitar que se cierre la consola en Visual studio
+    a.sort(v, 0,9);
+    //Evitar que se cierre la consola en Visual studio
 	int x;
 	cin >> x;
 	//Evitar que se cierre la consola en mac
