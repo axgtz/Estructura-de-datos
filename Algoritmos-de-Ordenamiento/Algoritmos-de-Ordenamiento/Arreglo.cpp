@@ -278,7 +278,7 @@ void Arreglo::merge(int lo, int mid, int hi) {
     print();
 }
 
-void  Arreglo::quickSort(int lo, int hi) {
+void  Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no particion
 	// j = pivote
 }
 
