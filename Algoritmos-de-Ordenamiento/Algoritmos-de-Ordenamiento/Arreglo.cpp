@@ -45,36 +45,39 @@ public:
 
 	void bubbleSort();
 
-    //Array Existente, el que esta en la clase
+
     void mergeSort(int lo, int hi);
     void merge(int lo, int mid, int hi);
+
+	void quickSort(int lo, int hi);
+	int particion(int lo, int hi);//Regresa el indice donde quedo el pivote
     
 };
 
+///<---------CONSTRUCTOR----------> 
+//CONSTRUCTOR 
 Arreglo::Arreglo(){
     tam = 0;
     vec = {0};
 }
 
+//CONSTRUCTOR 
 Arreglo::Arreglo(int tam){
     this->tam = tam;
     vec = new int[tam];
 }
-
-
 
 //CONSTRUCTOR que hace lectura de datos, pero solo puede guardar int
 Arreglo::Arreglo(string nombreArchivo) {
 	lecturaDatos(nombreArchivo);	//lectura de datos para subir el contenido del text file al vector de la clase
 }
 
-
 //CONSTRUCTOR que recibe un vector
-
 Arreglo::Arreglo(int* v, int tam) {
 	this->tam = tam;
 	vec = v;
 }
+
 
 //LECTURA DE DATOS
 void Arreglo::lecturaDatos(string nombreArchivo) {
@@ -273,4 +276,27 @@ void Arreglo::merge(int lo, int mid, int hi) {
     }
 	//Se imprime despues de cada iteracion de la funcion merge
     print();
+}
+
+void  Arreglo::quickSort(int lo, int hi) {
+	// j = pivote
+}
+
+int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
+
+}
+
+int main(int argc, const char * argv[]) {
+
+	Arreglo a("texto");
+
+	a.mergeSort(0, 9);
+
+	cout << endl << endl;
+	a.print();
+	//Evitar que se cierre la conpsola en Visual studio
+	int x;
+	cin >> x;
+	//Evitar que se cierre la consola en mac
+	return 0;
 }
