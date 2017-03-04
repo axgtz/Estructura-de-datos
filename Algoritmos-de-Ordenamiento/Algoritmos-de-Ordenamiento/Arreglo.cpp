@@ -55,7 +55,7 @@ public:
     
 };
 
-///<---------CONSTRUCTOR----------> 
+///<------------------------CONSTRUCTOR------------------------->
 //CONSTRUCTOR 
 Arreglo::Arreglo(){
     tam = 0;
@@ -79,7 +79,7 @@ Arreglo::Arreglo(int* v, int tam) {
 	vec = v;
 }
 
-
+///<------------------------METODOS AUXILIARES------------------------->
 //LECTURA DE DATOS
 void Arreglo::lecturaDatos(string nombreArchivo) {
 	ifstream archivo_entrada; //Declarar variable que se usa para acceder a las funciones de ifstream
@@ -101,7 +101,6 @@ void Arreglo::lecturaDatos(string nombreArchivo) {
 	archivo_entrada.getline(linea, sizeof(linea));
 
 	//Se guarda el numero de numeros que va a contener el arreglo en el atributo de la clase entera "tam"
-
     if ( !(istringstream(linea) >> tam) ){
         tam = 0;
         cout << "Error al leer el tamaño del arreglo en el archivo de texto" << endl;
@@ -136,7 +135,7 @@ void Arreglo::print(){
     cout << endl;
 }
 
-///<--------Busquedas------->
+///<-----------------------BUSQUEDAS---------------------->
 //Busqueda Secuencial
 int Arreglo::busquedaSecuencial(int a[], int n, int k) {
     int res = -1, i;
@@ -169,8 +168,8 @@ int Arreglo::busquedaBinaria(int a[], int primero, int ultimo, int k) {
 }
 
 
-///<--------Ordenamiento------->
-//Selection Sort
+///<----------------------------------ORDENAMIENTO-------------------------------->
+//---------------Selection Sort---------------
 void Arreglo::selectionSort(){//Busca el minnimo y los va ponindo al principio
     int posMenor;
     print();
@@ -187,7 +186,7 @@ void Arreglo::selectionSort(){//Busca el minnimo y los va ponindo al principio
     
 }
 
-//Insertion Sort
+//---------------Insertion Sort---------------
 void Arreglo::insertionSort() {
 	int j;
 	for (int i = 1; i < tam; i++) {
@@ -202,7 +201,7 @@ void Arreglo::insertionSort() {
 	}
 }
 
-//Bubble Sort
+//---------------Bubble Sort---------------
 void Arreglo::bubbleSort() {//Los numeros más altos se van acomodando hasta arriba, se van comparando para encontrar al max
 	bool bandera;//Indica si hubo un cambio
 	int subArray = tam-1;
@@ -226,8 +225,8 @@ void Arreglo::bubbleSort() {//Los numeros más altos se van acomodando hasta arr
 	bandera = true;
 }
 
-///<---- QuickSort y MergeSort usan arreglo de ------>
-//MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
+//---------------MergeSort---------------
+//el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
 void Arreglo::mergeSort(int lo, int hi) {
     if(hi <= lo) return;
     int mid = lo + (hi - lo) / 2;
@@ -285,6 +284,7 @@ void Arreglo::merge(int lo, int mid, int hi) {
     print();
 }
 
+//---------------QuickSort----------------
 void  Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no particion
     int p; 	//pivote
     if(hi > lo){
