@@ -91,6 +91,7 @@ void Arreglo::lecturaDatos(string nombreArchivo) {
 	if (archivo_entrada.fail()) {
 		cout << "Error al abrir el archivo" << endl;
 		vec[0] = { -1 };
+        return;
 	}
 	
 	char linea[128];
@@ -100,6 +101,12 @@ void Arreglo::lecturaDatos(string nombreArchivo) {
 
 	//Se guarda el numero de numeros que va a contener el arreglo en el atributo de la clase entera "tam"
 	tam = stoi(linea);
+    /*
+    if ( !(istringstream(linea) >> tam) ){
+        tam = 0;
+        cout << "Error al leer el tamaño del arreglo en el archivo de texto" << endl;
+    }
+    */
     
     vec = new int[tam];
 
@@ -307,13 +314,14 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
 }
 
 int main(int argc, const char * argv[]) {
-    int arr[3] = {2,1,0};
-	//Arreglo a(arr, 3);
+    //int ar[3] = {2,1,0};
+	//Arreglo a(ar, 3);
     Arreglo a("texto");
 
 
-	cout << a.medianOfThree(0, 1, 2) << endl;
-	a.print();
+	cout << a.medianOfThree(0, 0 + (9 - 0)/2, 9) << endl;
+    
+	//a.print();
 	//Evitar que se cierre la conpsola en Visual studio
 	int x;
 	cin >> x;
