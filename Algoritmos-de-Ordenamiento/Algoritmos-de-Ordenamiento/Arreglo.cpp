@@ -7,6 +7,13 @@
 
 #include <iostream>
 
+//Floor
+#include <math.h>
+//Time
+#include <ctime>
+//Seed random, random
+#include <cstdlib>
+
 //Librerias de lectura de datos
 #include <fstream>
 #include <sstream>
@@ -32,6 +39,8 @@ public:
     
     void swap(int a,int b);
     
+    void shuffle();
+    
     void print();
     
     //Metodos de Busqueda
@@ -49,8 +58,9 @@ public:
     void mergeSort(int lo, int hi);
     void merge(int lo, int mid, int hi);
 
+    void preQuickSort(int lo, int hi);
 	void quickSort(int lo, int hi);
-	int particion(int lo, int hi);//Regresa el indice donde quedo el pivote
+	int particion(int lo, int hi);
     int medianOfThree(int lo, int mid, int hi);
     
 };
@@ -123,6 +133,17 @@ void Arreglo::swap(int a,int b){
     int temporal = vec[b];
     vec[b] = vec[a];
     vec[a] = temporal;
+}
+
+//SHUFFLE
+void Arreglo::shuffle(){        //Version mejorada del Durstenfeld el cual es una version
+    //Iniciar seed              //mejorada del Fisher-Yates algorithm con complejidad O(n)
+    srand ( unsigned ( time(0) ) );
+    
+    for (int i = tam - 1; i > 0; i--) {
+        int index = floor(rand()%i);
+        swap(i, index);
+    }
 }
 
 //PRINT
@@ -285,7 +306,13 @@ void Arreglo::merge(int lo, int mid, int hi) {
 }
 
 //---------------QuickSort----------------
-void  Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no particion
+
+void Arreglo::preQuickSort(int lo, int hi){//Revuelve los elementos antes de llamar a quickSort, por eficiencia
+    shuffle();
+    quickSort(lo, hi);
+}
+
+void Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no particion
     int p; 	//pivote
     if(hi > lo){
         p = particion(lo, hi);  //Pone el pivote en donde debe de estar en el arreglo y todos
@@ -298,11 +325,12 @@ void  Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no
 
 int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
    //Arregla los subarreglos tomando en cuenta el puvote
-    int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo
-                                                                //para encontrar el pivote, incrementa la eficiencia
+    int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para
+                                                                //encontrar el pivote, ya que incrementa la eficiencia
     
     return 0;
 }
+
 //No solo encuentra el valor de en medio también los ordena, y recibe como parametros los indices
 int Arreglo::medianOfThree(int lo, int mid, int hi){
     if(vec[lo] > vec[hi]) swap(lo, hi);
@@ -313,14 +341,17 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
     return mid;
 }
 
+
+
 int main(int argc, const char * argv[]) {
     //int ar[3] = {2,1,0};
 	//Arreglo a(ar, 3);
     Arreglo a("texto");
-
-	a.print();
     
-	cout << a.medianOfThree(0, 0 + (9 - 0)/2, 9) << endl;
+    
+	a.print();
+    a.shuffle();
+	//cout << a.medianOfThree(0, 0 + (9 - 0)/2, 9) << endl;
     
 	a.print();
 	
