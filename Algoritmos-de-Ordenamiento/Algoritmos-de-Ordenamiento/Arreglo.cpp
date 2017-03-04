@@ -136,8 +136,8 @@ void Arreglo::swap(int a,int b){
 }
 
 //SHUFFLE
-void Arreglo::shuffle(){        //Version mejorada del Durstenfeld el cual es una version
-    //Iniciar seed              //mejorada del Fisher-Yates algorithm con complejidad O(n)
+void Arreglo::shuffle(){        //Version mejorada del Durstenfeld el cual es una version mejorada del
+    //Iniciar seed              //Fisher-Yates algorithm con complejidad O(n), en comparación con O(n^2)
     srand ( unsigned ( time(0) ) );
     
     for (int i = tam - 1; i > 0; i--) {
