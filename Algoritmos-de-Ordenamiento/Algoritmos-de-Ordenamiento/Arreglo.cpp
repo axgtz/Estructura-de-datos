@@ -310,6 +310,7 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
     if(vec[mid] < vec[lo]) swap(lo, mid);
     if(vec[mid] > vec[hi]) swap(mid, hi);
     
+	cout << vec[mid] << endl;
     return mid;
 }
 
@@ -318,13 +319,12 @@ int main(int argc, const char * argv[]) {
 	//Arreglo a(ar, 3);
     Arreglo a("texto");
 
-
+	a.print();
 	cout << a.medianOfThree(0, 0 + (9 - 0)/2, 9) << endl;
     
-	//a.print();
-	//Evitar que se cierre la conpsola en Visual studio
-	int x;
+	a.print();
+	
+	int x;//Evitar que se cierre la conpsola en Visual studio
 	cin >> x;
-	//Evitar que se cierre la consola en mac
-	return 0;
+	return 0;//Evitar que se cierre la consola en mac
 }
