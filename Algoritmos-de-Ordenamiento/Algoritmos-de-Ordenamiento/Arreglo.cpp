@@ -101,13 +101,12 @@ void Arreglo::lecturaDatos(string nombreArchivo) {
 	archivo_entrada.getline(linea, sizeof(linea));
 
 	//Se guarda el numero de numeros que va a contener el arreglo en el atributo de la clase entera "tam"
-	tam = stoi(linea);
-    /*
+
     if ( !(istringstream(linea) >> tam) ){
         tam = 0;
         cout << "Error al leer el tamaño del arreglo en el archivo de texto" << endl;
     }
-    */
+
     
     vec = new int[tam];
 
