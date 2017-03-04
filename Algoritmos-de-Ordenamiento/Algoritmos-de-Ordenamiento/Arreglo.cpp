@@ -51,6 +51,7 @@ public:
 
 	void quickSort(int lo, int hi);
 	int particion(int lo, int hi);//Regresa el indice donde quedo el pivote
+    int medianOfThree(int lo, int mid, int hi);
     
 };
 
@@ -220,7 +221,6 @@ void Arreglo::bubbleSort() {//Los numeros más altos se van acomodando hasta arr
 
 ///<---- QuickSort y MergeSort usan arreglo de ------>
 //MergeSort    el problema de que merge sort use el mismo arreglo es que pierde la eficiencia y se vuelve O (n^2)
-//MergeSort
 void Arreglo::mergeSort(int lo, int hi) {
     if(hi <= lo) return;
     int mid = lo + (hi - lo) / 2;
@@ -279,20 +279,40 @@ void Arreglo::merge(int lo, int mid, int hi) {
 }
 
 void  Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no particion
-	// j = pivote
+    int p; 	//pivote
+    if(hi > lo){
+        p = particion(lo, hi);  //Pone el pivote en donde debe de estar en el arreglo y todos
+                                //los nums menor al pivote estan antes y los mayores después
+        //Lamar de forma recursiva a quicksort, no se incluye el pivote porque ya esta acomodado
+        quickSort(lo, p - 1);
+        quickSort(p + 1, hi);
+    }
 }
 
 int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
-
+   //Arregla los subarreglos tomando en cuenta el puvote
+    int pivote;
+    pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para //---------cambiar desp de pruebas
+                                                            //encontrar el pivote, incrementa la eficiencia
+    
+    return 0;
+}
+//No solo encuentra el valor de en medio también los ordena, y recibe como parametros los indices
+int Arreglo::medianOfThree(int lo, int mid, int hi){
+    if(vec[lo] > vec[hi]) swap(lo, hi);
+    if(vec[mid] < vec[lo]) swap(lo, mid);
+    if(vec[mid] > vec[hi]) swap(mid, hi);
+    
+    return mid;
 }
 
 int main(int argc, const char * argv[]) {
+    int arr[3] = {2,1,0};
+	//Arreglo a(arr, 3);
+    Arreglo a("texto");
 
-	Arreglo a("texto");
 
-	a.mergeSort(0, 9);
-
-	cout << endl << endl;
+	cout << a.medianOfThree(0, 1, 2) << endl;
 	a.print();
 	//Evitar que se cierre la conpsola en Visual studio
 	int x;
