@@ -91,6 +91,7 @@ void Arreglo::lecturaDatos(string nombreArchivo) {
 	if (archivo_entrada.fail()) {
 		cout << "Error al abrir el archivo" << endl;
 		vec[0] = { -1 };
+        tam = 1;
         return;
 	}
 	
@@ -298,9 +299,8 @@ void  Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no
 
 int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
    //Arregla los subarreglos tomando en cuenta el puvote
-    int pivote;
-    pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para //---------cambiar desp de pruebas
-                                                            //encontrar el pivote, incrementa la eficiencia
+    int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo
+                                                                //para encontrar el pivote, incrementa la eficiencia
     
     return 0;
 }
@@ -320,6 +320,7 @@ int main(int argc, const char * argv[]) {
     Arreglo a("texto");
 
 	a.print();
+    
 	cout << a.medianOfThree(0, 0 + (9 - 0)/2, 9) << endl;
     
 	a.print();
