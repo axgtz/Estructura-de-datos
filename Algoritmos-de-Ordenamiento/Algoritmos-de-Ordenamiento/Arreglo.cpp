@@ -328,7 +328,7 @@ int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivo
    //Arregla los subarreglos tomando en cuenta el pivote
     int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para encontrar el pivote
     
-    if((hi - lo) >= 3){
+    if((hi - lo) > 3){
         while(lo <= hi){
             if(pivote > vec[lo]){
                 lo++;
