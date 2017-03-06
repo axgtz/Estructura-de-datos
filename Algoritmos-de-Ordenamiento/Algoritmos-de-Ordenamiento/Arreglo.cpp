@@ -323,14 +323,18 @@ void Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no 
     }
 }
 
+//Particion
 int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
    //Arregla los subarreglos tomando en cuenta el puvote
     int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para
-                                                                //encontrar el pivote, ya que incrementa la eficiencia
-    
+    int i;                                                      //encontrar el pivote, ya que incrementa la eficiencia
+    while(lo + 1<=hi){
+        
+    }
     return 0;
 }
 
+//Media of three
 //No solo encuentra el valor de en medio también los ordena, y recibe como parametros los indices
 int Arreglo::medianOfThree(int lo, int mid, int hi){
     if(vec[lo] > vec[hi]) swap(lo, hi);
