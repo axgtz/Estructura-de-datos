@@ -325,12 +325,21 @@ void Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no 
 
 //Particion
 int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
-   //Arregla los subarreglos tomando en cuenta el puvote
-    int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para
-    int i;                                                      //encontrar el pivote, ya que incrementa la eficiencia
-    while(lo + 1<=hi){
-        
+   //Arregla los subarreglos tomando en cuenta el pivote
+    int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para encontrar el pivote
+    
+    while(lo <= hi){
+        if(pivote > vec[lo]){
+            lo++;
+        }else if(pivote < vec[hi]){
+            hi--;
+        }else if(lo < hi){
+            swap(lo,hi);
+        }else{
+            return hi;
+        }
     }
+    
     return 0;
 }
 
@@ -340,8 +349,6 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
     if(vec[lo] > vec[hi]) swap(lo, hi);
     if(vec[mid] < vec[lo]) swap(lo, mid);
     if(vec[mid] > vec[hi]) swap(mid, hi);
-    
-	cout << vec[mid] << endl;
     return mid;
 }
 
@@ -354,9 +361,7 @@ int main(int argc, const char * argv[]) {
     
     
 	a.print();
-    a.shuffle();
-	//cout << a.medianOfThree(0, 0 + (9 - 0)/2, 9) << endl;
-    
+    a.preQuickSort(0, 7);
 	a.print();
 	
 	int x;//Evitar que se cierre la conpsola en Visual studio
