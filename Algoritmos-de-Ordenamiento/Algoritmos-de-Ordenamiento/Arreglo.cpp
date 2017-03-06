@@ -309,6 +309,7 @@ void Arreglo::merge(int lo, int mid, int hi) {
 
 void Arreglo::preQuickSort(int lo, int hi){//Revuelve los elementos antes de llamar a quickSort, por eficiencia
     shuffle();
+    print();
     quickSort(lo, hi);
 }
 
