@@ -328,19 +328,20 @@ int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivo
    //Arregla los subarreglos tomando en cuenta el pivote
     int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para encontrar el pivote
     
-    while(lo <= hi){
-        if(pivote > vec[lo]){
-            lo++;
-        }else if(pivote < vec[hi]){
-            hi--;
-        }else if(lo < hi){
-            swap(lo,hi);
-        }else{
-            return hi;
+    if((hi - lo) >= 3){
+        while(lo <= hi){
+            if(pivote > vec[lo]){
+                lo++;
+            }else if(pivote < vec[hi]){
+                hi--;
+            }else if(lo < hi){
+                swap(lo,hi);
+            }else{
+                return hi;
+            }
         }
     }
-    
-    return 0;
+    return hi;
 }
 
 //Media of three
@@ -355,15 +356,16 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
 
 
 int main(int argc, const char * argv[]) {
-    //int ar[3] = {2,1,0};
-	//Arreglo a(ar, 3);
-    Arreglo a("texto");
+    int ar[21] = {20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
+    Arreglo a(ar,21);
     
-    
+
 	a.print();
-    a.preQuickSort(0, 7);
+    cout << endl << endl;
+    a.preQuickSort(0, 21);
 	a.print();
 	
+    
 	int x;//Evitar que se cierre la conpsola en Visual studio
 	cin >> x;
 	return 0;//Evitar que se cierre la consola en mac
