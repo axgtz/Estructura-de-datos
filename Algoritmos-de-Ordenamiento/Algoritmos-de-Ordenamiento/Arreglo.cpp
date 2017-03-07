@@ -312,7 +312,6 @@ void Arreglo::merge(int lo, int mid, int hi) {
 //Acepta repetidos pero es menos eficiente
 void Arreglo::preQuickSort(int lo, int hi){//Revuelve los elementos antes de llamar a quickSort, por eficiencia
     shuffle();
-    print();
     quickSort(lo, hi);
 }
 
@@ -407,11 +406,11 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
 
 int main(int argc, const char * argv[]) {
     int ar[21] = {19,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
-    Arreglo a(ar,21);
+    Arreglo a("texto");
     
 	a.print();
     cout << endl << endl;
-    a.preQuickSort2(0, 20);
+    a.preQuickSort(0, 9);
 	a.print();
 	
     
