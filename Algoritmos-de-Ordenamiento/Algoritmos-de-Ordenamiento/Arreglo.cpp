@@ -328,23 +328,20 @@ void Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no 
 int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
    //Arregla los subarreglos tomando en cuenta el pivote
     int pivote = vec[lo];
-    int iP = lo;
+    //int ini = lo;            //Posicion del pivote
     
-    if((hi - lo) > 3){
-        while(lo <= hi){
-            if(pivote > vec[lo]){
-                lo++;
-            }else if(pivote < vec[hi]){
-                hi--;
-            }else if(lo < hi){
-                swap(lo,hi);
-            }else{
-                return hi;
-            }
+    while(lo < hi){
+        while(pivote > vec[lo]){
+            lo++;
+        }
+        while(pivote < vec[hi]){
+            hi--;
+        }
+        if(lo < hi){
+            swap(lo,hi);
         }
     }
-    swap(iP,hi);
-    return 0;
+    return hi;
 }
 
 //Media of three
