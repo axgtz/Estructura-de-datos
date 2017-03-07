@@ -213,7 +213,6 @@ void Arreglo::insertionSort() {
 	for (int i = 1; i < tam; i++) {
 		j = i;
 		while (j>0 && vec[j-1] > vec[j]) {
-			cout << "while" << endl;
 			swap(j, j-1);
 			print();
 			j--;
@@ -319,7 +318,7 @@ void Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no 
         p = particion(lo, hi);  //Pone el pivote en donde debe de estar en el arreglo y todos
                                 //los nums menor al pivote estan antes y los mayores después
         //Lamar de forma recursiva a quicksort, no se incluye el pivote porque ya esta acomodado
-        quickSort(lo, p - 1);
+        quickSort(lo, p);
         quickSort(p + 1, hi);
     }
 }
@@ -327,21 +326,25 @@ void Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no 
 //Particion
 int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
    //Arregla los subarreglos tomando en cuenta el pivote
-    int pivote = vec[lo];
-    //int ini = lo;            //Posicion del pivote
-    
-    while(lo < hi){
-        while(pivote > vec[lo]){
-            lo++;
-        }
-        while(pivote < vec[hi]){
-            hi--;
-        }
-        if(lo < hi){
-            swap(lo,hi);
-        }
-    }
-    return hi;
+	int pivote = vec[lo];
+	lo--;
+	hi++;
+
+	while (true) {
+		 do{
+			lo++;
+		}while (pivote > vec[lo]);
+		do {
+			hi--;
+		} while (pivote < vec[hi]);
+
+		if (lo >= hi) {
+			return hi;
+		}
+		else {
+			swap(lo, hi);
+		}
+	}
 }
 
 //Media of three
@@ -356,13 +359,12 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
 
 
 int main(int argc, const char * argv[]) {
-    int ar[21] = {20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
+    int ar[21] = {19,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
     Arreglo a(ar,21);
     
-
 	a.print();
     cout << endl << endl;
-    a.preQuickSort(0, 21);
+    a.preQuickSort(0, 20);
 	a.print();
 	
     
