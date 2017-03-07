@@ -61,6 +61,10 @@ public:
     void preQuickSort(int lo, int hi);
 	void quickSort(int lo, int hi);
 	int particion(int lo, int hi);
+
+	void preQuickSort2(int lo, int hi);
+	void quickSort2(int lo, int hi);
+	int particion2(int lo, int hi);
     int medianOfThree(int lo, int mid, int hi);
     
 };
@@ -213,7 +217,6 @@ void Arreglo::insertionSort() {
 	for (int i = 1; i < tam; i++) {
 		j = i;
 		while (j>0 && vec[j-1] > vec[j]) {
-			cout << "while" << endl;
 			swap(j, j-1);
 			print();
 			j--;
@@ -305,8 +308,8 @@ void Arreglo::merge(int lo, int mid, int hi) {
     print();
 }
 
-//---------------QuickSort----------------
-
+//---------------QuickSort---------------- 
+//Acepta repetidos pero es menos eficiente
 void Arreglo::preQuickSort(int lo, int hi){//Revuelve los elementos antes de llamar a quickSort, por eficiencia
     shuffle();
     print();
@@ -319,7 +322,7 @@ void Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no 
         p = particion(lo, hi);  //Pone el pivote en donde debe de estar en el arreglo y todos
                                 //los nums menor al pivote estan antes y los mayores después
         //Lamar de forma recursiva a quicksort, no se incluye el pivote porque ya esta acomodado
-        quickSort(lo, p - 1);
+        quickSort(lo, p);
         quickSort(p + 1, hi);
     }
 }
@@ -327,22 +330,68 @@ void Arreglo::quickSort(int lo, int hi) {//La Api solo especifica quickSort, no 
 //Particion
 int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivote	
    //Arregla los subarreglos tomando en cuenta el pivote
-    int pivote = vec[medianOfThree(lo, lo + (hi - lo)/2 , hi)]; //Sedgewick recomienda usar este metodo para encontrar el pivote
-    
-    if((hi - lo) > 3){
-        while(lo <= hi){
-            if(pivote > vec[lo]){
-                lo++;
-            }else if(pivote < vec[hi]){
-                hi--;
-            }else if(lo < hi){
-                swap(lo,hi);
-            }else{
-                return hi;
-            }
-        }
-    }
-    return hi;
+	int pivote = vec[lo];
+	lo--;
+	hi++;
+
+	while (true) {
+		 do{
+			lo++;
+		}while (pivote > vec[lo]);
+		do {
+			hi--;
+		} while (pivote < vec[hi]);
+
+		if (lo >= hi) {
+			return hi;
+		}
+		else {
+			swap(lo, hi);
+		}
+	}
+}
+
+
+//---------------QuickSort 2---------------- 
+//No acepta repetidos, pero es más eficiente 
+void Arreglo::preQuickSort2(int lo, int hi) {//Revuelve los elementos antes de llamar a quickSort, por eficiencia
+	shuffle();
+	quickSort2(lo, hi);
+}
+
+void Arreglo::quickSort2(int lo, int hi) {//La Api solo especifica quickSort, no particion
+	int p; 	//pivote
+	if (hi > lo) {
+		p = particion2(lo, hi);  //Pone el pivote en donde debe de estar en el arreglo y todos
+								//los nums menor al pivote estan antes y los mayores después
+								//Lamar de forma recursiva a quicksort, no se incluye el pivote porque ya esta acomodado
+		quickSort2(lo, p - 1);
+		quickSort2(p + 1, hi);
+	}
+}
+
+//Particion
+int  Arreglo::particion2(int lo, int hi) {//Regresa el indice donde quedo el pivote	
+										 //Arregla los subarreglos tomando en cuenta el pivote
+	int pivote = vec[medianOfThree(lo, lo + (hi - lo) / 2, hi)]; //Sedgewick recomienda usar este metodo para encontrar el pivote
+
+	if ((hi - lo) > 3) {
+		while (lo <= hi) {
+			if (pivote > vec[lo]) {
+				lo++;
+			}
+			else if (pivote < vec[hi]) {
+				hi--;
+			}
+			else if (lo < hi) {
+				swap(lo, hi);
+			}
+			else {
+				return hi;
+			}
+		}
+	}
+	return hi;
 }
 
 //Media of three
@@ -357,13 +406,12 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
 
 
 int main(int argc, const char * argv[]) {
-    int ar[21] = {20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
+    int ar[21] = {19,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
     Arreglo a(ar,21);
     
-
 	a.print();
     cout << endl << endl;
-    a.preQuickSort(0, 21);
+    a.preQuickSort2(0, 20);
 	a.print();
 	
     
