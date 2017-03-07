@@ -61,6 +61,10 @@ public:
     void preQuickSort(int lo, int hi);
 	void quickSort(int lo, int hi);
 	int particion(int lo, int hi);
+
+	void preQuickSort2(int lo, int hi);
+	void quickSort2(int lo, int hi);
+	int particion2(int lo, int hi);
     int medianOfThree(int lo, int mid, int hi);
     
 };
@@ -304,8 +308,8 @@ void Arreglo::merge(int lo, int mid, int hi) {
     print();
 }
 
-//---------------QuickSort----------------
-
+//---------------QuickSort---------------- 
+//Acepta repetidos pero es menos eficiente
 void Arreglo::preQuickSort(int lo, int hi){//Revuelve los elementos antes de llamar a quickSort, por eficiencia
     shuffle();
     print();
@@ -347,6 +351,49 @@ int  Arreglo::particion(int lo, int hi) {//Regresa el indice donde quedo el pivo
 	}
 }
 
+
+//---------------QuickSort 2---------------- 
+//No acepta repetidos, pero es más eficiente 
+void Arreglo::preQuickSort2(int lo, int hi) {//Revuelve los elementos antes de llamar a quickSort, por eficiencia
+	shuffle();
+	quickSort2(lo, hi);
+}
+
+void Arreglo::quickSort2(int lo, int hi) {//La Api solo especifica quickSort, no particion
+	int p; 	//pivote
+	if (hi > lo) {
+		p = particion2(lo, hi);  //Pone el pivote en donde debe de estar en el arreglo y todos
+								//los nums menor al pivote estan antes y los mayores después
+								//Lamar de forma recursiva a quicksort, no se incluye el pivote porque ya esta acomodado
+		quickSort2(lo, p - 1);
+		quickSort2(p + 1, hi);
+	}
+}
+
+//Particion
+int  Arreglo::particion2(int lo, int hi) {//Regresa el indice donde quedo el pivote	
+										 //Arregla los subarreglos tomando en cuenta el pivote
+	int pivote = vec[medianOfThree(lo, lo + (hi - lo) / 2, hi)]; //Sedgewick recomienda usar este metodo para encontrar el pivote
+
+	if ((hi - lo) > 3) {
+		while (lo <= hi) {
+			if (pivote > vec[lo]) {
+				lo++;
+			}
+			else if (pivote < vec[hi]) {
+				hi--;
+			}
+			else if (lo < hi) {
+				swap(lo, hi);
+			}
+			else {
+				return hi;
+			}
+		}
+	}
+	return hi;
+}
+
 //Media of three
 //No solo encuentra el valor de en medio también los ordena, y recibe como parametros los indices
 int Arreglo::medianOfThree(int lo, int mid, int hi){
@@ -364,7 +411,7 @@ int main(int argc, const char * argv[]) {
     
 	a.print();
     cout << endl << endl;
-    a.preQuickSort(0, 20);
+    a.preQuickSort2(0, 20);
 	a.print();
 	
     
