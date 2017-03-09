@@ -6,7 +6,6 @@
 //
 
 #include <iostream>
-
 //Floor
 #include <math.h>
 //Time
@@ -54,7 +53,6 @@ public:
 
 	void bubbleSort();
 
-
     void mergeSort(int lo, int hi);
     void merge(int lo, int mid, int hi);
 
@@ -65,8 +63,7 @@ public:
 	void preQuickSort2(int lo, int hi);
 	void quickSort2(int lo, int hi);
 	int particion2(int lo, int hi);
-    int medianOfThree(int lo, int mid, int hi);
-    
+    int medianOfThree(int lo, int mid, int hi); 
 };
 
 ///<------------------------CONSTRUCTOR------------------------->
@@ -403,9 +400,8 @@ int Arreglo::medianOfThree(int lo, int mid, int hi){
 }
 
 
-
 int main(int argc, const char * argv[]) {
-    int ar[21] = {19,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
+    int ar[21] = {19,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,19,0};
     Arreglo a("texto");
     
 	a.print();
