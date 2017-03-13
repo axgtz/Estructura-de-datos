@@ -28,10 +28,13 @@ public:
 };
 
 Pila::Pila(int max){
-    if(max < 0) cout << "No se puede tener un tamano menor a 1" << endl;
-	this->MAX = max;
-	pila = new int[MAX];       //Asignar el espacio de la pila
-    top = -1;
+    if(max < 0){
+        cout << "No se puede tener un tamano menor a 1" << endl;
+    }else{
+       	this->MAX = max;
+        pila = new int[MAX];       //Asignar el espacio de la pila
+        top = -1;
+    }
 }
 
 
@@ -73,7 +76,7 @@ void Pila::imprimePila() {
 }
 
 int main() {
-    Pila p = Pila(5);
+    Pila p = Pila(0);
     
     p.push(2);
     p.push(5);
@@ -82,6 +85,10 @@ int main() {
     
     int h;
     p.pop(h);
+    p.pop(h);
+    p.pop(h);
+    
+    p.imprimePila();
     
     cout << h << endl;
 }
