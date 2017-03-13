@@ -1,16 +1,14 @@
+//Roberto Alejandro Gutiérrez Guillén			A01019608
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-template <class Type>
-
 class Pila {
 private:
-	int arr*;
+	int* arr;
 
 public:
-	Pila();
+	Pila(int max);
 
 	// Inserta un elemento en la pila. Regresa true si la operación  
 	// fue exitosa y false en caso contrario.
@@ -27,8 +25,8 @@ public:
 	void imprimePila();
 };
 
-Pila() {
-
+Pila(int max) {
+	arr[max];
 }
 
 
@@ -54,4 +52,8 @@ bool pilaVacia() {
 
 void imprimePila() {
 
+}
+
+int main() {
+	
 }
