@@ -6,6 +6,7 @@ using namespace std;
 class Pila {
 private:
 	int* arr;
+	int MAX;
 
 public:
 	Pila(int max);
@@ -25,32 +26,33 @@ public:
 	void imprimePila();
 };
 
-Pila(int max) {
+Pila::Pila(int max){
+	MAX = max;
 	arr[max];
 }
 
 
-bool push(int dato) {
+bool Pila::push(int dato) {
 	return true;
 }
 
 
-bool pop(int &dato) {
+bool Pila::pop(int &dato) {
 	return true;
 }
 
 
-bool pilaLlena() {
+bool Pila::pilaLlena() {
 	return true;
 }
 
 
-bool pilaVacia() {
+bool Pila::pilaVacia() {
 	return true;
 }
 
 
-void imprimePila() {
+void Pila::imprimePila() {
 
 }
 
