@@ -69,7 +69,7 @@ bool Pila::pilaVacia() {
 
 
 void Pila::imprimePila() {
-	cout << "Top: " << pila[top] << endl;
+	cout << "Top: " << top << endl;
 	for (int i = top; i >= 0; i--) {
 		cout << pila[i] << " ";
 	}
