@@ -68,19 +68,23 @@ bool Pila::pilaVacia() {
 
 
 void Pila::imprimePila() {
-    cout << pila[top] << "<- tope" << endl;
+    cout << "top"<<pila[top] << endl;
     for (int i = top; i >= 0; i--) {
         cout << pila[i] << " ";
     }
-    cout << endl;
+    cout << endl << endl;
 }
 
 int main() {
-    Pila p = Pila(0);
+    Pila p(5);
     
+    p.push(1);
     p.push(2);
+    p.push(3);
+    p.push(4);
     p.push(5);
-    
+    cout << p.pilaLlena()<< endl;
+    cout << p.pilaVacia()<< endl;
     p.imprimePila();
     
     int h;
@@ -90,7 +94,11 @@ int main() {
     
     p.imprimePila();
     
-    cout << h << endl;
+    p.pop(h);
+    p.pop(h);
+    cout << p.pilaLlena()<< endl;
+    cout << p.pilaVacia()<< endl;
+    
 }
 
 
