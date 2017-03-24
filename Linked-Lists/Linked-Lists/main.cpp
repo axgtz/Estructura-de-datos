@@ -29,9 +29,10 @@ public:
     void insertaFinal(int dato);
     bool insertaDespues(int dato, int ref);
     
-    bool eliminaPrimero(int &dato);    //El parametro es para que se guarde el
-    bool eliminaUltimo(int &dato);     //elemento expulsado en la variable temporal
+    bool eliminaPrimero(int &dato);    //El parametro es para que se guarde el elemento expulsado en la variable temporal
+    bool eliminaUltimo(int &dato);
     bool eliminaNodo(int ref, int &dato);
+    
     
     void imprimeLista();
 };
@@ -44,13 +45,18 @@ void Lista::insertaInicio(int dato){
     node * nd = new node;
     //Se asigna el dato del parametro al struct del nodo
     nd->data = dato;
-    
+    //El apuntador del nodo nd recien creado apunta al nodo que previamente fue el primero, si no habia primero apunta a NULL
     nd->pointer = primero;
-    
+    //El apuntador primero de la clase lista ahora apunta al nodo nd
     primero = nd;
 }
 
 void Lista::insertaFinal(int dato){
+    //Se crea el node con nombre nd
+    node * nd = new node;
+    //Se asigna el dato del parametro al struct del nodo
+    nd->data = dato;
+    //Se recorre la lista hasta llegar al final, porque el ultimo nodo apunta a NULL
     
 }
 
@@ -60,9 +66,24 @@ bool Lista::insertaDespues(int dato,  int ref){
     return true;
 }
 
+bool eliminaPrimero(int &dato){
+    return false;
+}
+
+bool eliminaUltimo(int &dato){
+    return false;
+}
+
+bool eliminaNodo(int ref, int &dato){
+    return false;
+}
+
 
 void imprimeLista(){
-    
+
+    while(nd->pointer != NULL){
+        
+    }
 }
 
 /*
