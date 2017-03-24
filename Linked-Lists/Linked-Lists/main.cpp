@@ -30,7 +30,6 @@ public:
 };
 
 Lista::Lista(){
-    
 }
 
 void Lista::insertaInicio(int dato){
@@ -39,11 +38,11 @@ void Lista::insertaInicio(int dato){
 
 //----Nodo----
 class Node {
+private:
+    int *pointer;
+    int dato;
 public:
     Node();
-    
-private:
-    
 };
 
 
