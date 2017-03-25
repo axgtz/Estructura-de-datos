@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+//#include "Lista.h"
 
 using namespace std;
 
@@ -20,8 +21,8 @@ struct node {
 //----Lista Ligada----
 class Lista {
 private:
-    node *primero; //Apuntador de inicio, primero apunta a null
-
+    node *primero = NULL; //Apuntador de inicio, primero apunta a null
+    
 public:
     Lista();
     
@@ -63,51 +64,57 @@ void Lista::insertaFinal(int dato){
 bool Lista::insertaDespues(int dato,  int ref){
     //if()return false;
     
+    //si llega al pointer de false significa que no existe la referencia
     return true;
 }
 
-bool eliminaPrimero(int &dato){
+bool Lista::eliminaPrimero(int &dato){
     return false;
 }
 
-bool eliminaUltimo(int &dato){
+bool Lista::eliminaUltimo(int &dato){
     return false;
 }
 
-bool eliminaNodo(int ref, int &dato){
+bool Lista::eliminaNodo(int ref, int &dato){
     return false;
 }
 
 
-void imprimeLista(){
-
-    while(nd->pointer != NULL){
-        
-    }
+void Lista::imprimeLista(){
+    node *nd = primero;
+    do{
+        cout << nd->data << " - ";
+        nd = nd->pointer;
+    }while(nd->pointer != NULL);
+    cout << endl;
 }
 
 /*
-//----Nodo----
-class Nodo {
-private:
-    int *pointer;
-    int dato;
-public:
-    Nodo(int &pointer, int dato){
-        this->pointer = pointer;
-        this->dato = dato;
-    }
-};
-
-*/
-
+ //----Nodo----
+ class Nodo {
+ private:
+ int *pointer;
+ int dato;
+ public:
+ Nodo(int &pointer, int dato){
+ this->pointer = pointer;
+ this->dato = dato;
+ }
+ };
+ 
+ */
 
 int main(int argc, const char * argv[]) {
+    Lista l;
+c
+    l.insertaInicio(10);
+    l.insertaInicio(20);
+    l.insertaInicio(30);
+    l.insertaInicio(40);
+    l.insertaInicio(50);
     
+    l.imprimeLista();
     
-    
-    // insert code here...
-    
-    cout << "Hello, World!\n";
     return 0;
 }
