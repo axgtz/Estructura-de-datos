@@ -16,7 +16,6 @@ struct node {
     node *pointer;
 };
 
-
 //----Lista Ligada----
 class Lista {
 private:
@@ -82,31 +81,18 @@ bool Lista::eliminaNodo(int ref, int &dato){
 
 void Lista::imprimeLista(){
     node *nd = primero;
-    do{
-        cout << nd->data << " - ";
+	cout << nd->data;
+	while (nd->pointer != NULL) {
         nd = nd->pointer;
-    }while(nd->pointer != NULL);
+		cout << " - "<<  nd->data ;
+	};
+
     cout << endl;
 }
 
-/*
- //----Nodo----
- class Nodo {
- private:
- int *pointer;
- int dato;
- public:
- Nodo(int &pointer, int dato){
- this->pointer = pointer;
- this->dato = dato;
- }
- };
- 
- */
-
 int main(int argc, const char * argv[]) {
     Lista l;
-c
+
     l.insertaInicio(10);
     l.insertaInicio(20);
     l.insertaInicio(30);
@@ -115,5 +101,7 @@ c
     
     l.imprimeLista();
     
+	int x;
+	cin >> x;
     return 0;
 }
