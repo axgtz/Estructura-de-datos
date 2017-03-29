@@ -67,13 +67,15 @@ bool Lista::insertaDespues(int dato,  int ref){
 }
 
 bool Lista::eliminaPrimero(int &dato){
+    //Se checa que la lista no este vacia
+    if(primero == NULL)	return false;
     //Se avanza a el primer nodo
     node *nd = primero;
     //Se guarda el dato en el espacio de memoria que fue mandado como parametro
     dato = nd->data;
     //Se guarda el apuntador del siguiente nodo para evitar que se pierda la lista
     primero = nd->pointer;
-    return false;
+    return true;
 }
 
 bool Lista::eliminaUltimo(int &dato){
@@ -86,6 +88,7 @@ bool Lista::eliminaNodo(int ref, int &dato){
 
 
 void Lista::imprimeLista(){
+    if(primero == NULL)return;//Para evitar que salga error si la lista esta vacias
     node *nd = primero;
 	cout << nd->data;
 	while (nd->pointer != NULL) {
@@ -99,11 +102,11 @@ void Lista::imprimeLista(){
 int main(int argc, const char * argv[]) {
     Lista l;
     int dat;
+/*
     l.insertaInicio(10);
-    l.insertaInicio(20);
-    l.insertaInicio(30);
-    l.insertaInicio(40);
-    l.insertaInicio(50);
+        l.insertaInicio(20);
+        l.insertaInicio(30);
+        l.insertaInicio(40);*/
     l.eliminaPrimero(dat);
     
     cout << dat << endl;
