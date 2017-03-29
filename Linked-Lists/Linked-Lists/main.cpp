@@ -60,7 +60,8 @@ void Lista::insertaFinal(int dato){
 }
 
 bool Lista::insertaDespues(int dato,  int ref){
-    //if()return false;
+    //Se checa que la lista no este vacia
+    if(primero == NULL)return false;
     
     //si llega al pointer de false significa que no existe la referencia
     return true;
@@ -68,7 +69,7 @@ bool Lista::insertaDespues(int dato,  int ref){
 
 bool Lista::eliminaPrimero(int &dato){
     //Se checa que la lista no este vacia
-    if(primero == NULL)	return false;
+    if(primero == NULL)return false;
     //Se avanza a el primer nodo
     node *nd = primero;
     //Se guarda el dato en el espacio de memoria que fue mandado como parametro
@@ -79,10 +80,35 @@ bool Lista::eliminaPrimero(int &dato){
 }
 
 bool Lista::eliminaUltimo(int &dato){
-    return false;
+    //Se checa que la lista no este vacia
+    if(primero == NULL)return false;
+    
+    //Avanzar al primer nodo
+    node *nd = primero;
+    
+    //Se tiene que guardar el apuntador anterior para volverlo null
+    while (nd->pointer != NULL) {
+        nd = nd->pointer;
+    };
+    return true;
 }
 
 bool Lista::eliminaNodo(int ref, int &dato){
+    //Se checa que la lista no este vacia
+    if(primero == NULL)return false;
+    
+    //Se avanza al primer nodo
+    node *nd = primero;
+    if(nd->data == ref){//Se guarda el nodo anterior?
+        
+        //Se pasa la info que contiene el nodo a ser borrado al espacio de memoria que fue recibido en el apuntador
+        ref = nd->data;
+        //Se guarda el apuntador que contiene el nodo a ser eliminado
+        
+        return true;
+    }
+    
+    //Regresa falso si esta vacia la lista o si no encontro el dato de referencia
     return false;
 }
 
@@ -102,15 +128,17 @@ void Lista::imprimeLista(){
 int main(int argc, const char * argv[]) {
     Lista l;
     int dat;
-/*
+
     l.insertaInicio(10);
-        l.insertaInicio(20);
-        l.insertaInicio(30);
-        l.insertaInicio(40);*/
+    l.insertaInicio(20);
+    l.insertaInicio(30);
+    l.insertaInicio(40);
+    
     l.eliminaPrimero(dat);
     
     cout << dat << endl;
     l.imprimeLista();
+    
     
 	int x;
 	cin >> x;
