@@ -51,6 +51,12 @@ void Lista::insertaInicio(int dato){
 }
 
 void Lista::insertaFinal(int dato){
+    //Se checa que la lista no este vacia
+    if(primero == NULL){
+        insertaInicio(dato);//Si la lista esta vacia, se llama inserta inicio con el mismo parametro
+        return ; //Se agrega el return para acabar la funcion y que no se agregue dos veces
+    }
+    
     //Se avanza a el primer nodo
     node *nd = primero;
     //Se recorre la lista hasta llegar al final, porque el ultimo nodo apunta a NULL
@@ -134,9 +140,6 @@ void Lista::imprimeLista(){
 int main(int argc, const char * argv[]) {
     Lista l;
     int dat;
-
-    
-    l.imprimeLista();
     
     l.insertaFinal(90);
     
