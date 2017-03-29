@@ -67,6 +67,12 @@ bool Lista::insertaDespues(int dato,  int ref){
 }
 
 bool Lista::eliminaPrimero(int &dato){
+    //Se avanza a el primer nodo
+    node *nd = primero;
+    //Se guarda el dato en el espacio de memoria que fue mandado como parametro
+    dato = nd->data;
+    //Se guarda el apuntador del siguiente nodo para evitar que se pierda la lista
+    primero = nd->pointer;
     return false;
 }
 
@@ -92,13 +98,15 @@ void Lista::imprimeLista(){
 
 int main(int argc, const char * argv[]) {
     Lista l;
-
+    int dat;
     l.insertaInicio(10);
     l.insertaInicio(20);
     l.insertaInicio(30);
     l.insertaInicio(40);
     l.insertaInicio(50);
+    l.eliminaPrimero(dat);
     
+    cout << dat << endl;
     l.imprimeLista();
     
 	int x;
