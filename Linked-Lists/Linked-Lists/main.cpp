@@ -51,12 +51,18 @@ void Lista::insertaInicio(int dato){
 }
 
 void Lista::insertaFinal(int dato){
-    //Se crea el node con nombre nd
-    node * nd = new node;
-    //Se asigna el dato del parametro al struct del nodo
-    nd->data = dato;
+    //Se avanza a el primer nodo
+    node *nd = primero;
     //Se recorre la lista hasta llegar al final, porque el ultimo nodo apunta a NULL
-    
+    while (nd->pointer != NULL) {
+        nd = nd->pointer;
+    }
+    //Se crea un nuevo nodo
+    node * newNodo = new node;
+    //Se le agrega el dato al nuevo nodo
+    newNodo->data = dato;
+    //Se le asigna el apuntador al nodo anterior para que apunte al nuevo
+    nd->pointer = newNodo;
 }
 
 bool Lista::insertaDespues(int dato,  int ref){
@@ -129,16 +135,12 @@ int main(int argc, const char * argv[]) {
     Lista l;
     int dat;
 
-    l.insertaInicio(10);
-    l.insertaInicio(20);
-    l.insertaInicio(30);
-    l.insertaInicio(40);
     
-    l.eliminaPrimero(dat);
-    
-    cout << dat << endl;
     l.imprimeLista();
     
+    l.insertaFinal(90);
+    
+    l.imprimeLista();
     
 	int x;
 	cin >> x;
