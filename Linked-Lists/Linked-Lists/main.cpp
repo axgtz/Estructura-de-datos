@@ -71,7 +71,7 @@ void Lista::insertaFinal(int dato){
     nd->pointer = newNodo;
 }
 
-bool Lista::insertaDespues(int dato,  int ref){
+bool Lista::insertaDespues(int dato,  int ref){//------------
     //Se checa que la lista no este vacia
     if(primero == NULL)return false;
     
@@ -91,7 +91,7 @@ bool Lista::eliminaPrimero(int &dato){
     return true;
 }
 
-bool Lista::eliminaUltimo(int &dato){
+bool Lista::eliminaUltimo(int &dato){//--------------
     //Se checa que la lista no este vacia
     if(primero == NULL)return false;
     
@@ -105,7 +105,7 @@ bool Lista::eliminaUltimo(int &dato){
     return true;
 }
 
-bool Lista::eliminaNodo(int ref, int &dato){
+bool Lista::eliminaNodo(int ref, int &dato){//---------------
     //Se checa que la lista no este vacia
     if(primero == NULL)return false;
     
