@@ -76,8 +76,26 @@ bool Lista::insertaDespues(int dato,  int ref){//------------
     //Se checa que la lista no este vacia
     if(primero == NULL)return false;
     
-    //si llega al pointer de false significa que no existe la referencia
-    return true;
+	//Se avanza a el primer nodo
+	node *nd = primero;
+
+	//Se hace un ciclo para encontrar el pointer con la referencia, tambienh se checa que no s ehalla llegado al final del ciclo
+	while (nd->data != ref && nd->pointer != NULL) {
+		nd = nd->pointer;
+	}
+	if (nd->data == ref) {
+		//Se crea un nuevo nodo
+		node * newNodo = new node;
+		//Se le agrega el dato al nuevo nodo
+		newNodo->data = dato;
+		//Se le asigna el pointer al nuevo nodo, para que apunte al siguiente nodo del nodo que contiene el dato de referencia
+		newNodo->pointer = nd->pointer;
+		//El nodo que cointiene la referencia se le asigna que apunte al nodo recien creado.
+		nd->pointer = newNodo;
+		return true;
+	}
+
+    return false;
 }
 
 bool Lista::eliminaPrimero(int &dato){
@@ -116,7 +134,7 @@ bool Lista::eliminaUltimo(int &dato){
     return true;
 }
 
-bool Lista::eliminaNodo(int ref, int &dato){//---------------
+bool Lista::eliminaNodo(int ref, int &dato){//------------not finished-
     //Se checa que la lista no este vacia
     if(primero == NULL)return false;
     
@@ -137,7 +155,7 @@ bool Lista::eliminaNodo(int ref, int &dato){//---------------
 
 
 void Lista::imprimeLista(){
-    if(primero == NULL)return;//Para evitar que salga error si la lista esta vacias
+    if(primero == NULL)return;//Para evitar que salga error si la lista esta vacia
     node *nd = primero;
 	cout << nd->data;
 	while (nd->pointer != NULL) {
@@ -169,6 +187,20 @@ int main(int argc, const char * argv[]) {
 	cout << "\nelimina ultimo " << dat << " \n";
 	l.imprimeLista();
 
+	l.insertaDespues(70,40);
+	l.imprimeLista();
+
+	l.insertaDespues(35, 30);
+	l.imprimeLista();
+	/*
+	l.eliminaUltimo(dat);
+	l.eliminaUltimo(dat);
+	l.eliminaUltimo(dat);
+	l.eliminaUltimo(dat);
+	l.eliminaUltimo(dat);
+	l.imprimeLista();
+
+	*/
 	int x;
 	cin >> x;
     return 0;
