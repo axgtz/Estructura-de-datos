@@ -117,8 +117,6 @@ bool Lista::eliminaUltimo(int &dato){
 	//Avanzar al primer nodo
 	node *nd = primero;
 
-
-
 	//Si solo hay un nodo, se elimina la referencia del head de la clase
 	if (nd->pointer == NULL) {
 		primero = NULL;
@@ -143,16 +141,28 @@ bool Lista::eliminaNodo(int ref, int &dato){//------------not finished-
     
     //Se avanza al primer nodo
     node *nd = primero;
-    if(nd->data == ref){//Se guarda el nodo anterior?
-        
-        //Se pasa la info que contiene el nodo a ser borrado al espacio de memoria que fue recibido en el apuntador
-        ref = nd->data;
-        //Se guarda el apuntador que contiene el nodo a ser eliminado
-        
+    
+    //Si solo hay un nodo, se checa si contiene la referencia y si la tiene se elimina el primer nodo
+    if (nd->data == ref) {
+        //Se guarda en el parametro dato la información que contenia el nodo
+        dato = nd->data;
+        primero = NULL;
         return true;
     }
     
-    //Regresa falso si esta vacia la lista o si no encontro el dato de referencia
+    //Se va revisando la lista nodo por nodo, hasta que se acabe la lista o se encuentre el nodo que contiene la referencia
+    while (nd->pointer != NULL) {
+        if(nd->pointer->data == ref){
+            //Se guarda en el parametro dato, la información que contenia el nodo
+            dato = nd->pointer->data;
+            
+            //Se elimina el pointer que apuntaba al nodo que contenia la referencia y ahorta apunt al siguiente
+            nd->pointer = nd->pointer->pointer;
+            return true;
+        }
+        nd = nd->pointer;
+    }
+    //Regresa falso si no encontro el dato de referencia
     return false;
 }
 
@@ -195,15 +205,12 @@ int main(int argc, const char * argv[]) {
 
 	l.insertaDespues(35, 30);
 	l.imprimeLista();
-	/*
-	l.eliminaUltimo(dat);
-	l.eliminaUltimo(dat);
-	l.eliminaUltimo(dat);
-	l.eliminaUltimo(dat);
-	l.eliminaUltimo(dat);
+	
+    l.eliminaNodo(35,dat);
+    cout << "\nelimina 35 " << dat << " \n";
 	l.imprimeLista();
 
-	*/
+
 	int x;
 	cin >> x;
     return 0;
