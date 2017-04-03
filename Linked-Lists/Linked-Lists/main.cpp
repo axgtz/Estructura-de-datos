@@ -142,11 +142,17 @@ bool Lista::eliminaNodo(int ref, int &dato){//------------not finished-
     //Se avanza al primer nodo
     node *nd = primero;
     
-    //Si solo hay un nodo, se checa si contiene la referencia y si la tiene se elimina el primer nodo
+    //Si es el primer nodo, se checa si contiene la referencia y si la tiene se elimina el primer nodo
     if (nd->data == ref) {
         //Se guarda en el parametro dato la información que contenia el nodo
         dato = nd->data;
-        primero = NULL;
+        //Se checa si es el primer nodo
+        if(nd->pointer == NULL){
+            primero = NULL;
+        }else{
+            primero = nd->pointer;
+        }
+
         return true;
     }
     
@@ -191,16 +197,8 @@ int main(int argc, const char * argv[]) {
 	l.insertaInicio(5);
 
     l.imprimeLista();
-    
-	l.eliminaPrimero(dat);
-	cout << "\nelimina primero "<< dat<<" \n";
-	l.imprimeLista();
 
-	l.eliminaUltimo(dat);
-	cout << "\nelimina ultimo " << dat << " \n";
-	l.imprimeLista();
-
-	l.insertaDespues(70,40);
+	l.insertaDespues(70,50);
 	l.imprimeLista();
 
 	l.insertaDespues(35, 30);
@@ -209,7 +207,15 @@ int main(int argc, const char * argv[]) {
     l.eliminaNodo(35,dat);
     cout << "\nelimina 35 " << dat << " \n";
 	l.imprimeLista();
-
+        l.imprimeLista();
+    
+    l.eliminaNodo(5,dat);
+    cout << "\nelimina 55 " << dat << " \n";
+    l.imprimeLista();
+    
+    l.eliminaNodo(70,dat);
+    cout << "\nelimina 70 " << dat << " \n";
+    l.imprimeLista();
 
 	int x;
 	cin >> x;
