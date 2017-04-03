@@ -83,6 +83,7 @@ bool Lista::insertaDespues(int dato,  int ref){
 	while (nd->data != ref && nd->pointer != NULL) {
 		nd = nd->pointer;
 	}
+    
 	if (nd->data == ref) {
 		//Se crea un nuevo nodo
 		node * newNodo = new node;
@@ -152,7 +153,6 @@ bool Lista::eliminaNodo(int ref, int &dato){//------------not finished-
         }else{
             primero = nd->pointer;
         }
-
         return true;
     }
     
