@@ -91,13 +91,19 @@ bool Lista::eliminaPrimero(int &dato){
     return true;
 }
 
-bool Lista::eliminaUltimo(int &dato){//--------------
-    //Se checa que la lista no este vacia
-    if(primero == NULL)return false;
-    
-    //Avanzar al primer nodo
-    node *nd = primero;
-    
+bool Lista::eliminaUltimo(int &dato) {//--------------
+	//Se checa que la lista no este vacia
+	if (primero == NULL)return false;
+
+	//Avanzar al primer nodo
+	node *nd = primero;
+
+	//Si solo hay un nodo, se elimina la referencia del head de la clase
+	if (nd->pointer == NULL) {
+		primero = NULL;
+		return true;
+	}
+
     //Se tiene que guardar el apuntador anterior para volverlo null
     while (nd->pointer != NULL) {
         nd = nd->pointer;
