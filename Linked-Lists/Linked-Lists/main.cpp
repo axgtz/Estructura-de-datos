@@ -92,7 +92,7 @@ bool Lista::eliminaPrimero(int &dato){
     return true;
 }
 
-bool Lista::eliminaUltimo(int &dato) {//--------------fatla salvar el dato del ultimo
+bool Lista::eliminaUltimo(int &dato){
 	//Se checa que la lista no este vacia
 	if (primero == NULL)return false;
 
@@ -161,6 +161,14 @@ int main(int argc, const char * argv[]) {
 
     l.imprimeLista();
     
+	l.eliminaPrimero(dat);
+	cout << "\nelimina primero "<< dat<<" \n";
+	l.imprimeLista();
+
+	l.eliminaUltimo(dat);
+	cout << "\nelimina ultimo " << dat << " \n";
+	l.imprimeLista();
+
 	int x;
 	cin >> x;
     return 0;
