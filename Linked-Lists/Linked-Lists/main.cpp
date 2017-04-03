@@ -56,7 +56,6 @@ void Lista::insertaFinal(int dato){
         insertaInicio(dato);//Si la lista esta vacia, se llama inserta inicio con el mismo parametro
         return ; //Se agrega el return para acabar la funcion y que no se agregue dos veces
     }
-    
     //Se avanza a el primer nodo
     node *nd = primero;
     //Se recorre la lista hasta llegar al final, porque el ultimo nodo apunta a NULL
@@ -69,6 +68,8 @@ void Lista::insertaFinal(int dato){
     newNodo->data = dato;
     //Se le asigna el apuntador al nodo anterior para que apunte al nuevo
     nd->pointer = newNodo;
+	//Si no se le asigna NULL, puede que no funcione
+	newNodo->pointer = NULL;
 }
 
 bool Lista::insertaDespues(int dato,  int ref){//------------
@@ -91,7 +92,7 @@ bool Lista::eliminaPrimero(int &dato){
     return true;
 }
 
-bool Lista::eliminaUltimo(int &dato) {//--------------
+bool Lista::eliminaUltimo(int &dato) {//--------------fatla salvar el dato del ultimo
 	//Se checa que la lista no este vacia
 	if (primero == NULL)return false;
 
@@ -104,10 +105,14 @@ bool Lista::eliminaUltimo(int &dato) {//--------------
 		return true;
 	}
 
-    //Se tiene que guardar el apuntador anterior para volverlo null
-    while (nd->pointer != NULL) {
+    //Se checa el siguiente apuntador del siguiente nodo, en el que se encuentra
+    while (nd->pointer->pointer != NULL) {
         nd = nd->pointer;
     };
+	//Se guarda el dato del nodo que va a ser eliminado
+	dato = nd->pointer->data;
+	//El pointer del nodo anterior ahora apounta a Null, por lo tanto ya no se puede accesar al sieguiente nodo
+	nd->pointer = NULL;
     return true;
 }
 
@@ -147,8 +152,13 @@ int main(int argc, const char * argv[]) {
     Lista l;
     int dat;
     
-    l.insertaFinal(90);
-    
+    l.insertaFinal(30);
+	l.insertaFinal(40);
+	l.insertaInicio(20);
+	l.insertaInicio(10);
+	l.insertaFinal(50);
+	l.insertaInicio(5);
+
     l.imprimeLista();
     
 	int x;
