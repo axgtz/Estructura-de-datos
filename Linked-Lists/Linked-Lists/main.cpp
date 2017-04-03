@@ -72,7 +72,7 @@ void Lista::insertaFinal(int dato){
 	newNodo->pointer = NULL;
 }
 
-bool Lista::insertaDespues(int dato,  int ref){//------------
+bool Lista::insertaDespues(int dato,  int ref){
     //Se checa que la lista no este vacia
     if(primero == NULL)return false;
     
@@ -117,6 +117,8 @@ bool Lista::eliminaUltimo(int &dato){
 	//Avanzar al primer nodo
 	node *nd = primero;
 
+
+
 	//Si solo hay un nodo, se elimina la referencia del head de la clase
 	if (nd->pointer == NULL) {
 		primero = NULL;
@@ -134,6 +136,7 @@ bool Lista::eliminaUltimo(int &dato){
     return true;
 }
 
+//Elimina el nodo que contiene la referencia
 bool Lista::eliminaNodo(int ref, int &dato){//------------not finished-
     //Se checa que la lista no este vacia
     if(primero == NULL)return false;
