@@ -1,10 +1,7 @@
-//
 //  Lista.h
 //  Linked-Lists
-//
 //  Created by Alex Gutz on 3/24/17.
 //  Copyright © 2017 Alejandro Gutierrez. All rights reserved.
-//
 
 #ifndef Lista_h
 #define Lista_h
@@ -176,7 +173,7 @@ bool Lista::eliminaNodo(int ref, int &dato){
 
 
 void Lista::imprimeLista(){
-    if(primero == NULL)return;//Para evitar que salga error si la lista esta vacia
+    if(primero == NULL)return;//Para evitar que salga error si la lista esta vacia, se checa que el primer apuntador no apunte a un null
     node *nd = primero;
     cout << nd->data;
     while (nd->pointer != NULL) {
@@ -184,7 +181,7 @@ void Lista::imprimeLista(){
         cout << " - "<<  nd->data ;
     };
     
-    cout << endl;
+    cout << "\n";//Se agrega un enter al fianl
 }
 
 #endif /* Lista_h */
