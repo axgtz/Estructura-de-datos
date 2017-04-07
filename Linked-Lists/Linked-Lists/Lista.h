@@ -132,7 +132,7 @@ bool Lista::eliminaUltimo(int &dato){
     };
     //Se guarda el dato del nodo que va a ser eliminado
     dato = nd->pointer->data;
-    //El pointer del nodo anterior ahora apounta a Null, por lo tanto ya no se puede accesar al sieguiente nodo
+    //El pointer del nodo anterior ahora apounta a Null, por lo tanto ya no se puede acceder al siguiente nodo
     nd->pointer = NULL;
     return true;
 }
