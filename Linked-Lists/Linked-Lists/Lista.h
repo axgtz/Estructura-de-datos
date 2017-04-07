@@ -138,7 +138,7 @@ bool Lista::eliminaUltimo(int &dato){
 }
 
 //Elimina el nodo que contiene la referencia
-bool Lista::eliminaNodo(int ref, int &dato){//------------not finished-
+bool Lista::eliminaNodo(int ref, int &dato){
     //Se checa que la lista no este vacia
     if(primero == NULL)return false;
     
