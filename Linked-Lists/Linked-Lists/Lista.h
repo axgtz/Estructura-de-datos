@@ -1,7 +1,8 @@
 //  Lista.h
-//  Linked-Lists
+//  Proyecto 7 Linked-Lists
 //  Created by Alex Gutz on 3/24/17.
 //  Copyright © 2017 Alejandro Gutierrez. All rights reserved.
+//Should add delete to pointer to not waste memory
 
 #ifndef Lista_h
 #define Lista_h
