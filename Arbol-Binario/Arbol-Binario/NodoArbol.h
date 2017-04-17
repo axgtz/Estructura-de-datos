@@ -16,10 +16,27 @@ private:
     NodoArbol *hijoDer;
 public:
     NodoArbol();
+    //Getters
+    int getDato();
+    NodoArbol getHijoIzq();
+    NodoArbol getHijoDer();
+    //Setters
     void setDato(int dato);
     void setHijoIzq(NodoArbol *nI);
     void setHijoDer(NodoArbol *nD);
 };
+
+int NodoArbol::getDato(){
+    return dato;
+}
+
+NodoArbol NodoArbol::getHijoIzq(){
+    return *hijoIzq;
+}
+
+NodoArbol NodoArbol::getHijoDer(){
+    return *hijoDer;
+}
 
 void NodoArbol::setDato(int dato){
     this->dato = dato;
@@ -33,7 +50,7 @@ void NodoArbol::setHijoDer(NodoArbol *nD){
     hijoDer = nD;
 }
 
-
+//-----------------------
 class ArbolBinario{
 private:
     NodoArbol * raiz;
@@ -41,10 +58,14 @@ public:
     ArbolBinario();
     
     void crearArbol(NodoArbol *n);
-    void recoridoArbol();
+    void recoridoPreOrden();
+    void recoridoInOrden();
+    void recoridoPostOrden();
 };
 
 void ArbolBinario::crearArbol(NodoArbol *n){//Recursivo
+    //Asignar raiz
+    
     crearArbol(n->asignarHiijoIzq());
     //	crearArbol(n->asignarHiijoDer(<#NodoArbol *nI#>));
 }
