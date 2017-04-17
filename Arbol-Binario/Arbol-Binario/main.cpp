@@ -8,10 +8,16 @@
 
 #include <iostream>
 #include "NodoArbol.h"
+#include "ArbolBinario.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+    NodoArbol * n = new NodoArbol();
+    
+    ArbolBinario * a = new ArbolBinario();
+    
+    a->crearArbol(n);
     
     int x;
     cin >> x;
