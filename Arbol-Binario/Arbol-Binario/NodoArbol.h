@@ -9,11 +9,15 @@
 #ifndef NodoArbol_h
 #define NodoArbol_h
 
+#include <iostream>
+
+using namespace std;
+
 class NodoArbol{
 private:
-    int dato;
-    NodoArbol *hijoIzq;
-    NodoArbol *hijoDer;
+    int dato = NULL;
+    NodoArbol *hijoIzq = NULL;
+    NodoArbol *hijoDer = NULL;
 public:
     NodoArbol();
     //Getters
@@ -53,7 +57,7 @@ void NodoArbol::setHijoDer(NodoArbol *nD){
 //-----------------------
 class ArbolBinario{
 private:
-    NodoArbol * raiz;
+    NodoArbol * raiz = NULL;
 public:
     ArbolBinario();
     
@@ -63,11 +67,31 @@ public:
     void recoridoPostOrden();
 };
 
+ArbolBinario::ArbolBinario(){
+}
+
+//Por cada nodo que se agrega se crea un arbol nuevo
 void ArbolBinario::crearArbol(NodoArbol *n){//Recursivo
     //Asignar raiz
+    raiz = n;
     
-    crearArbol(n->asignarHiijoIzq());
-    //	crearArbol(n->asignarHiijoDer(<#NodoArbol *nI#>));
+    int afi;
+    cout << "\nTiene hijo izquierdo" << endl;
+    cin >> afi;
+    if(afi){//Se vuelve a llamar a la funcion de forma recursiva
+        crearArbol(n->setHijoIzq());
+    }
+    
+    cout << "\nTiene hijo derecho" << endl;
+    cin >> afi;
+    if(afi){
+        crearArbol(n->asignarHiijoIzq());
+    }
+    
 }
 
 #endif /* NodoArbol_h */
+
+
+
+
