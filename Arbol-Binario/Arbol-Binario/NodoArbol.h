@@ -16,6 +16,8 @@ private:
     NodoArbol *hijoDer;
 public:
     NodoArbol();
+    void asignarHiijoIzq(NodoArbol *nI);
+    void asignarHiijoDer(NodoArbol *nD);
 };
 
 
@@ -29,8 +31,9 @@ public:
     
 };
 
-void crearArbol(NodoArbol *n){
-    
+void crearArbol(NodoArbol *n){//Recursivo
+    crearArbol(n->asignarHiijoIzq(<#NodoArbol *nI#>));
+    //	crearArbol(n->asignarHiijoDer(<#NodoArbol *nI#>));
 }
 
 #endif /* NodoArbol_h */
