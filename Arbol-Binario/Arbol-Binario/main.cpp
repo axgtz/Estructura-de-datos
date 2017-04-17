@@ -13,7 +13,6 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    
     int x;
     cin >> x;
     return 0;

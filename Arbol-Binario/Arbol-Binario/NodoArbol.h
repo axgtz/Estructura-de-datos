@@ -70,22 +70,29 @@ public:
 ArbolBinario::ArbolBinario(){
 }
 
-//Por cada nodo que se agrega se crea un arbol nuevo
-void ArbolBinario::crearArbol(NodoArbol *n){//Recursivo
+//Por cada nodo que se agrega se crea un arbol nuevo de forma recursiva
+void ArbolBinario::crearArbol(NodoArbol *n){//----agregar datos //Se tiene que mandar un nodo ya con un data como parametro
     //Asignar raiz
     raiz = n;
     
-    int afi;
+    bool afi;
     cout << "\nTiene hijo izquierdo" << endl;
     cin >> afi;
     if(afi){//Se vuelve a llamar a la funcion de forma recursiva
-        crearArbol(n->setHijoIzq());
+        int dato;
+        cout << "\n\tIntroducir dato que va a contener nodo" << endl;
+        cin >> dato;
+        //Crear nodo
+        NodoArbol * newN = new NodoArbol();
+        //Asignar dato a nodo
+        newN->setDato(dato);
+        //crearArbol(n->setHijoIzq());
     }
     
     cout << "\nTiene hijo derecho" << endl;
     cin >> afi;
     if(afi){
-        crearArbol(n->asignarHiijoIzq());
+       // crearArbol(n->asignarHiijoIzq());
     }
     
 }
