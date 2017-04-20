@@ -12,11 +12,8 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    NodoArbol * n = new NodoArbol();
-    
     ArbolBinario a;
-    cout << "si"<<endl;
-    a.crearArbol(n);
+    a.crearArbol(a.getRaiz());
     
     int x;
     cin >> x;

@@ -20,6 +20,9 @@ private:
 public:
     ArbolBinario();
     
+    //Getters
+    NodoArbol * getRaiz();
+    
     void crearArbol(NodoArbol *n);
     void recoridoPreOrden();
     void recoridoInOrden();
@@ -29,13 +32,17 @@ public:
 ArbolBinario::ArbolBinario(){
 }
 
+NodoArbol * ArbolBinario::getRaiz(){
+    return raiz;
+}
+
 //Por cada nodo que se agrega se crea un arbol nuevo de forma recursiva
 void ArbolBinario::crearArbol(NodoArbol *n){//----agregar datos //Se tiene que mandar un nodo ya con un data como parametro
     //Asignar raiz
     raiz = n;
     
     bool afi;
-    cout << "\nTiene hijo izquierdo" << endl;
+    cout << "\nTiene hijo izquierdo" << endl; //0 = False y 1 = True
     cin >> afi;
     if(afi){//Se vuelve a llamar a la funcion de forma recursiva
         int dato;
