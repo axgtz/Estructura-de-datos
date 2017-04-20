@@ -39,7 +39,7 @@ NodoArbol *ArbolBinario::getRaiz(){
 //Por cada nodo que se agrega se crea un arbol nuevo de forma recursiva
 void ArbolBinario::crearArbol(NodoArbol *&n){//con la referencia se modifica el original
     int dato;
-    cout << "\n\tIntroducir dato que va a contener nodo" << endl;
+    cout << "\nIntroducir dato que va a contener nodo" << endl;
     cin >> dato;
     //Crear nodo
     n = new NodoArbol(dato);
