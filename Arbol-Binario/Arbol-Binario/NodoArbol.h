@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class NodoArbol{
+class NodoArbol {
 private:
     int dato = NULL;
     NodoArbol *hijoIzq = NULL;
@@ -29,6 +29,9 @@ public:
     void setHijoIzq(NodoArbol *nI);
     void setHijoDer(NodoArbol *nD);
 };
+
+NodoArbol::NodoArbol(){
+}
 
 int NodoArbol::getDato(){
     return dato;

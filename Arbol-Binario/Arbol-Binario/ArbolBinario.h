@@ -10,10 +10,11 @@
 #define ArbolBinario_h
 
 #include <iostream>
+#include "NodoArbol.h"
 
 using namespace std;
 
-class ArbolBinario{
+class ArbolBinario {
 private:
     NodoArbol * raiz = NULL;
 public:
