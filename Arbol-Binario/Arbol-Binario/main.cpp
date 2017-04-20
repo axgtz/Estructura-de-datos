@@ -13,7 +13,8 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     ArbolBinario a;
-    a.crearArbol(a.getRaiz());
+    NodoArbol * temp = a.getRaiz();
+    a.crearArbol(temp);
     
     int x;
     cin >> x;

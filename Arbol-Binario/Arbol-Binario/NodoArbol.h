@@ -15,34 +15,37 @@ using namespace std;
 
 class NodoArbol {
 private:
-    int dato = NULL;
-    NodoArbol *hijoIzq = NULL;
-    NodoArbol *hijoDer = NULL;
+    int dato;
+    NodoArbol *hijoIzq;
+    NodoArbol *hijoDer;
 public:
-    NodoArbol();
+    NodoArbol(int datoTemp);
     //Getters
     int getDato();
-    NodoArbol getHijoIzq();
-    NodoArbol getHijoDer();
+    NodoArbol * getHijoIzq();
+    NodoArbol * getHijoDer();
     //Setters
     void setDato(int dato);
     void setHijoIzq(NodoArbol *nI);
     void setHijoDer(NodoArbol *nD);
 };
 
-NodoArbol::NodoArbol(){
+NodoArbol::NodoArbol(int datoTemp){
+    hijoIzq = NULL;
+    hijoDer = NULL;
+    dato = datoTemp;
 }
 
 int NodoArbol::getDato(){
     return dato;
 }
 
-NodoArbol NodoArbol::getHijoIzq(){
-    return *hijoIzq;
+NodoArbol * NodoArbol::getHijoIzq(){
+    return hijoIzq;
 }
 
-NodoArbol NodoArbol::getHijoDer(){
-    return *hijoDer;
+NodoArbol * NodoArbol::getHijoDer(){
+    return hijoDer;
 }
 
 void NodoArbol::setDato(int dato){

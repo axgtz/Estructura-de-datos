@@ -23,7 +23,7 @@ public:
     //Getters
     NodoArbol * getRaiz();
     
-    void crearArbol(NodoArbol *n);
+    void crearArbol(NodoArbol *&n);
     void recoridoPreOrden();
     void recoridoInOrden();
     void recoridoPostOrden();
@@ -32,42 +32,31 @@ public:
 ArbolBinario::ArbolBinario(){
 }
 
-NodoArbol * ArbolBinario::getRaiz(){
+NodoArbol *ArbolBinario::getRaiz(){
     return raiz;
 }
 
 //Por cada nodo que se agrega se crea un arbol nuevo de forma recursiva
-void ArbolBinario::crearArbol(NodoArbol *n){//----agregar datos //Se tiene que mandar un nodo ya con un data como parametro
-    //Asignar raiz
-    raiz = n;
+void ArbolBinario::crearArbol(NodoArbol *&n){//con la referencia se modifica el original
+    int dato;
+    cout << "\n\tIntroducir dato que va a contener nodo" << endl;
+    cin >> dato;
+    //Crear nodo
+    n = new NodoArbol(dato);
     
     bool afi;
     cout << "\nTiene hijo izquierdo" << endl; //0 = False y 1 = True
     cin >> afi;
     if(afi){//Se vuelve a llamar a la funcion de forma recursiva
-        int dato;
-        cout << "\n\tIntroducir dato que va a contener nodo" << endl;
-        cin >> dato;
-        //Crear nodo
-        NodoArbol * newN = new NodoArbol();
-        //Asignar dato a nodo
-        newN->setDato(dato);
-        n->setHijoIzq(newN);
-        crearArbol(newN);
+        NodoArbol * temp = n->getHijoIzq();
+        crearArbol(temp);
     }
-    
+
     cout << "\nTiene hijo derecho" << endl;
     cin >> afi;
     if(afi){
-        int dato;
-        cout << "\n\tIntroducir dato que va a contener nodo" << endl;
-        cin >> dato;
-        //Crear nodo
-        NodoArbol * newN = new NodoArbol();
-        //Asignar dato a nodo
-        newN->setDato(dato);
-        n->setHijoDer(newN);
-        crearArbol(newN);
+        NodoArbol * temp = n->getHijoDer();
+        crearArbol(temp);
     }
 }
 #endif /* ArbolBinario_h */
