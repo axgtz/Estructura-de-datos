@@ -1,22 +1,15 @@
-//
-//  main.cpp
-//  Arbol-Binario
-//
-//  Created by Alex Gutz on 4/17/17.
-//  Copyright © 2017 Alejandro Gutierrez. All rights reserved.
-//
-
 #include <iostream>
-#include "ArbolBinario.h"
+#include "Arbol.hpp"
 
 using namespace std;
-
-int main(int argc, const char * argv[]) {
-    ArbolBinario a;
-    NodoArbol * temp = a.getRaiz();
-    a.crearArbol(temp);
-    
-    int x;
-    cin >> x;
-    return 0;
+int main() {
+	Arbol uno;
+	uno.CrearArbol(uno.RegresaRaiz());
+	cout<<"\n";
+	uno.Preorden(uno.RegresaRaiz());
+	cout<<"\n";
+	uno.Inorden(uno.RegresaRaiz());
+	cout<<"\n";
+	uno.Postorden(uno.RegresaRaiz());
+	
 }
