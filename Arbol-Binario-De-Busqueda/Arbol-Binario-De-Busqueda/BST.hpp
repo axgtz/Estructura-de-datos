@@ -18,7 +18,8 @@ struct Node {
 
 class Arbol {
 private:
-	Node *raiz;
+	Node *raiz = NULL;
+	void imprimeRecursivo(Node *);
 public:
 	Arbol();
 	// Crea el árbol leyendo los datos desde un archivo tipo texto
@@ -89,22 +90,27 @@ void  Arbol::insertar(int dato) {
 	//Se checa que exista una raiz en la clase Arbol, si no la hay el nodo a ser insertado se convierte en raiz
 	if (raiz == NULL) {
 		raiz = nI;
+		return;
 	}
 	//Se avanza al nodo raiz
-	Node *cN = raiz;					//cN =currentNode
+	Node * cN = raiz;					//cN =currentNode
 
-	//el checar current node es null seriua repetitivo ya que se checo antes de entrar, 
-	while (cN->pointDer != NULL || cN->pointIzq != NULL) {
-		if (nI->data > cN->data) {//Derecha
+	//el checar current node es null seriua repetitivo ya que se checo antes de entrar, -------no entra porque al principio el nodo raiz solo apunta a null
+	while (cN) {
+		if (dato > cN->data) {//Derecha
 			if (cN->pointDer == NULL) {
+				cout << "Insert Der " << dato << endl;
 				cN->pointDer = nI;
+				break;
 			}else{
 				cN = cN->pointDer;
 			}
 		}else{//Izquierda
 			if (cN->pointIzq == NULL) {
 				//Se inserta nodo
+				cout << "Insert Izq " << dato << endl;
 				cN->pointIzq = nI;
+				break;
 			}else {
 				cN = cN->pointIzq;
 			}
@@ -126,7 +132,16 @@ bool  Arbol::elimina(int dato) {
 }
 
 void  Arbol::imprime() {//INORDEN
+	Node *cN = raiz;	//Se avanza al nodo raiz
+	imprimeRecursivo(cN);
+}
 
+void Arbol::imprimeRecursivo(Node * currentPointer) {
+	if (currentPointer) {	//Si el pointer apunta a un Nodo
+		imprimeRecursivo(currentPointer->pointIzq);
+		cout << currentPointer->data << " - ";
+		imprimeRecursivo(currentPointer->pointDer);
+	}
 }
 
 

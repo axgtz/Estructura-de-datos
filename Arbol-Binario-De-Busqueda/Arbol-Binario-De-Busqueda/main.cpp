@@ -13,7 +13,7 @@ int main(int argc, const char * argv[]) {
 	Arbol a;
 
 	a.crear("texto");
-
+	a.imprime();
 	int x;
 	cin >> x;
 	return 0;
