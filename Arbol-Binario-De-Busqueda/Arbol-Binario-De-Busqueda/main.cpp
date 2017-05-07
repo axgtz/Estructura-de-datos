@@ -1,6 +1,4 @@
 //  main.cpp
-//  Linked-Lists
-//
 //  Created by Alex Gutz on 5/06/17.
 //  Copyright © 2017 Alejandro Gutierrez. All rights reserved.
 
