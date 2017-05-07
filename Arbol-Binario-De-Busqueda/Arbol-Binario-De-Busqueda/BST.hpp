@@ -139,18 +139,24 @@ bool  Arbol::elimina(int dato) {	//Se tienen 4 opciones de eliminar si es raiz, 
 	Node * cN = raiz;
 	//Nodo Anterior
 	Node * fN = NULL;
+	bool movedIzq = NULL;
 	if (cN->data == dato) {//Se revisa que el nodo padre no contenga la referencia 
 		if (cN->pointDer != NULL && cN->pointIzq != NULL) {//Si tiene dos hijos
 			//Se tiene que decidir que nodo hijo lo va a remplazar
 			fN = cN;
 			cN = cN->pointDer;
+			movedIzq = false;
 			while (cN->pointIzq != NULL) {//Se va al hijo de hasta la izquierda
 				fN = cN;
 				cN = cN->pointIzq;
+				movedIzq = true;
 			}
-			fN->pointIzq = cN->pointDer;	//Del nodo que se va a convertir en raiz se guarda su hijo derecho y se le asigna al nodo anterior como hijo izquierdo
-			cN->pointIzq = raiz->pointIzq; //Se guarda el apuntador hacia el nodo del hijo izquierdo de la raiz.
-			cN->pointDer = raiz->pointDer; //Se guarda el apuntador hacia el nodo del hijo derecho de la raiz.
+			if (movedIzq) {						//Se checa si se movio a la izquierda porque si no se movio, entnces el nodo actual es el primer hijo derecho, entonces no se necesita pasar el apuntador del nodo derecho,solo el del izquierdo
+				fN->pointIzq = cN->pointDer;	//Del nodo que se va a convertir en raiz se guarda su hijo derecho y se le asigna al nodo anterior como hijo izquierdo
+				cN->pointDer = raiz->pointDer;  //Se guarda el apuntador hacia el nodo del hijo derecho de la raiz.
+			}
+			cN->pointIzq = raiz->pointIzq;  //Se guarda el apuntador hacia el nodo del hijo izquierdo de la raiz.
+			delete(raiz);					//Se borra el nodo que es encuentra en la raiz
 			raiz = cN;
 		}else {
 			if (cN->pointDer == NULL) {//Si tiene un hijo izquierdo, se remplaza la raiz con este
@@ -163,7 +169,6 @@ bool  Arbol::elimina(int dato) {	//Se tienen 4 opciones de eliminar si es raiz, 
 		}
 		return true;
 	}
-	bool movedIzq = NULL;
 	while (cN) {//Se revisa que el nodo en el que se esa no sea Null
 		if (cN->data == dato) {//Se revisa que el nodo padre no contenga la referencia 
 			if (cN->pointDer != NULL && cN->pointIzq != NULL) {//Si tiene dos hijos, Se tiene que decidir que nodo hijo lo va a remplazar
@@ -206,6 +211,7 @@ bool  Arbol::elimina(int dato) {	//Se tienen 4 opciones de eliminar si es raiz, 
 						fN->pointDer =NULL;
 					}
 				}
+				delete(cN);
 			}
 			return true;
 		}else if (cN->data > dato) {
