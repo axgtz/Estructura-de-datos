@@ -99,7 +99,6 @@ void  Arbol::insertar(int dato) {
 	while (cN) {
 		if (dato > cN->data) {//Derecha
 			if (cN->pointDer == NULL) {
-				cout << "Insert Der " << dato << endl;
 				cN->pointDer = nI;
 				break;
 			}else{
@@ -108,7 +107,6 @@ void  Arbol::insertar(int dato) {
 		}else{//Izquierda
 			if (cN->pointIzq == NULL) {
 				//Se inserta nodo
-				cout << "Insert Izq " << dato << endl;
 				cN->pointIzq = nI;
 				break;
 			}else {
@@ -119,6 +117,9 @@ void  Arbol::insertar(int dato) {
 }
 
 bool  Arbol::buscar(int dato, Node *&lugar) {
+	if (raiz == NULL) {
+		return false;
+	}
 	//False es si no encuentra el dato, pero no tiene que recorrer todos los nodos, como el arbol binario esta ordenado, solo tiene que buscar un
 	//numero de nodos hasta encontrar el dato, o identificar que no existe
 
@@ -127,6 +128,9 @@ bool  Arbol::buscar(int dato, Node *&lugar) {
 }
 
 bool  Arbol::elimina(int dato) {
+	if (raiz == NULL) {
+		return false;
+	}
 	//Se tienen 4 opciones de eliminar si es raiz, si tiene 0 hijos, 1 j=hijo izq y uno derecho
 	return false;
 }
@@ -139,11 +143,8 @@ void  Arbol::imprime() {//INORDEN
 void Arbol::imprimeRecursivo(Node * currentPointer) {
 	if (currentPointer) {	//Si el pointer apunta a un Nodo
 		imprimeRecursivo(currentPointer->pointIzq);
-		cout << currentPointer->data << " - ";
+		cout << currentPointer->data << "  ";
 		imprimeRecursivo(currentPointer->pointDer);
 	}
 }
-
-
-
 #endif
