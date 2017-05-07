@@ -133,40 +133,72 @@ bool  Arbol::buscar(int dato, Node *&lugar) {
 	return false;
 }
 
-bool  Arbol::elimina(int dato) {
-	if (raiz == NULL) {
-		return false;
-	}
+bool  Arbol::elimina(int dato) {	//Se tienen 4 opciones de eliminar si es raiz, si tiene 0 hijos, 1 j=hijo izq y uno derecho
+	if (raiz == NULL) {return false;}
 	//Se avanza al nodo raiz
-	/*
-	Node * cN = raiz;           
-	while (cN) {
-		if (dato > cN->data) {//Derecha
-			if (cN->pointDer == NULL) {
-				cN->pointDer = nI;
-				break;
-			}
-			else {
-				cN = cN->pointDer;
-			}
-		}
-		else {//Izquierda
-			if (cN->pointIzq == NULL) {
-				//Se inserta nodo
-				cN->pointIzq = nI;
-				break;
-			}
-			else {
+	Node * cN = raiz;
+	//Nodo Anterior
+	Node * fN = NULL;
+	if (cN->data == dato) {//Se revisa que el nodo padre no contenga la referencia 
+		if (cN->pointDer != NULL && cN->pointIzq != NULL) {//Si tiene dos hijos
+			//Se tiene que decidir que nodo hijo lo va a remplazar
+			fN = cN;
+			cN = cN->pointDer;
+			while (cN->pointIzq != NULL) {//Se va al hijo de hasta la izquierda
+				fN = cN;
 				cN = cN->pointIzq;
 			}
+			fN->pointIzq = cN->pointDer;	//Del nodo que se va a convertir en raiz se guarda su hijo derecho y se le asigna al nodo anterior como hijo izquierdo
+			cN->pointIzq = raiz->pointIzq; //Se guarda el apuntador hacia el nodo del hijo izquierdo de la raiz.
+			cN->pointDer = raiz->pointDer; //Se guarda el apuntador hacia el nodo del hijo derecho de la raiz.
+			raiz = cN;
 		}
-	}*/
-	//Se tienen 4 opciones de eliminar si es raiz, si tiene 0 hijos, 1 j=hijo izq y uno derecho
+		else {
+			if (cN->pointDer == NULL) {//Si tiene un hijo izquierdo, se remplaza la raiz con este
+				raiz = cN->pointIzq;
+			}else if (cN->pointIzq == NULL) {//Si tiene un hijo derecho, se remplaza la raiz con este
+				raiz = cN->pointDer;
+			}else {//Si no tiene hijos
+				raiz = NULL;
+			}
+		}
+		return true;
+	}
+
+	while (cN) {//Se revisa que el nodo en el que se esa no sea Null
+		fN = cN;
+		if (dato == cN->data) {
+			if (cN->pointDer != NULL && cN->pointIzq != NULL) {//Si tiene dos hijos
+				//Se tiene que decidir que nodo hijo lo va a remplazar
+				cN = cN->pointDer;
+				while (cN->pointIzq != NULL) {//Se va al hijo de hasta la derecha
+					cN = cN->pointIzq;
+				}
+
+			}else {
+				if (cN->pointDer == NULL) {//Si tiene un hijo izquierdo
+
+				}else if (cN->pointIzq == NULL) {//Si tiene un hijo derecho
+
+				}else {//Si no tiene hijos
+					
+				}
+			}
+			return true;
+		}
+		else if (cN->data > dato) {
+			cN = cN->pointIzq;
+		}
+		else {
+			cN = cN->pointDer;
+		}
+	}
 	return false;
 }
 
 void  Arbol::imprime() {//INORDEN
 	Node *cN = raiz;	//Se avanza al nodo raiz
+	cout << "\n";
 	imprimeRecursivo(cN);
 }
 

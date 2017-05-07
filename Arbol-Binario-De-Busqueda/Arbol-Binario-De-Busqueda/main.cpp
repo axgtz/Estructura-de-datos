@@ -15,11 +15,13 @@ int main(int argc, const char * argv[]) {
 	a.crear("texto");
 	a.imprime();
 
-	Node * cN;
-
+	/*Node * cN;
+	
 	if (a.buscar(0, cN)) {
 		cout << "\n" << cN->data;
-	}
+	}*/
+	a.elimina(0);
+	a.imprime();
 	int x;
 	cin >> x;
 	return 0;
