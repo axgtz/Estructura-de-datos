@@ -14,6 +14,12 @@ int main(int argc, const char * argv[]) {
 
 	a.crear("texto");
 	a.imprime();
+
+	Node * cN;
+
+	if (a.buscar(0, cN)) {
+		cout << "\n" << cN->data;
+	}
 	int x;
 	cin >> x;
 	return 0;

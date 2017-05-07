@@ -117,13 +117,19 @@ void  Arbol::insertar(int dato) {
 }
 
 bool  Arbol::buscar(int dato, Node *&lugar) {
-	if (raiz == NULL) {
-		return false;
+	if (raiz == NULL) return false;
+	//Se avanza al nodo raiz
+	Node * cN = raiz;
+	while (cN) {
+		if (dato == cN->data){
+			lugar = cN;		//Guarda el nodo que en la dirección		//---- en borrar Se tiene que decidir que nodo hijo lo va a remplazar
+			return true;
+		}else if (cN->data > dato){
+			cN = cN->pointIzq;
+		}else {
+			cN = cN->pointDer;
+		}
 	}
-	//False es si no encuentra el dato, pero no tiene que recorrer todos los nodos, como el arbol binario esta ordenado, solo tiene que buscar un
-	//numero de nodos hasta encontrar el dato, o identificar que no existe
-
-	//Insert deberia usar buscar
 	return false;
 }
 
@@ -131,6 +137,30 @@ bool  Arbol::elimina(int dato) {
 	if (raiz == NULL) {
 		return false;
 	}
+	//Se avanza al nodo raiz
+	/*
+	Node * cN = raiz;           
+	while (cN) {
+		if (dato > cN->data) {//Derecha
+			if (cN->pointDer == NULL) {
+				cN->pointDer = nI;
+				break;
+			}
+			else {
+				cN = cN->pointDer;
+			}
+		}
+		else {//Izquierda
+			if (cN->pointIzq == NULL) {
+				//Se inserta nodo
+				cN->pointIzq = nI;
+				break;
+			}
+			else {
+				cN = cN->pointIzq;
+			}
+		}
+	}*/
 	//Se tienen 4 opciones de eliminar si es raiz, si tiene 0 hijos, 1 j=hijo izq y uno derecho
 	return false;
 }
