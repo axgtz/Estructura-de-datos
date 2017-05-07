@@ -20,7 +20,9 @@ int main(int argc, const char * argv[]) {
 	if (a.buscar(0, cN)) {
 		cout << "\n" << cN->data;
 	}*/
-	a.elimina(60);
+	if (a.elimina(80)) {
+		cout << "taco\n";
+	}
 	a.imprime();
 	int x;
 	cin >> x;
