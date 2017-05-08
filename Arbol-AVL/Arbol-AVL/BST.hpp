@@ -22,17 +22,19 @@ struct Node {
 class Arbol {
 private:
 	//Atributos
+	Node * raiz = NULL;
 	//funciones
 	int altura(Node *n);
 	int max(int a, int b);
 	int getBalance(Node * n);
 	Node * rotarDerecha(Node *r);
 	Node * rotarIzquierda(Node *r);
-	Node *  insertarRecursivo(int data, Node *raiz);
+	Node * minNode(Node * node);
+	Node * insertarRecursivo(int data, Node *raiz);
+	Node * deleteNodeRecursivo(int dato, Node * raiz);
 	void imprimeRecursivo(Node *);
 
 public:
-	Node * raiz = NULL;
 	//Constructor
 	Arbol();
 	// Crea el árbol leyendo los datos desde un archivo tipo texto
@@ -79,7 +81,18 @@ int  Arbol::getBalance(Node * n) {
 	// Regresar nueva raiz 
 	return nR;
 }
-
+ /* Given a non-empty binary search tree, return the
+ node with minimum key value found in that tree.
+ Note that the entire tree does not need to be
+ searched. */
+ Node * Arbol::minNode(Node * node) {
+	 Node* nC = node;//current Node
+	 //Loop para encontrar el hijo de hasta la izquierda, ya que seria el valor minimo
+	 while (nC->pointIzq != NULL) {
+		 nC = nC->pointIzq;
+	 }
+	 return nC;
+ }
  //Esta funcion va a rotar a la izquierda el arbol tomando en cuenta que r es la raiz
  Node * Arbol::rotarIzquierda(Node *r) {//Se va a rotar el arbol y poner el nodo r como raiz
 	 Node * nR = r->pointDer;
@@ -93,6 +106,7 @@ int  Arbol::getBalance(Node * n) {
 
 	 return nR;
  }
+
 
  //+++ Funciones Principales +++
  void Arbol::crear(string archivo) {
@@ -116,6 +130,7 @@ int  Arbol::getBalance(Node * n) {
 	 if (!(istringstream(linea) >> tam)) {				//Se guarda el numero de lineas que contiene el archivo de texto
 		 tam = 0;
 		 cout << "Error al leer el tamaño del arreglo en el archivo de texto" << endl;
+		 return;
 	 }
 
 	 for (int i = 0; i<tam; i++) {
@@ -141,12 +156,11 @@ int  Arbol::getBalance(Node * n) {
 		 nodo->pointIzq = insertarRecursivo(dato, nodo->pointIzq);//Insertar Izquierdo
 	 }else if (dato > nodo->data) {
 		 nodo->pointDer = insertarRecursivo(dato, nodo->pointDer);//Insertar Derecho
-	 }else { 
+	 }else{ 
 		 return nodo;//Se devuelve el nodo ya que el dato esta duplicado
 	 }
 	 //Se actualiza altura del nodo  
-	 nodo->altura = 1 + max(altura(nodo->pointIzq),
-		 altura(nodo->pointDer));
+	 nodo->altura = 1 + max(altura(nodo->pointIzq),altura(nodo->pointDer));
 
 	 //Se obtiene el balance apra saber si la inclusión del nodo vuelve al arbol desbalanceado
 	 int balance = getBalance(nodo);
@@ -174,19 +188,92 @@ int  Arbol::getBalance(Node * n) {
 	 return nodo;
  }
 
-bool  Arbol::buscar(int dato, Node *&lugar) {
-	 if (raiz) return false;
+bool Arbol::elimina(int dato) {
+	Node * nI;
+	if (buscar(dato, nI)) {
+		raiz = deleteNodeRecursivo(dato, raiz);
+		return true;
+	}
+	return false;//-------------------------
+}
+//Funcion recursiva para eliminar el nodo, regresa el root del subarbol modificado, ya que se mantiene el balance aun al borrar
+Node * Arbol::deleteNodeRecursivo(int dato, Node * raiz) {
+	// STEP 1: PERFORM STANDARD BST DELETE
+	if (raiz == NULL) { return raiz; }
+
+	// If the key to be deleted is smaller than the
+	// root's key, then it lies in left subtree
+	if (dato < raiz->data) {
+		raiz->pointIzq = deleteNodeRecursivo(dato, raiz->pointIzq);
+		// If the key to be deleted is greater than the
+		// root's key, then it lies in right subtree
+	}else if (dato > raiz->data) {
+		raiz->pointDer = deleteNodeRecursivo(dato, raiz->pointDer);
+	}else{//Entra al else porque el dato a buscar fue encontrado3
+		// Si tiene un hijo o no tiene hijos
+		if ((raiz->pointIzq == NULL) || (raiz->pointDer == NULL)) {
+			Node *temp = raiz->pointIzq ? raiz->pointDer : raiz->pointDer;
+
+			// Si no tiene hijos
+			if (temp == NULL) {
+				temp = raiz;
+				raiz = NULL;
+			}else { // Si solo tiene un hijo
+				*raiz = *temp; // Copy the contents of
+			}
+			// Eliminar el nodo ya que no tiene hijos
+			delete(temp);
+		}else {
+			// Nodo con dos hijos, se obtiene el que va a remplazar el nodo que sera eliminado
+			Node * temp = minNode(raiz->pointDer);
+			//Se copia la informacion del nodo a ser eliminado al nodo que va a remplazarlo
+			raiz->data = temp->data;
+			// Delete the inorder successor
+			raiz->pointDer = deleteNodeRecursivo(temp->data, raiz->pointDer);
+		}
+	}
+
+	// If the tree had only one node then return
+	if (raiz == NULL) {
+		return raiz;
+	}
+	// STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
+	raiz->altura = 1 + max(altura(raiz->pointIzq),altura(raiz->pointDer));
+
+	//Checa el balance del arbol
+	int balance = getBalance(raiz);
+
+	//Mismos casos que en creaación
+	if (balance > 1 && getBalance(raiz->pointIzq) >= 0)
+		return rotarDerecha(raiz);
+
+	if (balance > 1 && getBalance(raiz->pointIzq) < 0){
+		raiz->pointIzq = rotarIzquierda(raiz->pointIzq);
+		return rotarDerecha(raiz);
+	}
+
+	if (balance < -1 && getBalance(raiz->pointDer) <= 0)
+		return rotarIzquierda(raiz);
+
+	if (balance < -1 && getBalance(raiz->pointDer) > 0){
+		raiz->pointDer = rotarDerecha(raiz->pointDer);
+		return rotarIzquierda(raiz);
+	}
+
+	return raiz;
+}
+
+bool Arbol::buscar(int dato, Node *&lugar) {
+	 if (raiz == NULL) return false;
 	 //Se avanza al nodo raiz
 	 Node * cN = raiz;
 	 while (cN) {
 		 if (dato == cN->data) {
 			 lugar = cN;		//Guarda el nodo que en la dirección		
 			 return true;
-		 }
-		 else if (cN->data > dato) {
+		 }else if (cN->data > dato) {
 			 cN = cN->pointIzq;
-		 }
-		 else {
+		 }else {
 			 cN = cN->pointDer;
 		 }
 	 }

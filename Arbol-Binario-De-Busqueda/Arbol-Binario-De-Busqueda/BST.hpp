@@ -58,6 +58,7 @@ void Arbol::crear(string archivo) {
 	if (!(istringstream(linea) >> tam)) {				//Se guarda el numero de lineas que contiene el archivo de texto
 		tam = 0;
 		cout << "Error al leer el tamaño del arreglo en el archivo de texto" << endl;
+		return;
 	}
 	//Agregar la raiz
 	archivo_entrada.getline(linea, sizeof(linea));

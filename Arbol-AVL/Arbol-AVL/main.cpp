@@ -13,6 +13,10 @@ int main(int argc, const char * argv[]) {
 
 	a.crear("texto");
 	a.imprime();
+
+	a.elimina(20);
+	a.imprime();
+
 	int x;
 	cin >> x;
 	return 0;
