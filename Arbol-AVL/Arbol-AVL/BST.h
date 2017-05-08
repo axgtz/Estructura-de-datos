@@ -23,7 +23,6 @@ struct Node {
 class Arbol {
 private:
 	//Atributos
-	Node * raiz = NULL;
 	//funciones
 	int altura(Node *n);
 	int max(int a, int b);
@@ -32,10 +31,11 @@ private:
 	Node * rotarIzquierda(Node *r);
 	Node * minNode(Node * node);
 	Node * insertarRecursivo(int data, Node *raiz);
-	Node * deleteNodeRecursivo(int dato, Node * raiz);
+	/*Node * deleteNodeRecursivo(int dato, Node * raiz);No funciona en todos los casos*/
 	void imprimeRecursivo(Node *);
 
 public:
+	Node * raiz = NULL;
 	//Constructor
 	Arbol();
 	// Crea el árbol leyendo los datos desde un archivo tipo texto
@@ -187,13 +187,139 @@ int  Arbol::getBalance(Node * n) {
  }
 
 bool Arbol::elimina(int dato) {
-	Node * nI;
-	if (buscar(dato, nI)) {
-		raiz = deleteNodeRecursivo(dato, raiz);
+	if (raiz == NULL) { return false; }
+	//Se avanza al nodo raiz
+	Node * cN = raiz;
+	//Nodo Anterior
+	Node * fN = NULL;
+	bool movedIzq = NULL;
+	if (cN->data == dato) {//Se revisa que el nodo padre no contenga la referencia 
+		if (cN->pointDer != NULL && cN->pointIzq != NULL) {//Si tiene dos hijos
+														   //Se tiene que decidir que nodo hijo lo va a remplazar
+			fN = cN;
+			cN = cN->pointDer;
+			movedIzq = false;
+			while (cN->pointIzq != NULL) {//Se va al hijo de hasta la izquierda
+				fN = cN;
+				cN = cN->pointIzq;
+				movedIzq = true;
+			}
+			if (movedIzq) {						//Se checa si se movio a la izquierda porque si no se movio, entnces el nodo actual es el primer hijo derecho, entonces no se necesita pasar el apuntador del nodo derecho,solo el del izquierdo
+				fN->pointIzq = cN->pointDer;	//Del nodo que se va a convertir en raiz se guarda su hijo derecho y se le asigna al nodo anterior como hijo izquierdo
+				cN->pointDer = raiz->pointDer;  //Se guarda el apuntador hacia el nodo del hijo derecho de la raiz.
+			}
+			cN->pointIzq = raiz->pointIzq;  //Se guarda el apuntador hacia el nodo del hijo izquierdo de la raiz.
+			delete(raiz);					//Se borra el nodo que es encuentra en la raiz
+			raiz = cN;
+		}
+		else {
+			if (cN->pointDer == NULL) {//Si tiene un hijo izquierdo, se remplaza la raiz con este
+				raiz = cN->pointIzq;
+			}
+			else if (cN->pointIzq == NULL) {//Si tiene un hijo derecho, se remplaza la raiz con este
+				raiz = cN->pointDer;
+			}
+			else {//Si no tiene hijos
+				raiz = NULL;
+			}
+		}
 		return true;
 	}
+	while (cN) {//Se revisa que el nodo en el que se esa no sea Null
+		if (cN->data == dato) {//Se revisa que el nodo padre no contenga la referencia 
+			if (cN->pointDer != NULL && cN->pointIzq != NULL) {//Si tiene dos hijos, Se tiene que decidir que nodo hijo lo va a remplazar
+				Node * nodeDelete = cN;//Se guarda el Nodo a borrar
+				Node * minParent = cN;
+				cN = cN->pointDer;
+				while (cN->pointIzq != NULL) {//Se va al hijo de hasta la izquierda
+					minParent = cN;
+					cN = cN->pointIzq;
+				}
+				if (movedIzq) {
+					fN->pointIzq = cN;
+				}
+				else {
+					fN->pointDer = cN;
+				}
+				//El nodo padre del nodo a ser eliminado ahora apunta al nuevo nodo de remplazo
+				if (minParent != nodeDelete) {			//Esto es para evitar que se pierda el nodo derecho 
+					minParent->pointIzq = cN->pointDer;		//EL nodo padre del nodo de remplazo cambia su pointer izq al hijo derecho del nodo de remplazo
+					cN->pointDer = nodeDelete->pointDer;
+				}
+				cN->pointIzq = nodeDelete->pointIzq;	//Se guardan los hijos del nodo a ser eliminado
+				delete(nodeDelete);						//Se elimina el nodo
+			}
+			else {
+				if (cN->pointDer == NULL) {//Si tiene un hijo izquierdo, se remplaza el nodo anterior con este
+					if (movedIzq) {
+						fN->pointIzq = cN->pointIzq;
+					}
+					else {
+						fN->pointDer = cN->pointIzq;
+					}
+				}
+				else if (cN->pointIzq == NULL) {//Si tiene un hijo derecho, se remplaza el apuntador del padre con este
+					if (movedIzq) {
+						fN->pointIzq = cN->pointDer;
+					}
+					else {
+						fN->pointDer = cN->pointDer;
+					}
+				}
+				else {//Si no tiene hijos
+					if (movedIzq) {
+						fN->pointIzq = NULL;
+					}
+					else {
+						fN->pointDer = NULL;
+					}
+				}
+				delete(cN);
+			}
+			return true;
+		}
+		else if (cN->data > dato) {
+			fN = cN;
+			cN = cN->pointIzq;
+			movedIzq = true;
+		}
+		else {
+			fN = cN;
+			cN = cN->pointDer;
+			movedIzq = false;
+		}
+	}
 	return false;
+
+	// If the tree had only one node then return, caso base 2
+	if (raiz == NULL) {
+		return false;
+	}
+	raiz->altura = 1 + max(altura(raiz->pointIzq), altura(raiz->pointDer));	// Actualizar alturas
+	int balance = getBalance(raiz);			//Checa el balance del arbol
+												//Mismos casos que en creaación
+	if (balance > 1 && getBalance(raiz->pointIzq) >= 0) {
+		raiz = rotarDerecha(raiz);
+		return  true;
+	}
+	if (balance > 1 && getBalance(raiz->pointIzq) < 0) {
+		raiz->pointIzq = rotarIzquierda(raiz->pointIzq);
+		raiz = rotarDerecha(raiz);
+		return  true;
+	}
+
+	if (balance < -1 && getBalance(raiz->pointDer) <= 0) {
+		raiz = rotarIzquierda(raiz);
+		return  true;
+	}
+	if (balance < -1 && getBalance(raiz->pointDer) > 0) {
+		raiz->pointDer = rotarDerecha(raiz->pointDer);
+		raiz = rotarIzquierda(raiz);
+		return  true;
+	}
+	return true;
 }
+/*No funciona en todos los casos
 //Funcion recursiva para eliminar el nodo, regresa el root del subarbol modificado, ya que se mantiene el balance aun al borrar
 Node * Arbol::deleteNodeRecursivo(int dato, Node * raizTemp) {
 	if (raizTemp == NULL) { return raizTemp; }	// Si es null se regresa, caso base para recursión
@@ -244,7 +370,7 @@ Node * Arbol::deleteNodeRecursivo(int dato, Node * raizTemp) {
 	}
 	return raizTemp;
 }
-
+*/
 bool Arbol::buscar(int dato, Node *&lugar) {
 	 if (raiz == NULL) return false;
 	 //Se avanza al nodo raiz
