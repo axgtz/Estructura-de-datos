@@ -7,6 +7,7 @@ int main() {
 	Arreglo a;
 	a.lecturaDatos("nombre");
 	int y = 0;
+	
 	while (y != -1) {
 		cin >> y;
 		cout << "Sec: " << a.busquedaSecuencial(y) << endl;

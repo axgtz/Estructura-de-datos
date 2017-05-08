@@ -3,7 +3,7 @@
 //  Copyright © 2017 Alejandro Gutierrez. All rights reserved.
 
 #include <iostream>
-#include "BST.hpp"
+#include "BST.h"
 
 using namespace std;
 
