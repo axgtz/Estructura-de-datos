@@ -59,8 +59,6 @@ void Arbol::crear(string archivo) {
 		tam = 0;
 		cout << "Error al leer el tamaño del arreglo en el archivo de texto" << endl;
 	}
-	//int *vec = new int[tam];
-
 	//Agregar la raiz
 	archivo_entrada.getline(linea, sizeof(linea));
 
