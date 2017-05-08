@@ -277,8 +277,7 @@ bool Arbol::elimina(int dato) {
 				delete(cN);
 			}
 			return true;
-		}
-		else if (cN->data > dato) {
+		}else if (cN->data > dato) {
 			fN = cN;
 			cN = cN->pointIzq;
 			movedIzq = true;
@@ -288,36 +287,29 @@ bool Arbol::elimina(int dato) {
 			cN = cN->pointDer;
 			movedIzq = false;
 		}
+		// If the tree had only one node then return, caso base 2
+		if (raiz) {
+			raiz->altura = 1 + max(altura(raiz->pointIzq), altura(raiz->pointDer));	// Actualizar alturas
+			int balance = getBalance(raiz);			//Checa el balance del arbol
+													//Mismos casos que en creaación
+			if (balance > 1 && getBalance(raiz->pointIzq) >= 0) {
+				raiz = rotarDerecha(raiz);
+			}
+			if (balance > 1 && getBalance(raiz->pointIzq) < 0) {
+				raiz->pointIzq = rotarIzquierda(raiz->pointIzq);
+				raiz = rotarDerecha(raiz);
+			}
+
+			if (balance < -1 && getBalance(raiz->pointDer) <= 0) {
+				raiz = rotarIzquierda(raiz);
+			}
+			if (balance < -1 && getBalance(raiz->pointDer) > 0) {
+				raiz->pointDer = rotarDerecha(raiz->pointDer);
+				raiz = rotarIzquierda(raiz);
+			}
+		}
 	}
 	return false;
-
-	// If the tree had only one node then return, caso base 2
-	if (raiz == NULL) {
-		return false;
-	}
-	raiz->altura = 1 + max(altura(raiz->pointIzq), altura(raiz->pointDer));	// Actualizar alturas
-	int balance = getBalance(raiz);			//Checa el balance del arbol
-												//Mismos casos que en creaación
-	if (balance > 1 && getBalance(raiz->pointIzq) >= 0) {
-		raiz = rotarDerecha(raiz);
-		return  true;
-	}
-	if (balance > 1 && getBalance(raiz->pointIzq) < 0) {
-		raiz->pointIzq = rotarIzquierda(raiz->pointIzq);
-		raiz = rotarDerecha(raiz);
-		return  true;
-	}
-
-	if (balance < -1 && getBalance(raiz->pointDer) <= 0) {
-		raiz = rotarIzquierda(raiz);
-		return  true;
-	}
-	if (balance < -1 && getBalance(raiz->pointDer) > 0) {
-		raiz->pointDer = rotarDerecha(raiz->pointDer);
-		raiz = rotarIzquierda(raiz);
-		return  true;
-	}
-	return true;
 }
 /*No funciona en todos los casos
 //Funcion recursiva para eliminar el nodo, regresa el root del subarbol modificado, ya que se mantiene el balance aun al borrar
