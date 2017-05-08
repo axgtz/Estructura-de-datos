@@ -14,7 +14,25 @@ int main(int argc, const char * argv[]) {
 	a.crear("texto");
 	a.imprime();
 
+	a.elimina(15);
+	a.imprime();
+
+	a.elimina(10);
+	a.imprime();
+
 	a.elimina(20);
+	a.imprime();
+
+	a.elimina(30);
+	a.imprime();
+
+	a.elimina(40);
+	a.imprime();
+
+	a.elimina(50);
+	a.imprime();
+
+	a.elimina(60);
 	a.imprime();
 
 	int x;

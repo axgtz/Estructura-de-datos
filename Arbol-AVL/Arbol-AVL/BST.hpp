@@ -17,6 +17,7 @@ struct Node {
 		data = d;
 		altura = 1;
 	}
+	Node() {};
 };
 
 class Arbol {
@@ -81,10 +82,7 @@ int  Arbol::getBalance(Node * n) {
 	// Regresar nueva raiz 
 	return nR;
 }
- /* Given a non-empty binary search tree, return the
- node with minimum key value found in that tree.
- Note that the entire tree does not need to be
- searched. */
+
  Node * Arbol::minNode(Node * node) {
 	 Node* nC = node;//current Node
 	 //Loop para encontrar el hijo de hasta la izquierda, ya que seria el valor minimo
@@ -194,73 +192,57 @@ bool Arbol::elimina(int dato) {
 		raiz = deleteNodeRecursivo(dato, raiz);
 		return true;
 	}
-	return false;//-------------------------
+	return false;
 }
 //Funcion recursiva para eliminar el nodo, regresa el root del subarbol modificado, ya que se mantiene el balance aun al borrar
-Node * Arbol::deleteNodeRecursivo(int dato, Node * raiz) {
-	// STEP 1: PERFORM STANDARD BST DELETE
-	if (raiz == NULL) { return raiz; }
-
-	// If the key to be deleted is smaller than the
-	// root's key, then it lies in left subtree
-	if (dato < raiz->data) {
-		raiz->pointIzq = deleteNodeRecursivo(dato, raiz->pointIzq);
-		// If the key to be deleted is greater than the
-		// root's key, then it lies in right subtree
-	}else if (dato > raiz->data) {
-		raiz->pointDer = deleteNodeRecursivo(dato, raiz->pointDer);
-	}else{//Entra al else porque el dato a buscar fue encontrado3
-		// Si tiene un hijo o no tiene hijos
-		if ((raiz->pointIzq == NULL) || (raiz->pointDer == NULL)) {
-			Node *temp = raiz->pointIzq ? raiz->pointDer : raiz->pointDer;
-
-			// Si no tiene hijos
-			if (temp == NULL) {
-				temp = raiz;
-				raiz = NULL;
+Node * Arbol::deleteNodeRecursivo(int dato, Node * raizTemp) {
+	if (raizTemp == NULL) { return raizTemp; }	// Si es null se regresa, caso base para recursión
+	// REvisa el dato a ser eliminado para ver si se va al subarbol izquierdo o al derecho
+	if (dato < raizTemp->data) {
+		raizTemp->pointIzq = deleteNodeRecursivo(dato, raizTemp->pointIzq);
+	}else if (dato > raizTemp->data) {
+		raizTemp->pointDer = deleteNodeRecursivo(dato, raizTemp->pointDer);
+	}else {//Entra al else porque el dato a buscar fue encontrado3
+	   // Si tiene un hijo o no tiene hijos
+		if ((raizTemp->pointIzq == NULL) || (raizTemp->pointDer == NULL)) {
+			Node *temp = raizTemp->pointIzq ? raizTemp->pointDer : raizTemp->pointDer;
+			if (temp == NULL) {			// Si no tiene hijos
+				temp = raizTemp;
+				raizTemp = NULL;
 			}else { // Si solo tiene un hijo
-				*raiz = *temp; // Copy the contents of
+				*raizTemp = *temp; // Copy the contents of
 			}
-			// Eliminar el nodo ya que no tiene hijos
-			delete(temp);
+			delete(temp);// Eliminar el nodo ya que no tiene hijos
 		}else {
 			// Nodo con dos hijos, se obtiene el que va a remplazar el nodo que sera eliminado
-			Node * temp = minNode(raiz->pointDer);
-			//Se copia la informacion del nodo a ser eliminado al nodo que va a remplazarlo
-			raiz->data = temp->data;
-			// Delete the inorder successor
-			raiz->pointDer = deleteNodeRecursivo(temp->data, raiz->pointDer);
+			Node * temp = minNode(raizTemp->pointDer);
+			raizTemp->data = temp->data;				//Se copia la informacion del nodo a ser eliminado al nodo que va a remplazarlo
+			raizTemp->pointDer = deleteNodeRecursivo(temp->data, raizTemp->pointDer);			// Delete the inorder successor
 		}
 	}
-
-	// If the tree had only one node then return
-	if (raiz == NULL) {
-		return raiz;
+	// If the tree had only one node then return, caso base 2
+	if (raizTemp == NULL) {
+		return raizTemp;
 	}
-	// STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-	raiz->altura = 1 + max(altura(raiz->pointIzq),altura(raiz->pointDer));
-
-	//Checa el balance del arbol
-	int balance = getBalance(raiz);
-
+	raizTemp->altura = 1 + max(altura(raizTemp->pointIzq), altura(raizTemp->pointDer));	// Actualizar alturas
+	int balance = getBalance(raizTemp);			//Checa el balance del arbol
 	//Mismos casos que en creaación
-	if (balance > 1 && getBalance(raiz->pointIzq) >= 0)
-		return rotarDerecha(raiz);
-
-	if (balance > 1 && getBalance(raiz->pointIzq) < 0){
-		raiz->pointIzq = rotarIzquierda(raiz->pointIzq);
-		return rotarDerecha(raiz);
+	if (balance > 1 && getBalance(raizTemp->pointIzq) >= 0) {
+		return rotarDerecha(raizTemp);
+	}
+	if (balance > 1 && getBalance(raiz->pointIzq) < 0) {
+		raizTemp->pointIzq = rotarIzquierda(raizTemp->pointIzq);
+		return rotarDerecha(raizTemp);
 	}
 
-	if (balance < -1 && getBalance(raiz->pointDer) <= 0)
-		return rotarIzquierda(raiz);
-
-	if (balance < -1 && getBalance(raiz->pointDer) > 0){
-		raiz->pointDer = rotarDerecha(raiz->pointDer);
-		return rotarIzquierda(raiz);
+	if (balance < -1 && getBalance(raizTemp->pointDer) <= 0) {
+	return rotarIzquierda(raizTemp);
 	}
-
-	return raiz;
+	if (balance < -1 && getBalance(raizTemp->pointDer) > 0){
+		raizTemp->pointDer = rotarDerecha(raizTemp->pointDer);
+		return rotarIzquierda(raizTemp);
+	}
+	return raizTemp;
 }
 
 bool Arbol::buscar(int dato, Node *&lugar) {
