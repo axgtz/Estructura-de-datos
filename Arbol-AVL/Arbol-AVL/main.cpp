@@ -3,16 +3,20 @@
 //  Copyright © 2017 Alejandro Gutierrez. All rights reserved.
 
 #include <iostream>
-#include "BST.hpp"
+#include "BST.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-
 	Arbol a;
+	Node * cN;
 
 	a.crear("texto");
 	a.imprime();
+
+	if (a.buscar(10, cN)) {
+		cout << "\nSe encontro: " << cN->data;
+	}
 
 	a.elimina(15);
 	a.imprime();
@@ -23,16 +27,7 @@ int main(int argc, const char * argv[]) {
 	a.elimina(20);
 	a.imprime();
 
-	a.elimina(30);
-	a.imprime();
-
-	a.elimina(40);
-	a.imprime();
-
-	a.elimina(50);
-	a.imprime();
-
-	a.elimina(60);
+	a.insertar(15);
 	a.imprime();
 
 	int x;
