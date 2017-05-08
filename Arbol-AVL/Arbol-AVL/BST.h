@@ -248,8 +248,7 @@ bool Arbol::elimina(int dato) {
 				}
 				cN->pointIzq = nodeDelete->pointIzq;	//Se guardan los hijos del nodo a ser eliminado
 				delete(nodeDelete);						//Se elimina el nodo
-			}
-			else {
+			}else {
 				if (cN->pointDer == NULL) {//Si tiene un hijo izquierdo, se remplaza el nodo anterior con este
 					if (movedIzq) {
 						fN->pointIzq = cN->pointIzq;
@@ -281,8 +280,7 @@ bool Arbol::elimina(int dato) {
 			fN = cN;
 			cN = cN->pointIzq;
 			movedIzq = true;
-		}
-		else {
+		}else {
 			fN = cN;
 			cN = cN->pointDer;
 			movedIzq = false;
