@@ -117,17 +117,6 @@ int  Arbol::getBalance(Node * n) {
 		 tam = 0;
 		 cout << "Error al leer el tamaño del arreglo en el archivo de texto" << endl;
 	 }
-	 //Agregar la raiz
-	 /*archivo_entrada.getline(linea, sizeof(linea));
-	 -------------------------------------------------------------
-	 //Se crea el node con nombre nd
-	 Node * nd = new Node;
-	 //Se asigna el dato del parametro al struct del nodo
-	 nd->data = stoi(linea);
-	 //El apuntador raiz de la clase ahora apunta al nuevo nodo
-	 raiz = nd;
-	 //El numero de elementos a leer en el archivo se reduce por uno por el nodo recién creado
-	 tam--;*/
 
 	 for (int i = 0; i<tam; i++) {
 		 archivo_entrada.getline(linea, sizeof(linea));
@@ -139,7 +128,6 @@ int  Arbol::getBalance(Node * n) {
  }
 
  void  Arbol::insertar(int dato) {
-	 cout << dato;
 	 raiz = insertarRecursivo(dato, raiz);
  }
 
