@@ -1,10 +1,9 @@
 //
 //  main.cpp
 //  Priority_Queue
-//
+//  API based on Victor de la Cuevq code
 //  Created by Alex Gutz on 5/11/17.
 //  Copyright © 2017 Alejandro Gutierrez. All rights reserved.
-//
 
 #include <iostream>
 struct cmp{
@@ -20,7 +19,8 @@ struct cmp{
 };
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+
+    int xl;
+    cin >>xl;
     return 0;
 }
